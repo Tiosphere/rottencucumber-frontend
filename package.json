@@ -7,6 +7,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.10.9",
+    "@mui/material": "^5.10.13",
+    "@mui/styled-engine-sc": "^5.10.6",
+    "styled-components": "^5.3.6",
     "vue": "^3.2.41"
   },
   "devDependencies": {
