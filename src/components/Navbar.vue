@@ -1,8 +1,23 @@
+<script>
+  export default {
+    data: () => ({
+      links: [
+        'Home',
+        'About Us',
+        'Team',
+        'Services',
+        'Blog',
+        'Contact Us',
+      ],
+    }),
+  }
+</script>
+
 <template>
     <v-card
     color="grey-lighten-4"
     flat
-    height="100px"
+    height="95px"
     rounded="0"
   >
     <v-toolbar density="compact" style="background-color: #6fac49">
@@ -29,9 +44,44 @@
       </div>
 
     </v-toolbar>
+    <v-card-item>
+        <a style="padding: 5px">
+            Top
+        </a>
+
+        <a style="padding: 5px">
+            Latest
+        </a>
+
+        <a style="padding: 5px">
+            Genres
+        </a>
+
+        <a style="padding: 5px">
+            Platform
+        </a>
+
+
+    </v-card-item>
   </v-card>
+
+  <v-footer style="background-color: #6fac49; height: 110px;">
+    <v-row justify="center" no-gutters>
+      <v-btn
+        v-for="link in links"
+        :key="link"
+        color="white"
+        variant="text"
+        class="mx-2"
+        rounded="xl"
+      >
+        {{ link }}
+      </v-btn>
+      <v-col class="text-center mt-4" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-col>
+    </v-row>
+  </v-footer>
 </template>
 
-<script setup>
-  //
-</script>
+
