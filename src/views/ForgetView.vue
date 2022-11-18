@@ -1,39 +1,34 @@
 <template>
-    <div class="modal" id="login-modal">
+    <div class="modal" id="reset-modal">
         <div class="modal-content">
+            <span class="close close-modal" id="reset-close-button">
+                <i class="fa fa-times-circle"></i>
+            </span>
             <div class="auth-header">
-                <div class="auth-title h4 d-flex flex-column">
-                    <div class="title">Login</div>
+                <div class="auth-title h4">
+                    <div class="title">Recovery Password</div>
                 </div>
             </div>
-            <div class="modal-body">
-                <form class="content login-form" method="post" action="user/login">
+            <div class="auth-body modal-body">
+                <form class="content reset-form" method="post"
+                    action="{% url 'myuser:password_reset' %}?next={{request.path}}">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <input type="text" name="username" class="form-control" required="true"
-                                placeholder="Username">
+                            <i class="fa fa-envelope"></i>
+                            <input type="email" name="email" class="form-control" required="true" placeholder="Email">
                         </div>
+                        <div class="form-error" id="login-error">{{ msg }}</div>
                         <div class="form-group">
-                            <i class="fa fa-lock"></i>
-                            <input type="password" name="password" class="form-control" required="true"
-                                placeholder="Password">
-                        </div>
-                        <div class="form-error" id="login-error">
-                            ERROR
-                        </div>
-                        <div class="form-group">
-                            <button class="main__button " type="submit" style="padding: 10px 50px; width: 100%;">
-                                LOGIN
-                            </button>
+                            <button class="submit-btn button main__button " type="submit"
+                                style="padding: 10px 50px; width: 100%;">LOGIN</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="auth-footer">
-                <a href="/user/forget-password">
+                <a title="Back to login" href="/user/login">
                     <i class="fa fa-angle-right"></i>
-                    Forgot password
+                    Back to login
                 </a>
                 <a href="/user/signup">
                     <i class="fa fa-angle-right"></i>
