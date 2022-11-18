@@ -9,18 +9,20 @@
     height="95px"
     rounded="0"
   >
-    <v-toolbar density="compact" style="background-color: #6fac49">
+    <v-toolbar density="compact" style="background-color: #ffffff">
       <div style="display: flex; align-items:center;">
         <v-toolbar-title style="padding-left: 10px; padding-right: 40px;">
           <a href="/" style="-webkit-text-fill-color:whitesmoke; text-decoration: none; ">
-            <strong style="background-color: #6fac49">
-              ROTTEN CUCUMBER
-            </strong>
+            <v-img
+              src="./src/assets/RottenCucumber_logo.png"
+              height="50px"
+              width="120px">
+            </v-img>
           </a>
         </v-toolbar-title>
         <form id="search" autocomplete="off" method="GET" style="height:auto;">
           <div>
-            <input type="text" placeholder="search" style="color: black; border-radius: 8px; background-color: white; padding-left: 10px; height: 30px; width: 230px;">
+            <input type="text" placeholder="search" style="border-radius: 8px; background-color: #DEECDE; padding-left: 10px; height: 30px; width: 230px;">
           </div>
         </form>
       </div>
@@ -29,13 +31,13 @@
       <div style="padding: 12px;">
         <a href="/user/login">
           <v-avatar color="#E8F5E9">
-            <v-icon dark size="270%">mdi-account-circle</v-icon>
+            <v-icon dark size="260%">mdi-account-circle</v-icon>
           </v-avatar>
         </a>
       </div>
 
     </v-toolbar>
-    <v-card-item>
+    <v-card-item style="background-color: #ffffff">
         <a style="padding: 25px">
             Top
         </a>
@@ -56,5 +58,3 @@
     </v-card-item>
   </v-card>
 </template>
-
-
