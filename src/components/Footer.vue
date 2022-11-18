@@ -9,7 +9,13 @@
         'Blog',
         'Contact Us',
       ],
+      paths: [
+        
+      ]
+
     }),
+
+
   }
 </script>
 
