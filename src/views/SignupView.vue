@@ -1,43 +1,51 @@
 <template>
-    <div class="modal" id="login-modal">
+    <div class="modal" id="signup-modal">
         <div class="modal-content">
+            <span class="close close-modal" id="signup-close-button">
+                <i class="fa fa-times-circle"></i>
+            </span>
             <div class="auth-header">
-                <div class="auth-title h4 d-flex flex-column">
-                    <div class="title">Login</div>
+                <div class="auth-title h4">
+                    <div class="title">Register</div>
                 </div>
             </div>
-            <div class="modal-body">
-                <form class="content login-form" method="post" action="user/login">
+            <div class="auth-body modal-body">
+                <form class="content signup-form" method="post"
+                    action="{% url 'myuser:signup' %}?next={{request.path}}">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            <i class="fa-solid fa-circle-user"></i>
-                            <input type="text" name="username" class="form-control" required="true"
-                                placeholder="Username">
+                            <i class="fa fa-user-alt"></i>
+                            <input type="text" required="true" name="username" class="form-control"
+                                placeholder="Display name (at least 4 characters)">
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-envelope"></i>
+                            <input type="email" required="true" name="email" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" name="password" class="form-control" required="true"
+                            <input type="password" required="true" name="password1" class="form-control"
                                 placeholder="Password">
                         </div>
-                        <div class="form-error" id="login-error">
+                        <div class="form-group">
+                            <i class="fa fa-lock"></i>
+                            <input type="password" required="true" name="password2" class="form-control"
+                                placeholder="Confirm password">
+                        </div>
+                        <div class="form-error" id="signup-error">
                             ERROR
                         </div>
                         <div class="form-group">
-                            <button class="main__button " type="submit" style="padding: 10px 50px; width: 100%;">
-                                LOGIN
-                            </button>
+                            <button class="submit-btn button main__button " type="submit"
+                                style="padding: 10px 50px; width: 100%;">REGISTER</button>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="auth-footer">
-                <a href="user/forget-password">
-                    <i class="fa fa-angle-right"></i>
-                    Forgot password
-                </a>
-                <a href="/user/signup">
-                    <i class="fa fa-angle-right"></i>
-                    Create an account
+                <a title="Back to login" href="/user/login">
+                    <i class="fa fa-angle-left"></i>
+                    Back to login
                 </a>
             </div>
         </div>
