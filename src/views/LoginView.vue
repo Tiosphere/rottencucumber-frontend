@@ -10,7 +10,7 @@
                 <form class="content login-form" method="post" action="user/login">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            <i class="fa-solid fa-circle-user"></i>
+                            <i class="fa fa-user-alt"></i>
                             <input type="text" name="username" class="form-control" required="true"
                                 placeholder="Username">
                         </div>
@@ -31,14 +31,14 @@
                 </form>
             </div>
             <div class="auth-footer">
-                <a href="/user/forget-password">
+                <RouterLink :to="{ name: 'forget-password' }">
                     <i class="fa fa-angle-right"></i>
                     Forgot password
-                </a>
-                <a href="/user/signup">
+                </RouterLink>
+                <RouterLink :to="{ name: 'signup' }">
                     <i class="fa fa-angle-right"></i>
                     Create an account
-                </a>
+                </RouterLink>
             </div>
         </div>
     </div>

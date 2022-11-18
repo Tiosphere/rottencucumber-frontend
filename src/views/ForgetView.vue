@@ -1,9 +1,6 @@
 <template>
     <div class="modal" id="reset-modal">
         <div class="modal-content">
-            <span class="close close-modal" id="reset-close-button">
-                <i class="fa fa-times-circle"></i>
-            </span>
             <div class="auth-header">
                 <div class="auth-title h4">
                     <div class="title">Recovery Password</div>
@@ -17,7 +14,7 @@
                             <i class="fa fa-envelope"></i>
                             <input type="email" name="email" class="form-control" required="true" placeholder="Email">
                         </div>
-                        <div class="form-error" id="login-error">{{ msg }}</div>
+                        <div class="form-error" id="login-error">Error</div>
                         <div class="form-group">
                             <button class="submit-btn button main__button " type="submit"
                                 style="padding: 10px 50px; width: 100%;">LOGIN</button>
@@ -26,14 +23,14 @@
                 </form>
             </div>
             <div class="auth-footer">
-                <a title="Back to login" href="/user/login">
+                <RouterLink :to="{ name: 'login' }" title="Back to login">
                     <i class="fa fa-angle-right"></i>
                     Back to login
-                </a>
-                <a href="/user/signup">
+                </RouterLink>
+                <RouterLink :to="{ name: 'signup' }">
                     <i class="fa fa-angle-right"></i>
                     Create an account
-                </a>
+                </RouterLink>
             </div>
         </div>
     </div>

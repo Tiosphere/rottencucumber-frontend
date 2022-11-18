@@ -1,9 +1,6 @@
 <template>
     <div class="modal" id="signup-modal">
         <div class="modal-content">
-            <span class="close close-modal" id="signup-close-button">
-                <i class="fa fa-times-circle"></i>
-            </span>
             <div class="auth-header">
                 <div class="auth-title h4">
                     <div class="title">Register</div>
@@ -43,10 +40,10 @@
                 </form>
             </div>
             <div class="auth-footer">
-                <a title="Back to login" href="/user/login">
+                <RouterLink :to="{ name: 'login' }" title="Back to login">
                     <i class="fa fa-angle-left"></i>
                     Back to login
-                </a>
+                </RouterLink>
             </div>
         </div>
     </div>
