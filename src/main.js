@@ -24,5 +24,5 @@ registerPlugins(app)
 app
   .use(vuetify)
   .use(router)
-  .use(axios, VueAxios)
+  .use(VueAxios, axios)
   .mount('#app')
