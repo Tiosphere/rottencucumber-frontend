@@ -14,6 +14,8 @@ import { createApp } from 'vue'
 import { registerPlugins } from '@/plugins'
 import vuetify from './plugins/vuetify'
 import router from './router'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 const app = createApp(App)
 
@@ -22,4 +24,5 @@ registerPlugins(app)
 app
   .use(vuetify)
   .use(router)
+  .use(axios, VueAxios)
   .mount('#app')

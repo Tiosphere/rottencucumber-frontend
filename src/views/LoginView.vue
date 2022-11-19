@@ -1,3 +1,34 @@
+<script>
+import router from '@/router';
+import axios from 'axios';
+export default {
+    data: () => ({
+        form: {
+            username: "",
+            password: ""
+        },
+        errormsg: ""
+    }),
+    methods: {
+        submitForm() {
+            axios.post("http://localhost:8080/api/auth/login", this.form)
+                .then((res) => {
+                    console.log(res.data.success)
+                    if (res.data.success == true) {
+                        router.push({ name: 'home' })
+                    } else {
+                        this.errormsg = res.data.message
+                    }
+
+                })
+                .catch((error) => {
+                    this.errormsg = "Something happen please try again"
+                });
+        }
+    }
+}
+</script>
+
 <template>
     <div class="modal" id="login-modal">
         <div class="modal-content">
@@ -7,20 +38,20 @@
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content login-form" method="post" action="user/login">
+                <form class="content login-form" v-on:submit.prevent="submitForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input type="text" name="username" class="form-control" required="true"
+                            <input type="text" v-model="form.username" class="form-control" required="true"
                                 placeholder="Username">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" name="password" class="form-control" required="true"
+                            <input type="password" v-model="form.password" class="form-control" required="true"
                                 placeholder="Password">
                         </div>
                         <div class="form-error" id="login-error">
-                            ERROR
+                            {{ errormsg }}
                         </div>
                         <div class="form-group">
                             <button class="main__button " type="submit" style="padding: 10px 50px; width: 100%;">
@@ -47,7 +78,7 @@
 <style scoped>
 .modal {
     align-content: center;
-    padding: 80px;
+    padding: 100px;
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
