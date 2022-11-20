@@ -8,9 +8,11 @@
   },
   "dependencies": {
     "@mdi/font": "5.9.55",
+    "flickity": "^3.0.0",
     "roboto-fontface": "*",
     "vue": "^3.2.38",
     "vue-axios": "^3.5.2",
+    "vue-flickity": "^1.2.1",
     "vue-router": "^4.1.6",
     "vuetify": "^3.0.0",
     "webfontloader": "^1.0.0"

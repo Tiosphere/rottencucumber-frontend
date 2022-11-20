@@ -16,6 +16,7 @@ import vuetify from './plugins/vuetify'
 import router from './router'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Flickity from 'vue-flickity'
 
 const app = createApp(App)
 
@@ -25,4 +26,5 @@ app
   .use(vuetify)
   .use(router)
   .use(VueAxios, axios)
+  .use(Flickity)
   .mount('#app')
