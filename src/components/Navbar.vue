@@ -1,5 +1,24 @@
-<script setup>
+<script>
+import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
 
+export default {
+    data: () => ({
+        url: "",
+        isLogin: false
+    }),
+
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+          this.url = "home"
+          this.isLogin = true
+        } else {
+            this.url = "login"
+            this.isLogin = false
+        }
+    }
+  }
 </script>
 
 <template>
@@ -14,7 +33,7 @@
         <v-toolbar-title style="padding-left: 10px; padding-right: 40px;">
           <a href="/" style="-webkit-text-fill-color:whitesmoke; text-decoration: none; ">
             <v-img
-              src="./src/assets/RottenCucumber_logo.png"
+              src="/src/assets/RottenCucumber_logo.png"
               height="50px"
               width="120px">
             </v-img>
@@ -28,12 +47,27 @@
       </div>
 
       <v-spacer></v-spacer>
-      <div style="padding: 12px;">
-        <a href="/user/login">
+
+      <div style="padding: 14px;">
+        
+        <RouterLink :to="{ name: this.url }" id="user">
+          <h1 v-if="islogin">
           <v-avatar color="#E8F5E9">
             <v-icon dark size="260%">mdi-account-circle</v-icon>
           </v-avatar>
-        </a>
+          </h1>
+
+          <h1 v-else>
+            <v-btn
+              variant="flat"
+              color="success"
+              >
+              Login
+            </v-btn>
+          </h1>
+        </RouterLink>
+
+
       </div>
 
     </v-toolbar>
@@ -59,3 +93,8 @@
   </v-card>
 </template>
 
+<style scoped>
+#user {
+  color: white;
+}
+</style>
