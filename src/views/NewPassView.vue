@@ -3,49 +3,36 @@ import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
 
 export default {
-    name: "signup",
     data: () => ({
         form: {
-            username: "",
-            email: "",
             password1: "",
             password2: "",
         },
-        error: {
-            msg1: "",
-            msg2: "",
-            msg3: "",
-            msg4: ""
-        }
+        error: ""
     }),
-    mounted() {
-        console.log(window.localStorage)
-    },
     methods: {
         submitForm() {
-            axios.post("http://localhost:8080/api/auth/signup", this.form)
+            if (isJwtExpired(this.$route.params.token)) {
+                this.error = "Your token is expire"
+                return false;
+            }
+            let url = "http://localhost:8080/api/auth/forget/"
+            axios.post(url.concat(this.$route.params.token), this.form)
                 .then((res) => {
+                    console.log(res.data)
                     let code = res.data.code;
                     if (code === 0) {
-                        this.$router.push({ name: 'login' });
+                        this.$router.push({ name: 'home' });
                     }
                     else if (code === 1) {
-                        this.error.msg1 = res.data.message;
+                        this.error = res.data.message;
                     }
-                    else if (code === 2) {
-                        this.error.msg2 = res.data.message;
-                    }
-                    else if (code === 3) {
-                        this.error.msg3 = res.data.message;
-                    }
-                    else if (code === 4) {
-                        this.error.msg4 = res.data.message;
-                    } else {
-                        this.error.msg4 = "Oops! something went wrong."
+                    else {
+                        this.error = "Oops! something went wrong."
                     }
                 })
-                .catch(error => {
-                    this.error.msg4 = "Something happen please try again"
+                .catch((error) => {
+                    this.error = "Something happen please try again"
                 });
         }
     },
@@ -62,34 +49,16 @@ export default {
 </script>
 
 <template>
-    <div id="signup-modal" class="modal">
+    <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
-                <div class="auth-title h4">
-                    <div class="title">Register</div>
+                <div class="auth-title">
+                    <div class="title">New Password</div>
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content signup-form" v-on:submit.prevent="submitForm">
+                <form class="content" v-on:submit.prevent="submitForm">
                     <div class="hide-on-success">
-                        <div class="form-error">
-                            {{ error.msg1 }}
-                        </div>
-                        <div class="form-group">
-                            <i class="fa fa-user-alt"></i>
-                            <input v-model="form.username" class="form-control"
-                                placeholder="Display name (at least 4 characters)" required type="text">
-                        </div>
-                        <div class="form-error">
-                            {{ error.msg2 }}
-                        </div>
-                        <div class="form-group">
-                            <i class="fa fa-envelope"></i>
-                            <input v-model="form.email" class="form-control" placeholder="Email" required type="email">
-                        </div>
-                        <div class="form-error">
-                            {{ error.msg3 }}
-                        </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
                             <input v-model="form.password1" class="form-control" placeholder="Password" required
@@ -101,21 +70,15 @@ export default {
                                 type="password">
                         </div>
                         <div class="form-error">
-                            {{ error.msg4 }}
+                            {{ error }}
                         </div>
                         <div class="form-group">
                             <button class="submit-btn button main__button " style="padding: 10px 50px; width: 100%;"
-                                type="submit">REGISTER
+                                type="submit">SAVE
                             </button>
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="auth-footer">
-                <RouterLink :to="{ name: 'login' }" title="Back to login">
-                    <i class="fa fa-angle-left"></i>
-                    Back to login
-                </RouterLink>
             </div>
         </div>
     </div>

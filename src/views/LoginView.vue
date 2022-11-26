@@ -1,56 +1,73 @@
 <script>
-import router from '@/router';
 import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
+
 export default {
+    name: 'LoginView',
     data: () => ({
         form: {
             username: "",
-            password: ""
+            password: "",
         },
         errormsg: ""
     }),
     methods: {
         submitForm() {
+            console.log(axios.defaults.headers.common['Authorization'])
             axios.post("http://localhost:8080/api/auth/login", this.form)
                 .then((res) => {
-                    console.log(res.data.success)
-                    if (res.data.success == true) {
-                        router.push({ name: 'home' })
+                    let data = res.data
+                    console.log(data)
+                    if (data.success) {
+                        localStorage.setItem("access_token", data.message)
+                        this.$router.push({ name: 'home' })
                     } else {
-                        this.errormsg = res.data.message
+                        if (axios.defaults.headers.common['Authorization'] != null) {
+                            this.errormsg = "User might already login"
+                        } else {
+                            this.errormsg = data.message
+                        }
                     }
-
                 })
                 .catch((error) => {
                     this.errormsg = "Something happen please try again"
                 });
+        }
+    },
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+            this.$router.push({ name: 'home' })
+        } else {
+            axios.defaults.headers.common['Authorization'] = null;
         }
     }
 }
 </script>
 
 <template>
-    <div class="modal" id="login-modal">
+    <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
-                <div class="auth-title h4 d-flex flex-column">
+                <div class="auth-title">
                     <div class="title">Login</div>
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content login-form" v-on:submit.prevent="submitForm">
+                <form class="content " v-on:submit.prevent="submitForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input type="text" v-model="form.username" class="form-control" required="true"
+                            <input type="text" v-model="this.form.username" class="form-control" required
                                 placeholder="Username">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" v-model="form.password" class="form-control" required="true"
+                            <input type="password" v-model="this.form.password" class="form-control" required
                                 placeholder="Password">
                         </div>
-                        <div class="form-error" id="login-error">
+                        <div class="form-error">
                             {{ errormsg }}
                         </div>
                         <div class="form-group">
@@ -94,19 +111,6 @@ export default {
     border-radius: 0.3rem;
     outline: 0;
     background-color: #DEECDE;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    width: 40px;
-    text-align: center;
-    align-items: center;
-    z-index: 500;
-    cursor: pointer;
 }
 
 .auth-header {

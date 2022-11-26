@@ -1,5 +1,35 @@
+<script>
+import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
+
+export default {
+    data: () => ({
+        form: {
+            email: "",
+        },
+        error: ""
+    }),
+    methods: {
+        submitForm() {
+            axios.post("http://localhost:8080/api/auth/forget", this.form)
+                .then((res) => {
+                    let data = res.data
+                    if (data.success) {
+                        this.$router.push({ name: 'new-password', params: { token: data.message } });
+                    } else {
+                        this.error = data.message
+                    }
+                })
+                .catch((error) => {
+                    this.error = "Something happen please try again."
+                });
+        }
+    }
+}
+</script>
+
 <template>
-    <div class="modal" id="reset-modal">
+    <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title h4">
@@ -7,17 +37,19 @@
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content reset-form" method="post"
-                    action="{% url 'myuser:password_reset' %}?next={{request.path}}">
+                <form class="content reset-form" v-on:submit.prevent="submitForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-envelope"></i>
-                            <input type="email" name="email" class="form-control" required="true" placeholder="Email">
+                            <input type="email" v-model="this.form.email" class="form-control" required
+                                placeholder="Email">
                         </div>
-                        <div class="form-error" id="login-error">Error</div>
+                        <div class="form-error">
+                            {{ error }}
+                        </div>
                         <div class="form-group">
                             <button class="submit-btn button main__button " type="submit"
-                                style="padding: 10px 50px; width: 100%;">LOGIN</button>
+                                style="padding: 10px 50px; width: 100%;">SUBMIT</button>
                         </div>
                     </div>
                 </form>
@@ -55,19 +87,6 @@
     border-radius: 0.3rem;
     outline: 0;
     background-color: #DEECDE;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    width: 40px;
-    text-align: center;
-    align-items: center;
-    z-index: 500;
-    cursor: pointer;
 }
 
 .auth-header {
