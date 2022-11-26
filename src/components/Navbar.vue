@@ -1,12 +1,19 @@
 <script>
+import { is } from '@babel/types';
 import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
+// import { ref } from 
 
 export default {
     data: () => ({
         url: "",
-        isLogin: false
+        isLogin: false,
+
     }),
+
+    // data() {
+    //   isLogin = this.isLogin
+    // },
 
     beforeMount() {
         let token = localStorage.getItem("access_token");
@@ -49,22 +56,21 @@ export default {
       <v-spacer></v-spacer>
 
       <div style="padding: 14px;">
-        
+
         <RouterLink :to="{ name: this.url }" id="user">
-          <h1 v-if="islogin">
-          <v-avatar color="#E8F5E9">
+          
+          <v-avatar  v-if="this.isLogin" color="#E8F5E9">
             <v-icon dark size="260%">mdi-account-circle</v-icon>
           </v-avatar>
-          </h1>
-
-          <h1 v-else>
-            <v-btn
+      
+          
+          
+            <v-btn v-else
               variant="flat"
               color="success"
               >
               Login
             </v-btn>
-          </h1>
         </RouterLink>
 
 
