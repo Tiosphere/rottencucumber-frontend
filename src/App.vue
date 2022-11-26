@@ -1,14 +1,14 @@
 <template>
   <v-app>
     <v-main>
-      <bar />
+      <!-- <bar /> -->
       <router-view></router-view>
-      <foot />
+      <!-- <foot /> -->
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-import bar from '@/components/Navbar.vue'
-import foot from '@/components/Footer.vue'
+// import bar from '@/components/Navbar.vue'
+// import foot from '@/components/Footer.vue'
 </script>

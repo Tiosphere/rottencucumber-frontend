@@ -2,7 +2,10 @@
 import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
 
+import bar from '@/components/Navbar.vue'
+import foot from '@/components/Footer.vue'
 export default {
+
     data: () => ({
         form: {
             password1: "",
@@ -10,6 +13,10 @@ export default {
         },
         error: ""
     }),
+    components: {
+        bar,
+        foot
+    },
     methods: {
         submitForm() {
             if (isJwtExpired(this.$route.params.token)) {
@@ -49,6 +56,7 @@ export default {
 </script>
 
 <template>
+    <bar />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
@@ -82,6 +90,7 @@ export default {
             </div>
         </div>
     </div>
+    <foot />
 </template>
 
 <style scoped>

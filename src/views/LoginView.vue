@@ -1,9 +1,15 @@
 <script>
 import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
+import bar from '@/components/Navbar.vue'
+import foot from '@/components/Footer.vue'
 
 export default {
     name: 'LoginView',
+    components: {
+        bar,
+        foot
+    },
     data: () => ({
         form: {
             username: "",
@@ -47,6 +53,7 @@ export default {
 </script>
 
 <template>
+    <bar />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
@@ -90,6 +97,7 @@ export default {
             </div>
         </div>
     </div>
+    <foot />
 </template>
 
 <style scoped>

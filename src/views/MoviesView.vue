@@ -1,6 +1,6 @@
 <template>
   <v-app>
-
+    <Navbar />
     <v-main class="px-16 ma-10">
       <div>
         <!-- Movie name -->
@@ -69,6 +69,7 @@
         </v-list-item>
       </v-card>
     </v-main>
+    <Footer />
 
   </v-app>
 </template>
