@@ -2,29 +2,20 @@
 import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
 
-import bar from '@/components/Navbar.vue'
-import foot from '@/components/Footer.vue'
 export default {
-
+    name: "newpass",
     data: () => ({
-        form: {
-            password1: "",
-            password2: "",
-        },
         error: ""
     }),
-    components: {
-        bar,
-        foot
-    },
     methods: {
         submitForm() {
             if (isJwtExpired(this.$route.params.token)) {
                 this.error = "Your token is expire"
                 return false;
             }
+            let form = new FormData(this.$refs.newPassForm)
             let url = "http://localhost:8080/api/auth/forget/"
-            axios.post(url.concat(this.$route.params.token), this.form)
+            axios.post(url.concat(this.$route.params.token), form)
                 .then((res) => {
                     console.log(res.data)
                     let code = res.data.code;
@@ -49,6 +40,7 @@ export default {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
             this.$router.push({ name: 'home' })
         } else {
+            localStorage.removeItem("access_token")
             axios.defaults.headers.common['Authorization'] = null;
         }
     }
@@ -56,7 +48,6 @@ export default {
 </script>
 
 <template>
-    <bar />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
@@ -65,16 +56,16 @@ export default {
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content" v-on:submit.prevent="submitForm">
+                <form class="content" v-on:submit.prevent="submitForm" ref="newPassForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input v-model="form.password1" class="form-control" placeholder="Password" required
+                            <input name="password1" class="form-control" placeholder="Password" required
                                 type="password">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input v-model="form.password2" class="form-control" placeholder="Confirm password" required
+                            <input name="password2" class="form-control" placeholder="Confirm password" required
                                 type="password">
                         </div>
                         <div class="form-error">
@@ -90,7 +81,6 @@ export default {
             </div>
         </div>
     </div>
-    <foot />
 </template>
 
 <style scoped>

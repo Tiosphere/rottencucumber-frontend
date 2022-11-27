@@ -5,19 +5,18 @@ import bar from '@/components/Navbar.vue'
 import foot from '@/components/Footer.vue'
 
 export default {
+    name: "forget",
     components: {
-    bar,
-    foot
-  },
+        bar,
+        foot
+    },
     data: () => ({
-        form: {
-            email: "",
-        },
         error: ""
     }),
     methods: {
         submitForm() {
-            axios.post("http://localhost:8080/api/auth/forget", this.form)
+            let form = new FormData(this.$refs.forgetForm);
+            axios.post("http://localhost:8080/api/auth/forget", form)
                 .then((res) => {
                     let data = res.data
                     if (data.success) {
@@ -29,6 +28,16 @@ export default {
                 .catch((error) => {
                     this.error = "Something happen please try again."
                 });
+        }
+    },
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+            this.$router.push({ name: 'home' })
+        } else {
+            localStorage.removeItem("access_token")
+            axios.defaults.headers.common['Authorization'] = null;
         }
     }
 }
@@ -44,12 +53,11 @@ export default {
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content reset-form" v-on:submit.prevent="submitForm">
+                <form class="content reset-form" v-on:submit.prevent="submitForm" ref="forgetForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-envelope"></i>
-                            <input type="email" v-model="this.form.email" class="form-control" required
-                                placeholder="Email">
+                            <input type="email" name="email" class="form-control" required placeholder="Email">
                         </div>
                         <div class="form-error">
                             {{ error }}

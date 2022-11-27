@@ -7,12 +7,6 @@ import foot from '@/components/Footer.vue'
 export default {
     name: "signup",
     data: () => ({
-        form: {
-            username: "",
-            email: "",
-            password1: "",
-            password2: "",
-        },
         error: {
             msg1: "",
             msg2: "",
@@ -29,7 +23,8 @@ export default {
     },
     methods: {
         submitForm() {
-            axios.post("http://localhost:8080/api/auth/signup", this.form)
+            let form = new FormData(this.$refs.signupForm);
+            axios.post("http://localhost:8080/api/auth/signup", form)
                 .then((res) => {
                     let code = res.data.code;
                     if (code === 0) {
@@ -61,6 +56,7 @@ export default {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
             this.$router.push({ name: 'home' })
         } else {
+            localStorage.removeItem("access_token")
             axios.defaults.headers.common['Authorization'] = null;
         }
     }
@@ -77,14 +73,14 @@ export default {
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content signup-form" v-on:submit.prevent="submitForm">
+                <form class="content signup-form" v-on:submit.prevent="submitForm" ref="signupForm">
                     <div class="hide-on-success">
                         <div class="form-error">
                             {{ error.msg1 }}
                         </div>
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input v-model="form.username" class="form-control"
+                            <input name="username" class="form-control"
                                 placeholder="Display name (at least 4 characters)" required type="text">
                         </div>
                         <div class="form-error">
@@ -92,19 +88,19 @@ export default {
                         </div>
                         <div class="form-group">
                             <i class="fa fa-envelope"></i>
-                            <input v-model="form.email" class="form-control" placeholder="Email" required type="email">
+                            <input name="email" class="form-control" placeholder="Email" required type="email">
                         </div>
                         <div class="form-error">
                             {{ error.msg3 }}
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input v-model="form.password1" class="form-control" placeholder="Password" required
+                            <input name="password1" class="form-control" placeholder="Password" required
                                 type="password">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input v-model="form.password2" class="form-control" placeholder="Confirm password" required
+                            <input name="password2" class="form-control" placeholder="Confirm password" required
                                 type="password">
                         </div>
                         <div class="form-error">

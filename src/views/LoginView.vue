@@ -11,28 +11,19 @@ export default {
         foot
     },
     data: () => ({
-        form: {
-            username: "",
-            password: "",
-        },
         errormsg: ""
     }),
     methods: {
         submitForm() {
-            console.log(axios.defaults.headers.common['Authorization'])
-            axios.post("http://localhost:8080/api/auth/login", this.form)
+            let form = new FormData(this.$refs.loginForm);
+            axios.post("http://localhost:8080/api/auth/login", form)
                 .then((res) => {
                     let data = res.data
-                    console.log(data)
                     if (data.success) {
                         localStorage.setItem("access_token", data.message)
                         this.$router.push({ name: 'home' })
                     } else {
-                        if (axios.defaults.headers.common['Authorization'] != null) {
-                            this.errormsg = "User might already login"
-                        } else {
-                            this.errormsg = data.message
-                        }
+                        this.errormsg = data.message
                     }
                 })
                 .catch((error) => {
@@ -46,6 +37,7 @@ export default {
             axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
             this.$router.push({ name: 'home' })
         } else {
+            localStorage.removeItem("access_token")
             axios.defaults.headers.common['Authorization'] = null;
         }
     }
@@ -62,17 +54,15 @@ export default {
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content " v-on:submit.prevent="submitForm">
+                <form class="content " v-on:submit.prevent="submitForm" ref="loginForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input type="text" v-model="this.form.username" class="form-control" required
-                                placeholder="Username">
+                            <input type="text" name="username" class="form-control" required placeholder="Username">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" v-model="this.form.password" class="form-control" required
-                                placeholder="Password">
+                            <input type="password" name="password" class="form-control" required placeholder="Password">
                         </div>
                         <div class="form-error">
                             {{ errormsg }}
