@@ -17,8 +17,8 @@
   
         <v-list>
           <v-list-item
-            :to="path"
-            v-for="[icon, text, path] in links"
+            :to="{ name:  name  }"
+            v-for="[icon, text, name] in links"
             :key="icon"
             link
           >
@@ -39,12 +39,10 @@
   export default {
     data: () => ({
       links: [
-        ['mdi-home','Home','/admin/'],
-        ['mdi-account-group','Manage Accounts', '/admin/manage'],
+        ['mdi-home','Home','dashboard'],
+        ['mdi-account-group','Manage Accounts', 'manage-accounts'],
+        ['mdi-account-group','Manage Movies', 'manage-movies'],
         ['mdi-inbox-arrow-down', 'Inbox', ''],
-        ['mdi-send', 'Send', ''],
-        ['mdi-delete', 'Trash', ''],
-        ['mdi-alert-octagon', 'Spam', ''],
       ],
     }),
   }

@@ -2,7 +2,7 @@
 
   <side />
   <h1 style="padding-left:10px; padding:10px;">
-  Manage accounts
+  Manage Accounts
   </h1>
   
   <v-spacer></v-spacer>
@@ -29,7 +29,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="item in desserts"
+        v-for="item in users"
         :key="item.name"
       >
         <td style="padding-left: 30px;"> {{ item.id }} </td>
@@ -70,13 +70,6 @@
 
         </td>
 
-
-
-
-
-        
-
-        <!-- <td>{{ item.calories }}</td> -->
       </tr>
     </tbody>
 
@@ -92,56 +85,47 @@ export default {
   },
   data () {
       return {
-        desserts: [
+        users: [
           {
             id: 1,
             name: 'Frozen Yogurt',
-            calories: 159,
           },
           {
             id: 2,
             name: 'Ice cream sandwich',
-            calories: 237,
           },
           {
             id: 3,
             name: 'Eclair',
-            calories: 262,
+
           },
           {
             id: 4,
             name: 'Cupcake',
-            calories: 305,
           },
           {
             id: 5,
             name: 'Gingerbread',
-            calories: 356,
           },
           {
             id: 6,
             name: 'Jelly bean',
-            calories: 375,
           },
           {
             id: 7,
             name: 'Lollipop',
-            calories: 392,
           },
           {
             id: 8,
             name: 'Honeycomb',
-            calories: 408,
           },
           {
             id: 9,
             name: 'Donut',
-            calories: 452,
           },
           {
             id: 10,
             name: 'KitKat',
-            calories: 518,
           },
         ],
       }

@@ -40,9 +40,14 @@ const router = createRouter({
       component: () => import('@/views/MoviesView.vue')
     },
     {
-      path: '/admin/manage',
-      name: 'manage',
+      path: '/admin/manage/accounts',
+      name: 'manage-accounts',
       component: () => import('@/views/admin/ManageAccountView.vue')
+    },
+    {
+      path: '/admin/manage/movies',
+      name: 'manage-movies',
+      component: () => import('@/views/admin/ManageMovieView.vue')
     },
     {
       path: '/admin/',
