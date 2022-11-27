@@ -1,43 +1,9 @@
 <template>
-    <v-app id="inspire">
+    <v-app>
   
-      <v-navigation-drawer v-model="drawer">
-        <v-sheet
-          color="grey-lighten-4"
-          class="pa-4"
-        >
-          <v-avatar
-            class="mb-4"
-            color="grey-darken-1"
-            size="64"
-          ></v-avatar>
-  
-          <div>Admin Panel</div>
-        </v-sheet>
-  
-        <v-divider></v-divider>
-  
-        <v-list>
-          <v-list-item
-            :to="url"
-            v-for="[icon, text, url] in links"
-            :key="icon"
-            link
-          >
-          
-            <template v-slot:prepend>
-                <!-- <RouterLink :to="{ name: '{{ url }}' }"> -->
-                    <v-icon>{{ icon }}</v-icon>
-                <!-- </RouterLink> -->
-            </template>
-  
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-  
+      <side />
       <v-main>
+
         <v-container
           class="py-8 px-6"
           fluid
@@ -76,23 +42,20 @@
             </v-col>
           </v-row>
         </v-container>
+
       </v-main>
+      
     </v-app>
   </template>
   
-  <script>
+<script>
+import side from '@/components/Sidebar.vue'
     export default {
-      data: () => ({
-        cards: ['Today', 'Yesterday'],
-        drawer: null,
-        links: [
-
-          ['mdi-account-group','Manage Accounts', '/admin/manage'],
-          ['mdi-inbox-arrow-down', 'Inbox', ''],
-          ['mdi-send', 'Send', ''],
-          ['mdi-delete', 'Trash', ''],
-          ['mdi-alert-octagon', 'Spam', ''],
-        ],
-      }),
-    }
+      components: {
+        side,
+      },
+    data: () => ({
+        cards: ["Today", "Yesterday"],
+    }),
+}
   </script>
