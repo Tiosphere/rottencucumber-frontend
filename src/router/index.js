@@ -28,6 +28,21 @@ const router = createRouter({
       path: '/movies',
       name: 'movies',
       component: () => import('@/views/MoviesView.vue')
+    },
+    {
+      path: '/toppicks',
+      name: 'top-picks',
+      component: () => import('@/views/ToppicksView.vue')
+    },
+    {
+      path: '/latest',
+      name: 'latest',
+      component: () => import('@/views/LatestView.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('@/views/SearchView.vue')
     }
   ]
 })
