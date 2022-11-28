@@ -1,4 +1,5 @@
 <template>
+    <bar />
     <div style="padding: 30px">
       <flickity ref="flickity" :options="flickityOptions">
         <!-- <div class="carousel-cell">
@@ -29,14 +30,20 @@
       </flickity>
       <button @click="resize"></button>
     </div>
+    <foot />
   </template>
 
 <script>
 import Flickity from '@/components/Flickity.vue';
+import bar from '@/components/Navbar.vue'
+import foot from '@/components/Footer.vue'
 export default {
     name: "home",
   components: {
-    Flickity
+    Flickity,
+    bar,
+    foot
+
   },
   data() {
     return {

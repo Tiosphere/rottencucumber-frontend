@@ -1,56 +1,70 @@
 <script>
-import router from '@/router';
 import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
+import bar from '@/components/Navbar.vue'
+import foot from '@/components/Footer.vue'
+
 export default {
+    name: 'LoginView',
+    components: {
+        bar,
+        foot
+    },
     data: () => ({
-        form: {
-            username: "",
-            password: ""
-        },
         errormsg: ""
     }),
     methods: {
         submitForm() {
-            axios.post("http://localhost:8080/api/auth/login", this.form)
+            let form = new FormData(this.$refs.loginForm);
+            axios.post("http://localhost:8080/api/auth/login", form)
                 .then((res) => {
-                    console.log(res.data.success)
-                    if (res.data.success == true) {
-                        router.push({ name: 'home' })
+                    let data = res.data
+                    if (data.success) {
+                        localStorage.setItem("access_token", data.message)
+                        this.$router.push({ name: 'home' })
                     } else {
-                        this.errormsg = res.data.message
+                        this.errormsg = data.message
                     }
-
                 })
                 .catch((error) => {
                     this.errormsg = "Something happen please try again"
                 });
+        }
+    },
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+            this.$router.push({ name: 'home' })
+        } else {
+            localStorage.removeItem("access_token")
+            axios.defaults.headers.common['Authorization'] = null;
         }
     }
 }
 </script>
 
 <template>
-    <div class="modal" id="login-modal">
+    <bar />
+    <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
-                <div class="auth-title h4 d-flex flex-column">
+                <div class="auth-title">
                     <div class="title">Login</div>
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content login-form" v-on:submit.prevent="submitForm">
+                <form class="content " v-on:submit.prevent="submitForm" ref="loginForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input type="text" v-model="form.username" class="form-control" required="true"
-                                placeholder="Username">
+                            <input type="text" name="username" class="form-control" required placeholder="Username">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" v-model="form.password" class="form-control" required="true"
-                                placeholder="Password">
+                            <input type="password" name="password" class="form-control" required placeholder="Password">
                         </div>
-                        <div class="form-error" id="login-error">
+                        <div class="form-error">
                             {{ errormsg }}
                         </div>
                         <div class="form-group">
@@ -73,6 +87,7 @@ export default {
             </div>
         </div>
     </div>
+    <foot />
 </template>
 
 <style scoped>
@@ -94,19 +109,6 @@ export default {
     border-radius: 0.3rem;
     outline: 0;
     background-color: #DEECDE;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    width: 40px;
-    text-align: center;
-    align-items: center;
-    z-index: 500;
-    cursor: pointer;
 }
 
 .auth-header {

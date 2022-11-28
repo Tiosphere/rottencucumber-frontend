@@ -1,32 +1,36 @@
 <script>
 import axios from 'axios';
 import { isJwtExpired } from 'jwt-check-expiration';
-import bar from '@/components/Navbar.vue'
-import foot from '@/components/Footer.vue'
 
 export default {
-    name: "forget",
-    components: {
-        bar,
-        foot
-    },
+    name: "newpass",
     data: () => ({
         error: ""
     }),
     methods: {
         submitForm() {
-            let form = new FormData(this.$refs.forgetForm);
-            axios.post("http://localhost:8080/api/auth/forget", form)
+            if (isJwtExpired(this.$route.params.token)) {
+                this.error = "Your token is expire"
+                return false;
+            }
+            let form = new FormData(this.$refs.newPassForm)
+            let url = "http://localhost:8080/api/auth/forget/"
+            axios.post(url.concat(this.$route.params.token), form)
                 .then((res) => {
-                    let data = res.data
-                    if (data.success) {
-                        this.$router.push({ name: 'new-password', params: { token: data.message } });
-                    } else {
-                        this.error = data.message
+                    console.log(res.data)
+                    let code = res.data.code;
+                    if (code === 0) {
+                        this.$router.push({ name: 'home' });
+                    }
+                    else if (code === 1) {
+                        this.error = res.data.message;
+                    }
+                    else {
+                        this.error = "Oops! something went wrong."
                     }
                 })
                 .catch((error) => {
-                    this.error = "Something happen please try again."
+                    this.error = "Something happen please try again"
                 });
         }
     },
@@ -44,44 +48,39 @@ export default {
 </script>
 
 <template>
-    <bar />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
-                <div class="auth-title h4">
-                    <div class="title">Recovery Password</div>
+                <div class="auth-title">
+                    <div class="title">New Password</div>
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content reset-form" v-on:submit.prevent="submitForm" ref="forgetForm">
+                <form class="content" v-on:submit.prevent="submitForm" ref="newPassForm">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            <i class="fa fa-envelope"></i>
-                            <input type="email" name="email" class="form-control" required placeholder="Email">
+                            <i class="fa fa-lock"></i>
+                            <input name="password1" class="form-control" placeholder="Password" required
+                                type="password">
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-lock"></i>
+                            <input name="password2" class="form-control" placeholder="Confirm password" required
+                                type="password">
                         </div>
                         <div class="form-error">
                             {{ error }}
                         </div>
                         <div class="form-group">
-                            <button class="submit-btn button main__button " type="submit"
-                                style="padding: 10px 50px; width: 100%;">SUBMIT</button>
+                            <button class="submit-btn button main__button " style="padding: 10px 50px; width: 100%;"
+                                type="submit">SAVE
+                            </button>
                         </div>
                     </div>
                 </form>
             </div>
-            <div class="auth-footer">
-                <RouterLink :to="{ name: 'login' }" title="Back to login">
-                    <i class="fa fa-angle-right"></i>
-                    Back to login
-                </RouterLink>
-                <RouterLink :to="{ name: 'signup' }">
-                    <i class="fa fa-angle-right"></i>
-                    Create an account
-                </RouterLink>
-            </div>
         </div>
     </div>
-    <foot />
 </template>
 
 <style scoped>

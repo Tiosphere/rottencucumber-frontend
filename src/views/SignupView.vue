@@ -1,5 +1,71 @@
+<script>
+import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
+
+import bar from '@/components/Navbar.vue'
+import foot from '@/components/Footer.vue'
+export default {
+    name: "signup",
+    data: () => ({
+        error: {
+            msg1: "",
+            msg2: "",
+            msg3: "",
+            msg4: ""
+        }
+    }),
+    components: {
+        bar,
+        foot
+    },
+    mounted() {
+        console.log(window.localStorage)
+    },
+    methods: {
+        submitForm() {
+            let form = new FormData(this.$refs.signupForm);
+            axios.post("http://localhost:8080/api/auth/signup", form)
+                .then((res) => {
+                    let code = res.data.code;
+                    if (code === 0) {
+                        this.$router.push({ name: 'login' });
+                    }
+                    else if (code === 1) {
+                        this.error.msg1 = res.data.message;
+                    }
+                    else if (code === 2) {
+                        this.error.msg2 = res.data.message;
+                    }
+                    else if (code === 3) {
+                        this.error.msg3 = res.data.message;
+                    }
+                    else if (code === 4) {
+                        this.error.msg4 = res.data.message;
+                    } else {
+                        this.error.msg4 = "Oops! something went wrong."
+                    }
+                })
+                .catch(error => {
+                    this.error.msg4 = "Something happen please try again"
+                });
+        }
+    },
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+            this.$router.push({ name: 'home' })
+        } else {
+            localStorage.removeItem("access_token")
+            axios.defaults.headers.common['Authorization'] = null;
+        }
+    }
+}
+</script>
+
 <template>
-    <div class="modal" id="signup-modal">
+    <bar />
+    <div id="signup-modal" class="modal">
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title h4">
@@ -7,34 +73,43 @@
                 </div>
             </div>
             <div class="auth-body modal-body">
-                <form class="content signup-form" method="post"
-                    action="{% url 'myuser:signup' %}?next={{request.path}}">
+                <form class="content signup-form" v-on:submit.prevent="submitForm" ref="signupForm">
                     <div class="hide-on-success">
+                        <div class="form-error">
+                            {{ error.msg1 }}
+                        </div>
                         <div class="form-group">
                             <i class="fa fa-user-alt"></i>
-                            <input type="text" required="true" name="username" class="form-control"
-                                placeholder="Display name (at least 4 characters)">
+                            <input name="username" class="form-control"
+                                placeholder="Display name (at least 4 characters)" required type="text">
+                        </div>
+                        <div class="form-error">
+                            {{ error.msg2 }}
                         </div>
                         <div class="form-group">
                             <i class="fa fa-envelope"></i>
-                            <input type="email" required="true" name="email" class="form-control" placeholder="Email">
+                            <input name="email" class="form-control" placeholder="Email" required type="email">
+                        </div>
+                        <div class="form-error">
+                            {{ error.msg3 }}
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" required="true" name="password1" class="form-control"
-                                placeholder="Password">
+                            <input name="password1" class="form-control" placeholder="Password" required
+                                type="password">
                         </div>
                         <div class="form-group">
                             <i class="fa fa-lock"></i>
-                            <input type="password" required="true" name="password2" class="form-control"
-                                placeholder="Confirm password">
+                            <input name="password2" class="form-control" placeholder="Confirm password" required
+                                type="password">
                         </div>
-                        <div class="form-error" id="signup-error">
-                            ERROR
+                        <div class="form-error">
+                            {{ error.msg4 }}
                         </div>
                         <div class="form-group">
-                            <button class="submit-btn button main__button " type="submit"
-                                style="padding: 10px 50px; width: 100%;">REGISTER</button>
+                            <button class="submit-btn button main__button " style="padding: 10px 50px; width: 100%;"
+                                type="submit">REGISTER
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -47,6 +122,7 @@
             </div>
         </div>
     </div>
+    <foot />
 </template>
 
 <style scoped>
@@ -68,19 +144,6 @@
     border-radius: 0.3rem;
     outline: 0;
     background-color: #DEECDE;
-}
-
-.close {
-    color: white;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    right: 10px;
-    width: 40px;
-    text-align: center;
-    align-items: center;
-    z-index: 500;
-    cursor: pointer;
 }
 
 .auth-header {

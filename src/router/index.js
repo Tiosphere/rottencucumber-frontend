@@ -20,13 +20,23 @@ const router = createRouter({
       component: () => import('@/views/SignupView.vue')
     },
     {
-      path: '/user/forget-password',
+      path: '/user/forget',
       name: 'forget-password',
       component: () => import('@/views/ForgetView.vue')
     },
     {
-      path: '/movies',
-      name: 'movies',
+      path: '/user/forget/:token',
+      name: 'new-password',
+      component: () => import('@/views/NewPassView.vue')
+    },
+    {
+      path: '/user/logout',
+      name: 'logout',
+      component: () => import('@/views/logout.vue')
+    },
+    {
+      path: '/movie',
+      name: 'movie',
       component: () => import('@/views/MoviesView.vue')
     },
     {
@@ -43,6 +53,31 @@ const router = createRouter({
       path: '/search',
       name: 'search',
       component: () => import('@/views/SearchView.vue')
+     },
+     {
+      path: '/actor',
+      name: 'actor',
+      component: () => import('@/views/ActorView.vue')
+    },
+    {
+      path: '/director',
+      name: 'director',
+      component: () => import('@/views/DirectorView.vue')
+    },
+    {
+      path: '/admin/manage/accounts',
+      name: 'manage-accounts',
+      component: () => import('@/views/admin/ManageAccountView.vue')
+    },
+    {
+      path: '/admin/manage/movies',
+      name: 'manage-movies',
+      component: () => import('@/views/admin/ManageMovieView.vue')
+    },
+    {
+      path: '/admin/',
+      name: 'dashboard',
+      component: () => import('@/views/admin/DashboardView.vue')
     }
   ]
 })
