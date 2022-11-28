@@ -7,8 +7,10 @@
     
     <v-spacer></v-spacer>
   
-    <v-table theme="light">
-  
+    <v-table 
+    theme="light"
+
+    >
       <thead>
         <tr>
           <th class="text-left" style="width:12%; padding-left: 26px;">
@@ -27,7 +29,9 @@
   
         </tr>
       </thead>
+
       <tbody>
+        
         <tr
           v-for="item in movies"
           :key="item.name"
@@ -61,6 +65,7 @@
   
           </td>
         </tr>
+
       </tbody>
   
     </v-table>
@@ -117,6 +122,47 @@
               id: 10,
               name: 'Movie10',
             },
+            {
+              id: 11,
+              name: 'Movie11',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+            {
+              id: 10,
+              name: 'Movie10',
+            },
+
           ],
         }
       },
