@@ -20,9 +20,10 @@
       elevation="6"
       rounded
       x-small
-      color="#6FAC49"
+      color={{snackbar?"#6FAC49":'grey'}}
       class="mb-4">
-        <v-icon style="color: #2A2C32">mdi-plus</v-icon> Add to watchlist
+        <v-icon style="color: #2A2C32">mdi-plus</v-icon>
+        {{snackbar? 'Add to watchlist' : 'Added to watchlist'}}
       </v-btn>
       <v-snackbar
         v-model = "snackbar"
@@ -59,7 +60,7 @@
         <v-list-item
         v-for="user in users"
         :key="users.name">
-          <v-list-item-avatar rounded-s>
+          <v-list-item-avatar>
             <img :src="user.avatar">
           </v-list-item-avatar>
           <v-list-item-content>
@@ -79,7 +80,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 export default {
   name: "MoviesView",
-  components: {Footer, Navbar},
   data: () => ({
     snackbar: false,
     movie:{

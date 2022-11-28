@@ -35,9 +35,19 @@ const router = createRouter({
       component: () => import('@/views/logout.vue')
     },
     {
-      path: '/movies',
-      name: 'movies',
+      path: '/movie',
+      name: 'movie',
       component: () => import('@/views/MoviesView.vue')
+    },
+    {
+      path: '/actor',
+      name: 'actor',
+      component: () => import('@/views/ActorView.vue')
+    },
+    {
+      path: '/director',
+      name: 'director',
+      component: () => import('@/views/DirectorView.vue')
     },
     {
       path: '/admin/manage/accounts',
