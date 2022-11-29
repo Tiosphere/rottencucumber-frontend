@@ -40,9 +40,9 @@ const router = createRouter({
       component: () => import('@/views/MoviesView.vue')
     },
     {
-      path: '/toppicks',
-      name: 'top-picks',
-      component: () => import('@/views/ToppicksView.vue')
+      path: '/popular',
+      name: 'popular',
+      component: () => import('@/views/PopularView.vue')
     },
     {
       path: '/latest',
