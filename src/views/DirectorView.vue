@@ -55,7 +55,7 @@
 
                 <v-list-item-content>
                   <!--  Movie name  -->
-                  <v-list-item-title>
+                  <v-list-item-title class="pt-2">
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 130px;">
