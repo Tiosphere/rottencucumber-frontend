@@ -21,8 +21,8 @@
 
 <template>
     <v-footer style="background-color: #6fac49; height: 110px;">
-    <v-row justify="center" no-gutters>
-      <v-btn
+    <!-- <v-row justify="center" no-gutters> -->
+      <!-- <v-btn
         v-for="link in links"
         :key="link"
         color="white"
@@ -31,10 +31,10 @@
         rounded="xl"
       >
         {{ link }}
-      </v-btn>
-      <v-col class="text-center mt-4" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-btn> -->
+      <v-col class="text-center">
+       <h3> {{ new Date().getFullYear() }} — <strong>Rotten Cucumber</strong> </h3>
       </v-col>
-    </v-row>
+    <!-- </v-row> -->
   </v-footer>
 </template>
