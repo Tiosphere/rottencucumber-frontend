@@ -1,36 +1,43 @@
 <template>
+  <Navbar/>
   <v-container>
-    <v-card>
-      <v-card-title>
-        <v-row>
-          <v-col cols="10">
-            <h2 class="ma-2">Popular</h2>
-          </v-col>
-        </v-row>
-      </v-card-title>
-    </v-card>
+    <v-row>
+      <v-col cols="10">
+        <h1 class="ma-2">Popular</h1>
+      </v-col>
+    </v-row>
   </v-container>
   <v-card
     class="d-flex align-content-space-between flex-wrap pa-8"
     elevation="7"
     >
     <v-list
-      :aria-sort="movies"
+      :aria-sort="movies.view"
       v-for="movie in movies">
       <div class="pa-3 pr-7">
         <v-list-item-media>
           <v-img
             :aspect-ratio="3/4"
+            class="mx-auto bg-white"
             :src="movie.src"
-            class="mx-auto"
-            height="200px"
+            max-height="300px"
             width="200px"
+            cover
           >
           </v-img>
         </v-list-item-media>
         <v-list-item-content class="text-center">
           <v-list-item-title>
-            {{ movie.title }}
+            <div>
+              <span
+                class="d-inline-block text-truncate"
+                style="max-width: 150px;"
+                >
+                {{ movie.title }}
+              </span>
+
+            </div>
+
           </v-list-item-title>
           <v-list-item-subtitle>
             {{movie.year}}
@@ -39,12 +46,16 @@
       </div>
     </v-list>
   </v-card>
-<!--  </v-card>-->
+  <Footer/>
 </template>
 
 <script>
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+
 export default {
   name: "PopularView",
+  components: {Footer, Navbar},
   data: () => ({
     movies: [
       { title: 'Man of steel',
@@ -65,6 +76,14 @@ export default {
       { title: 'Wonder Woman', src: 'https://m.media-amazon.com/images/M/MV5BMTYzODQzYjQtNTczNC00MzZhLTg1ZWYtZDUxYmQ3ZTY4NzA1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
         year: '2017', view: '50000'},
       { title: 'Top Gun: Maverick', src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
+        year: '2022', view: '25000'},
+      { title: 'Jurassic World: Dominion', src: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
+        year: '2022', view: '25000'},
+      { title: 'Tfdfs: Maverick', src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
+        year: '2022', view: '25000'},
+      { title: 'Topsfgstsdsdfsgdfg fd  d fdfdsf sdfy', src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
+        year: '2022', view: '25000'},
+      { title: 'heloooo', src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
         year: '2022', view: '25000'}
     ]
 })
