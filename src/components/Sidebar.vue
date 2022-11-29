@@ -52,6 +52,7 @@ import { isJwtExpired } from 'jwt-check-expiration';
         ['mdi-account-hard-hat','Manage Director', 'manage-director'],
         ['mdi-bookshelf','Manage Genre', 'manage-genre'],
         ['mdi-book-open-variant','Manage Language', 'manage-language'],
+        ['mdi-laptop','Manage Platform', 'manage-platform'],
       ],
     }),
 

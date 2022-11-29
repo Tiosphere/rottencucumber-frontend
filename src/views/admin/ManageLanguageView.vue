@@ -18,7 +18,7 @@
         </th>
         <th class="text-left" >
           <h2>
-          Languages
+          Name
           </h2>
         </th>
 
