@@ -100,6 +100,11 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageGenreView.vue')
     },
     {
+      path: '/admin/manage/language',
+      name: 'manage-language',
+      component: () => import('@/views/admin/ManageLanguageView.vue')
+    },
+    {
       path: '/admin/',
       name: 'dashboard',
       component: () => import('@/views/admin/DashboardView.vue')
