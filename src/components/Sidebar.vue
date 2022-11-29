@@ -1,16 +1,20 @@
 <template>
-        <v-navigation-drawer>
+        <v-navigation-drawer color="#FFFFFF">
         <v-sheet
-          color="grey-lighten-4"
+          color="#6fac49"
           class="pa-4"
         >
           <v-avatar
             class="mb-4"
-            color="grey-darken-1"
+            color="#DEECDE"
             size="64"
-          ></v-avatar>
+          >
+            <v-icon size="60px" color="black">mdi-account-tie</v-icon>
+          </v-avatar>
   
-          <div>Admin Panel</div>
+          <div>
+            <h1 style="color:#DEECDE">Admin Panel</h1>
+          </div>
         </v-sheet>
   
         <v-divider></v-divider>
@@ -36,14 +40,24 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { isJwtExpired } from 'jwt-check-expiration';
   export default {
     data: () => ({
       links: [
         ['mdi-home','Home','dashboard'],
         ['mdi-account-group','Manage Accounts', 'manage-accounts'],
         ['mdi-account-group','Manage Movies', 'manage-movies'],
-        ['mdi-inbox-arrow-down', 'Inbox', ''],
       ],
     }),
+
+    beforeMount() {
+        let token = localStorage.getItem("access_token");
+        if (token != null && !isJwtExpired(token)) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;    
+        } else {
+            this.$router.push({ name: 'home' })
+        }
+    }
   }
 </script>

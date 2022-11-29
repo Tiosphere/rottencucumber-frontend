@@ -1,11 +1,123 @@
 <template>
     <bar />
-    <div style="padding: 30px">
-      <flickity ref="flickity" :options="flickityOptions">
-        <!-- <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
-        </div> -->
+    <div style="padding: 50px; padding-left: 120px; padding-right: 120px;">
+      <v-col>
+      <v-row>
+      <h3>TOP MOVIE ALL THE TIME</h3>
+      <v-spacer></v-spacer>
+      
+      <v-btn variant="flat" 
+        min-width="10px"
+        min-height="10px"
+        raised
+      >
+        <div class="text-decoration-underline" style="color:gray; ">View all</div>
+      </v-btn>
+      </v-row>
+    </v-col>      
+
+      <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      >
+        <!-- <div class="carousel-cell"
+        v-for="movie in moviesPic"
+        :key="movie"
+        >
+          <img :src="moive" alt="orange tree"/>
+          <div style="color:dimgray; padding:10px;">
+            {{ movie.name }}
+          </div>
+        </div> -->       
         
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
+          <div style="color:dimgray; padding:10px;">
+            Movie1
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" alt="submerged" />
+          <div style="color:dimgray; padding:10px;">
+          Movie2
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" alt="look-out" />
+          <div style="color:dimgray; padding:10px;">
+          Movie3
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" alt="One World Trade" />
+          <div style="color:dimgray; padding:10px;">
+          Movie4
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" alt="drizzle" />
+          <div style="color:dimgray; padding:10px;">
+          Movie5
+          </div>
+        </div>
+      </flickity>
+    </div>
+
+    <div style="padding: 50px; padding-left: 120px; padding-right: 120px; padding-bottom: 60px;">
+      <v-col>
+      <v-row>
+      <h3>LASTEST MOVIES</h3>
+      <v-spacer></v-spacer>
+      
+      <v-btn variant="flat" 
+        min-width="10px"
+        min-height="10px"
+        raised
+      >
+        <div class="text-decoration-underline" style="color:gray; ">View all</div>
+      </v-btn>
+      </v-row>
+    </v-col>      
+
+      <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      >     
+        
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
+          <div style="color:dimgray; padding:10px;">
+            Movie1
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" alt="submerged" />
+          <div style="color:dimgray; padding:10px;">
+          Movie2
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" alt="look-out" />
+          <div style="color:dimgray; padding:10px;">
+          Movie3
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" alt="One World Trade" />
+          <div style="color:dimgray; padding:10px;">
+          Movie4
+          </div>
+        </div>
+        <div class="carousel-cell">
+          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" alt="drizzle" />
+          <div style="color:dimgray; padding:10px;">
+          Movie5
+          </div>
+        </div>
+      </flickity>
+    </div>
+    
+
+    <!-- <div style="padding: 100px">
+    
+      <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      > 
         <div class="carousel-cell">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
         </div>
@@ -21,15 +133,10 @@
         <div class="carousel-cell">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" alt="drizzle" />
         </div>
-
-        <!-- <div class="carousel-cell">1</div>
-        <div class="carousel-cell">2</div>
-        <div class="carousel-cell">3</div>
-        <div class="carousel-cell">4</div>
-        <div class="carousel-cell">5</div> -->
       </flickity>
-      <button @click="resize"></button>
-    </div>
+
+    </div> -->
+
     <foot />
   </template>
 
@@ -51,20 +158,36 @@ export default {
         pageDots: true,
         wrapAround: true,
         initialIndex: 0,
+        contain: true,
         // prevNextButtons: true,
-        // pageDots: true,
-        // wrapAround: false
-      }
+        pageDots: true,
+        wrapAround: false
+      },
+      moviesPic: [
+        {
+          name: 'Movie1',
+          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg'
+        },
+        {
+          name: 'Movie2',
+          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg'
+        },
+        {
+          name: 'Movie3',
+          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg'
+        },
+        {
+          name: 'Movie4',
+          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg'
+        },
+        {
+          name: 'Movie5',
+          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg'
+        },
+      ],
+      
     }
   },
-  // mounted() {
-  //   this.resize();
-  // },
-  // methods: {
-  //   resize() {
-  //     this.$refs.flickity.resize();
-  //   }
-  // }
 };
 </script>
 
@@ -73,14 +196,14 @@ export default {
 
 * { box-sizing: border-box; }
 
-body { font-family: sans-serif; }
+/* body { font-family: sans-serif; } */
 
 .carousel {
   background: #EEE;
 }
 
 .carousel-cell {
-  margin-right: 20px;
+  margin: 20px;
   overflow: hidden;
 }
 
@@ -108,4 +231,5 @@ body { font-family: sans-serif; }
   justify-content: center;
   width: 500px;
 } */
+
 </style>
