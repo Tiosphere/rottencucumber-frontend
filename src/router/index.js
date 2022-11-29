@@ -70,6 +70,11 @@ const router = createRouter({
       component: () => import('@/views/WriterView.vue')
     },
     {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('@/views/ProfileView.vue')
+    },
+    {
       path: '/admin/manage/accounts',
       name: 'manage-accounts',
       component: () => import('@/views/admin/ManageAccountView.vue')
