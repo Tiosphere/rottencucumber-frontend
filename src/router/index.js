@@ -65,6 +65,11 @@ const router = createRouter({
       component: () => import('@/views/DirectorView.vue')
     },
     {
+      path: '/writer',
+      name: 'writer',
+      component: () => import('@/views/WriterView.vue')
+    },
+    {
       path: '/admin/manage/accounts',
       name: 'manage-accounts',
       component: () => import('@/views/admin/ManageAccountView.vue')
