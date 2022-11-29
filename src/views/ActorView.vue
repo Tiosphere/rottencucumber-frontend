@@ -1,11 +1,12 @@
 <template>
   <Navbar/>
-  <v-app>
+  <v-app style="background-color: #DEECDE;">
     <v-main class="px-16 ma-10">
       <!-- Actor detail  -->
       <v-row>
         <v-col cols="3">
-          <v-sheet>
+          <v-sheet
+          elevation="2">
             <!-- Actor name -->
             <div class="pt-2">
               <v-card-title class="text-h4">
@@ -32,10 +33,11 @@
         </v-col>
 
         <!-- List of movie -->
-        <v-col cols="8" class="mt-15">
-          <div class="text-heading4 pl-3 pb-2 ">Filmography</div>
+        <v-col cols="8" class="mt-7">
+          <div class="text-h5 pl-3 pb-2 ">Filmography</div>
+          <div clas="d-flex justify-md-content-center">
           <v-card
-            class="d-flex align-content-space-between flex-wrap pa-7"
+            class="d-flex flex-wrap pa-7"
             elevation="7">
 
             <v-list v-for="movie in movieList">
@@ -82,6 +84,7 @@
               </div>
             </v-list>
           </v-card>
+          </div>
         </v-col>
       </v-row>
     </v-main>
