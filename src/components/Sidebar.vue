@@ -47,7 +47,8 @@ import { isJwtExpired } from 'jwt-check-expiration';
       links: [
         ['mdi-home','Home','dashboard'],
         ['mdi-account-group','Manage Accounts', 'manage-accounts'],
-        ['mdi-account-group','Manage Movies', 'manage-movies'],
+        ['mdi-movie','Manage Movies', 'manage-movies'],
+        ['mdi-movie','Manage Actor', 'manage-actor'],
       ],
     }),
 

@@ -85,6 +85,11 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageMovieView.vue')
     },
     {
+      path: '/admin/manage/actor',
+      name: 'manage-actor',
+      component: () => import('@/views/admin/ManageActorView.vue')
+    },
+    {
       path: '/admin/',
       name: 'dashboard',
       component: () => import('@/views/admin/DashboardView.vue')
