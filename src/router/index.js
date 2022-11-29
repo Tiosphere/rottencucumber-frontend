@@ -90,6 +90,11 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageActorView.vue')
     },
     {
+      path: '/admin/manage/director',
+      name: 'manage-director',
+      component: () => import('@/views/admin/ManageDirectorView.vue')
+    },
+    {
       path: '/admin/',
       name: 'dashboard',
       component: () => import('@/views/admin/DashboardView.vue')
