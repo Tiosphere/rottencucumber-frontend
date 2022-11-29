@@ -159,6 +159,7 @@ export default {
         wrapAround: true,
         initialIndex: 0,
         contain: true,
+        autoPlay: true,
         // prevNextButtons: true,
         pageDots: true,
         wrapAround: false

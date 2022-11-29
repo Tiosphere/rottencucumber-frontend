@@ -36,26 +36,16 @@
 
         <td>{{ item.name }}</td>
 
-        <td style="width:18%;">
+        <td style="width:15%;">
 
           <v-btn
             depressed
             color="primary"
             min-width="10px"
             min-height="10px"
-            style="margin:2px"
+            style="margin:4px"
            >
             <i class="fa fa-pencil"></i>
-          </v-btn>
-
-          <v-btn
-            depressed
-            color="warning"
-            min-width="10px"
-            min-height="10px"
-            style="margin:2px"
-          >
-            <i class="fa fa-key"></i>
           </v-btn>
 
           <v-btn
@@ -63,7 +53,7 @@
             color="error"
             min-width="10px"
             min-height="10px"
-            style="margin:2px"
+            style="margin:4px"
           >
             <i class="fa fa-trash"></i>
           </v-btn>
