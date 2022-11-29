@@ -33,28 +33,33 @@
 
         <!-- List of movie -->
         <v-col cols="8" class="mt-15">
-          <div class="text-heading4 pl-3 pb-2">Filmography</div>
+          <div class="text-heading4 pl-3 pb-2 ">Filmography</div>
           <v-card
             class="d-flex align-content-space-between flex-wrap pa-7"
-            min-height="130px"
             elevation="7">
 
             <v-list v-for="movie in movieList">
-              <div class="pa-3 pr-7">
+              <div class="pa-3 pr-10">
                 <!-- movie image -->
                 <v-list-item-media>
                   <v-img
                     :aspect-ratio="3/4"
+                    class="mx-auto bg-white"
                     :src="movie.pic"
-                    width="130px"
-                    min-height="130px"
+                    max-height="270px"
+                    width="180px"
+                    cover
                   ></v-img>
                 </v-list-item-media>
 
                 <v-list-item-content>
                   <!--  Movie name  -->
                   <v-list-item-title>
-                    {{ movie.movieName }}
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="max-width: 130px;">
+                      {{ movie.movieName }}
+                    </span>
                   </v-list-item-title>
 
                   <!--  Movie year  -->
@@ -63,15 +68,16 @@
                   </v-list-item-subtitle>
 
                   <!--  Movie rating  -->
-                  <v-list-item-action>
+                  <v-list-item-media>
                     <v-rating
                       v-model="movie.rating"
                       color="green"
                       readonly
                       half-increments
+                      size="25"
                       density="compact"
                     ></v-rating>
-                  </v-list-item-action>
+                  </v-list-item-media>
                 </v-list-item-content>
               </div>
             </v-list>
@@ -130,7 +136,13 @@ export default {
         rating: "5"
       },
     ]
-  })
+  }),
+  methods: {
+    mounted() {
+      axios
+        .get()
+    }
+  }
 }
 </script>
 
