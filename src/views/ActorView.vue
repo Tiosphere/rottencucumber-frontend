@@ -25,8 +25,8 @@
             <v-card-text
               class="pa-4">
               <div><strong>Birthday</strong> {{ actor.birth }}</div>
-              <div class="pb-2"><strong>Nationality</strong> {{ actor.nationality }}</div>
-              <div class="text-caption">{{actor.description}}</div>
+              <div class="pb-2"><strong>Birthplace</strong> {{ actor.birthplace }}</div>
+              <div class="text-caption">{{ actor.description }}</div>
             </v-card-text>
           </v-sheet>
         </v-col>
@@ -95,7 +95,7 @@ export default {
       name: "Shabu",
       pic: "https://www.nzherald.co.nz/resizer/KRPKZdaa0GawVjiNPnnVPfTO_fA=/576x613/smart/filters:quality(70)/cloudfront-ap-southeast-2.images.arcpublishing.com/nzme/SZ5QGV5WI5KOQ26XSQIMJDPM2I.jpg",
       birth: "20 October, 2020",
-      nationality: "Catland",
+      birthplace: "Bangkok, Thailand",
       description: "Shabu is Aj.Kritya's cat"
     },
     movieList: [
