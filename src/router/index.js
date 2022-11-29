@@ -95,6 +95,26 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageDirectorView.vue')
     },
     {
+      path: '/admin/manage/genre',
+      name: 'manage-genre',
+      component: () => import('@/views/admin/ManageGenreView.vue')
+    },
+    {
+      path: '/admin/manage/language',
+      name: 'manage-language',
+      component: () => import('@/views/admin/ManageLanguageView.vue')
+    },
+    {
+      path: '/admin/manage/platform',
+      name: 'manage-platform',
+      component: () => import('@/views/admin/ManagePlatformView.vue')
+    },
+    {
+      path: '/admin/manage/platform',
+      name: 'manage-writer',
+      component: () => import('@/views/admin/ManageWriterView.vue')
+    },
+    {
       path: '/admin/',
       name: 'dashboard',
       component: () => import('@/views/admin/DashboardView.vue')
