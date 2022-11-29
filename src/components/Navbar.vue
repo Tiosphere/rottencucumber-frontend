@@ -6,6 +6,20 @@ export default {
   data: () => ({
     url: "",
     isLogin: false,
+    items: [
+        { title: 'Click Me',
+          pathName: 'movie'
+        },
+        { title: 'Click Me',
+          pathName: ''
+        },
+        { title: 'Click Me',
+          pathName: ''
+        },
+        { title: 'Log Out',
+          pathName: 'logout'
+        },
+      ],
 
   }),
 
@@ -48,18 +62,57 @@ export default {
 
       <div style="padding: 14px;">
 
-        <RouterLink :to="{ name: this.url }" id="user">
+        <!-- <RouterLink :to="{ name: this.url }" id="user"> -->
+        
+          <!-- <v-avatar v-if="this.isLogin" color="#E8F5E9"> -->
+            <v-btn v-if="this.isLogin"
+            icon
+            >
+            
+            <v-avatar color="#E8F5E9">
+              <v-icon dark size="260%">
+              mdi-account-circle
+              </v-icon>
+            </v-avatar>
+            
+            <v-menu activator="parent">
+              <v-list>
+                <v-list-item
+                v-for="item in items"
+                :key="item"
+                >
+                
+                <v-list-item-title>
+                  <RouterLink :to="{ name: item.pathName }" id="user">
+                  <v-btn variant="flat">
+                  {{ item.title }}
+                  </v-btn>
+                  </RouterLink>
 
-          <v-avatar v-if="this.isLogin" color="#E8F5E9">
-            <v-icon dark size="260%">mdi-account-circle</v-icon>
-          </v-avatar>
+
+                </v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+
+            </v-btn>
+        
 
 
-
-          <v-btn v-else variant="flat" color="success">
+          <!-- <v-btn v-else variant="flat" color="success"> -->
+          <div v-else>
+            <RouterLink :to="{ name: 'login' }" id="user">
+            <v-btn variant="flat" color="success" style="margin:5px">
             Login
-          </v-btn>
-        </RouterLink>
+            </v-btn>
+            </RouterLink>
+            <RouterLink :to="{ name: 'signup' }" id="user">
+            <v-btn variant="flat" color="success" style="margin:5px">
+              Sign up
+            </v-btn>
+            </RouterLink>
+          </div>
+        <!-- </RouterLink> -->
 
 
       </div>
