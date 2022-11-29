@@ -14,12 +14,12 @@
             </div>
 
             <!-- Actor pic -->
-              <v-img
-                class="mx-auto"
-                aspect-ratio="4/3"
-                :width="250"
-                :src="actor.pic">
-              </v-img>
+            <v-img
+              class="mx-auto"
+              aspect-ratio="4/3"
+              :width="250"
+              :src="actor.pic">
+            </v-img>
 
             <!-- Actor bio -->
             <v-card-text
@@ -35,11 +35,12 @@
         <v-col cols="8" class="mt-15">
           <div class="text-heading4 pl-3 pb-2">Filmography</div>
           <v-card
-            class="d-flex align-content-start justify-space-around flex-wrap pa-5"
+            class="d-flex align-content-space-between flex-wrap pa-7"
+            min-height="130px"
             elevation="7">
 
             <v-list v-for="movie in movieList">
-              <div class="pa-3">
+              <div class="pa-3 pr-7">
                 <!-- movie image -->
                 <v-list-item-media>
                   <v-img
