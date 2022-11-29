@@ -45,7 +45,6 @@ import { isJwtExpired } from 'jwt-check-expiration';
   export default {
     data: () => ({
       links: [
-        ['mdi-home','Home','dashboard'],
         ['mdi-account-group','Manage Accounts', 'manage-accounts'],
         ['mdi-movie','Manage Movies', 'manage-movies'],
         ['mdi-account-edit','Manage Writer', 'manage-writer'],
