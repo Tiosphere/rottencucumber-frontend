@@ -95,6 +95,11 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageDirectorView.vue')
     },
     {
+      path: '/admin/manage/genre',
+      name: 'manage-genre',
+      component: () => import('@/views/admin/ManageGenreView.vue')
+    },
+    {
       path: '/admin/',
       name: 'dashboard',
       component: () => import('@/views/admin/DashboardView.vue')
