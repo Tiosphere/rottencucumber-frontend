@@ -41,7 +41,7 @@
             elevation="7">
 
             <v-list v-for="movie in movieList">
-              <div class="pa-3 pl-8 pr-7">
+              <div class="pa-3 px-7">
                 <!-- movie image -->
                 <v-list-item-media>
                   <v-img
@@ -56,7 +56,7 @@
 
                 <v-list-item-content>
                   <!--  Movie name  -->
-                  <v-list-item-title>
+                  <v-list-item-title class="pt-2">
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 130px;">
