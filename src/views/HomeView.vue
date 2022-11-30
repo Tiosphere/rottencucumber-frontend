@@ -67,14 +67,15 @@
       <v-row>
       <h3>LASTEST MOVIES</h3>
       <v-spacer></v-spacer>
-
-      <v-btn variant="flat"
-        min-width="10px"
-        min-height="10px"
-        raised
-      >
-        <div class="text-decoration-underline" style="color:gray; ">View all</div>
-      </v-btn>
+      <RouterLink :to="{ name: 'latest' }" id="user">
+        <v-btn variant="flat"
+          min-width="10px"
+          min-height="10px"
+          raised
+        >
+          <div class="text-decoration-underline" style="color:gray; ">View all</div>
+        </v-btn>
+      </RouterLink>
       </v-row>
     </v-col>
 
