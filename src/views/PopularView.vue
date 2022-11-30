@@ -7,13 +7,13 @@
       </v-col>
     </v-row>
   <v-card
-    class="d-flex align-content-space-between flex-wrap pa-8"
+    class="d-inline-flex align-content-space-between flex-wrap pa-8"
     elevation="7"
     >
     <v-list
       v-for="movie in movies.sort((a,b) => {
           return a.view - b.view}).reverse()">
-      <div class="pa-3 pl-7">
+      <div class="pa-5 center">
         <v-list-item-media>
           <v-img
             :aspect-ratio="3/4"

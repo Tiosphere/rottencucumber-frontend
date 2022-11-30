@@ -5,16 +5,17 @@
       <v-row>
       <h3>TOP MOVIE ALL THE TIME</h3>
       <v-spacer></v-spacer>
-      
-      <v-btn variant="flat" 
-        min-width="10px"
-        min-height="10px"
-        raised
-      >
-        <div class="text-decoration-underline" style="color:gray; ">View all</div>
-      </v-btn>
+      <RouterLink :to="{ name: 'popular' }" id="user">
+        <v-btn variant="flat"
+          min-width="10px"
+          min-height="10px"
+          raised
+        >
+          <div class="text-decoration-underline" style="color:gray; ">View all</div>
+        </v-btn>
+      </RouterLink>
       </v-row>
-    </v-col>      
+    </v-col>
 
       <flickity class="flickity" ref="flickity" :options="flickityOptions"
       >
@@ -26,8 +27,8 @@
           <div style="color:dimgray; padding:10px;">
             {{ movie.name }}
           </div>
-        </div> -->       
-        
+        </div> -->
+
         <div class="carousel-cell">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
           <div style="color:dimgray; padding:10px;">
@@ -66,8 +67,8 @@
       <v-row>
       <h3>LASTEST MOVIES</h3>
       <v-spacer></v-spacer>
-      
-      <v-btn variant="flat" 
+
+      <v-btn variant="flat"
         min-width="10px"
         min-height="10px"
         raised
@@ -75,11 +76,11 @@
         <div class="text-decoration-underline" style="color:gray; ">View all</div>
       </v-btn>
       </v-row>
-    </v-col>      
+    </v-col>
 
       <flickity class="flickity" ref="flickity" :options="flickityOptions"
-      >     
-        
+      >
+
         <div class="carousel-cell">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
           <div style="color:dimgray; padding:10px;">
@@ -112,12 +113,12 @@
         </div>
       </flickity>
     </div>
-    
+
 
     <!-- <div style="padding: 100px">
-    
+
       <flickity class="flickity" ref="flickity" :options="flickityOptions"
-      > 
+      >
         <div class="carousel-cell">
           <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
         </div>
@@ -186,7 +187,7 @@ export default {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg'
         },
       ],
-      
+
     }
   },
 };
@@ -222,7 +223,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 50vh; 
+  height: 50vh;
   align-items: center;
   background-color: lightgray;
   display: flex;
