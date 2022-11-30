@@ -83,7 +83,9 @@ export default {
                 >
                 
                 <v-list-item-title>
-                  <RouterLink :to="{ name: item.pathName }" id="user">
+                  <RouterLink 
+                  style="text-decoration: none; color: inherit;"
+                  :to="{ name: item.pathName }" id="user">
                   <v-btn variant="flat">
                   {{ item.title }}
                   </v-btn>
@@ -101,12 +103,16 @@ export default {
 
           <!-- <v-btn v-else variant="flat" color="success"> -->
           <div v-else>
-            <RouterLink :to="{ name: 'login' }" id="user">
+            <RouterLink 
+            style="text-decoration: none; color: inherit;"
+            :to="{ name: 'login' }" id="user">
             <v-btn variant="flat" color="success" style="margin:5px">
             Login
             </v-btn>
             </RouterLink>
-            <RouterLink :to="{ name: 'signup' }" id="user">
+            <RouterLink 
+            style="text-decoration: none; color: inherit;"
+            :to="{ name: 'signup' }" id="user">
             <v-btn variant="flat" color="success" style="margin:5px">
               Sign up
             </v-btn>
