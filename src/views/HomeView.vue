@@ -1,6 +1,6 @@
 <template>
     <bar />
-    <div style="padding: 50px; padding-left: 120px; padding-right: 120px;">
+    <div style="padding: 50px; padding-left: 250px; padding-right: 250px;">
       <v-col>
       <v-row>
       <h3>TOP MOVIE ALL THE TIME</h3>
@@ -18,51 +18,29 @@
     </v-col>
 
       <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      
       >
-        <!-- <div class="carousel-cell"
-        v-for="movie in moviesPic"
-        :key="movie"
-        >
-          <img :src="moive" alt="orange tree"/>
+        <div class="carousel-cell"
+        v-for="movie in movies.sort((a,b) => {
+          return a.view - b.view}).reverse()">
+        
+        <v-img
+            :aspect-ratio="3/4"
+            class="mx-auto bg-white"
+            :src="movie.src"
+            max-height="300px"
+            width="200px"
+            cover
+          >
+          </v-img>
           <div style="color:dimgray; padding:10px;">
-            {{ movie.name }}
-          </div>
-        </div> -->
-
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
-          <div style="color:dimgray; padding:10px;">
-            Movie1
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" alt="submerged" />
-          <div style="color:dimgray; padding:10px;">
-          Movie2
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" alt="look-out" />
-          <div style="color:dimgray; padding:10px;">
-          Movie3
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" alt="One World Trade" />
-          <div style="color:dimgray; padding:10px;">
-          Movie4
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" alt="drizzle" />
-          <div style="color:dimgray; padding:10px;">
-          Movie5
+            {{ movie.title }}
           </div>
         </div>
       </flickity>
     </div>
 
-    <div style="padding: 50px; padding-left: 120px; padding-right: 120px; padding-bottom: 60px;">
+    <div style="padding: 50px; padding-left: 250px; padding-right: 250px; padding-bottom: 60px;">
       <v-col>
       <v-row>
       <h3>LASTEST MOVIES</h3>
@@ -79,37 +57,24 @@
       </v-row>
     </v-col>
 
-      <flickity class="flickity" ref="flickity" :options="flickityOptions"
+    <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      
       >
-
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" alt="orange tree" />
+        <div class="carousel-cell"
+        v-for="movie in movies.sort((a,b) => {
+          return a.view - b.view}).reverse()">
+        
+        <v-img
+            :aspect-ratio="3/4"
+            class="mx-auto bg-white"
+            :src="movie.src"
+            max-height="300px"
+            width="200px"
+            cover
+          >
+          </v-img>
           <div style="color:dimgray; padding:10px;">
-            Movie1
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" alt="submerged" />
-          <div style="color:dimgray; padding:10px;">
-          Movie2
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" alt="look-out" />
-          <div style="color:dimgray; padding:10px;">
-          Movie3
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" alt="One World Trade" />
-          <div style="color:dimgray; padding:10px;">
-          Movie4
-          </div>
-        </div>
-        <div class="carousel-cell">
-          <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" alt="drizzle" />
-          <div style="color:dimgray; padding:10px;">
-          Movie5
+            {{ movie.title }}
           </div>
         </div>
       </flickity>
@@ -164,7 +129,9 @@ export default {
         autoPlay: true,
         // prevNextButtons: true,
         pageDots: true,
-        wrapAround: false
+        wrapAround: false,
+        groupCells: true,
+        groupCells: 2
       },
       moviesPic: [
         {
@@ -188,6 +155,41 @@ export default {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg'
         },
       ],
+      movies: [
+      {
+        title: 'Man of steel',
+        src: 'https://resizing.flixster.com/ownHNmxE8MDUccJXu9znLuvRr1E=/206x305/v2/https://flxt.tmsimg.com/assets/p9259673_p_v8_ag.jpg',
+        year: '2013', view: '15000'
+      },
+      {
+        title: 'Spiderman no way home',
+        src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
+        year: '2021',
+        view: '20000'
+      },
+      {
+        title: 'Mulan',
+        src: 'https://i0.wp.com/jasonsmovieblog.com/wp-content/uploads/2020/09/mulan-598495111d425.jpg?resize=361%2C514&ssl=1',
+        year: '1998',
+        view: '35000'
+      },
+      {
+        title: 'Titanic',
+        src: 'https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg',
+        year: '1997',
+        view: '1000'
+      },
+      {
+        title: 'Bolt',
+        src: 'https://images.moviesanywhere.com/5d927f6b6564c5f2d54c74fca39af6d4/6ae6ffba-1392-464c-b9ca-8a917f5df789.jpg',
+        year: '2008',
+        view: '4000'
+      },
+      {
+        title: 'Lilo & Stitch', src: 'https://m.media-amazon.com/images/I/51pgU6o91KL._AC_SY780_.jpg',
+        year: '2002', view: '5000'
+      },
+    ]
 
     }
   },
@@ -208,16 +210,18 @@ export default {
 .carousel-cell {
   margin: 20px;
   overflow: hidden;
+
 }
 
 .carousel-cell img {
   display: block;
   height: 200px;
+
 }
 
-@media screen and ( min-width: 768px ) {
+@media screen and ( min-width: 700px ) {
   .carousel-cell img {
-    height: 400px;
+    height: 300px;
   }
 }
 /* .carousel-cell {
