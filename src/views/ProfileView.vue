@@ -5,7 +5,7 @@
       <!-- User detail  -->
       <v-card
         rounded
-      elevation="4">
+        elevation="4">
         <!-- Username -->
         <div class="pt-2">
           <v-card-title class="text-h4">
@@ -23,25 +23,23 @@
 
       <!-- List of movie -->
       <h3 class="pt-7">WATCH LIST</h3>
-
-          <flickity class="flickity" ref="flickity" :options="flickityOptions"
+      <flickity class="flickity" ref="flickity" :options="flickityOptions">
+        <div class="carousel-cell"
+             v-for="movie in movieList">
+          <v-img
+            :aspect-ratio="3/4"
+            class="mx-auto bg-white"
+            :src="movie.src"
+            max-height="300px"
+            width="200px"
+            cover
           >
-            <div class="carousel-cell"
-                 v-for="movie in movieList">
-              <v-img
-                :aspect-ratio="3/4"
-                class="mx-auto bg-white"
-                :src="movie.src"
-                max-height="300px"
-                width="200px"
-                cover
-              >
-              </v-img>
-              <div style="color:dimgray; padding:10px;">
-                {{ movie.title }}
-              </div>
-            </div>
-          </flickity>
+          </v-img>
+          <div style="color:dimgray; padding:10px;">
+            {{ movie.title }}
+          </div>
+        </div>
+      </flickity>
     </v-main>
   </v-app>
   <Footer/>
@@ -54,7 +52,7 @@ import Flickity from "@/components/Flickity";
 
 export default {
   name: "ActorsView",
-  components: { Flickity, Footer, Navbar },
+  components: {Flickity, Footer, Navbar},
   data() {
     return {
       flickityOptions: {
@@ -114,19 +112,25 @@ export default {
 </script>
 
 <style scoped>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
 /* body { font-family: sans-serif; } */
 .carousel {
   background: #EEE;
 }
+
 .carousel-cell {
   margin: 20px;
   overflow: hidden;
 }
+
 .carousel-cell img {
   display: block;
   height: 200px;
 }
+
 @media screen and ( min-width: 700px ) {
   .carousel-cell img {
     height: 300px;

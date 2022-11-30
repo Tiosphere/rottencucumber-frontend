@@ -5,7 +5,8 @@
       <!-- Writer detail  -->
       <v-row>
         <v-col cols="3">
-          <v-sheet>
+          <v-sheet
+            elevation="2">
             <!-- Writer name -->
             <div class="pt-2">
               <v-card-title class="text-h4">
@@ -33,7 +34,7 @@
 
         <!-- List of movie -->
         <v-col cols="8" class="mt-7">
-          <div class="text-h5 pl-3 pb-2 ">Filmography</div>
+          <h3 class="pl-4 pb-2">FILMOGRAPHY</h3>
           <v-card
             class="d-flex align-content-space-between flex-wrap pa-7"
             min-height="130px"
