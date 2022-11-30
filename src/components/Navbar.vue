@@ -119,21 +119,37 @@ export default {
 
     </v-toolbar>
     <v-card-item style="background-color: #ffffff">
-      <a style="padding: 25px">
-        Top
-      </a>
+      <RouterLink 
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: 'popular' }">
+        <v-btn variant="text" color="#6FAC49">
+          Popular
+        </v-btn>
+      </RouterLink>
 
-      <a style="padding: 25px">
-        Latest
-      </a>
+      <RouterLink 
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: 'latest' }">
+        <v-btn variant="text" color="#6FAC49">
+          Latest
+        </v-btn>
+      </RouterLink>
 
-      <a style="padding: 25px">
-        Genres
-      </a>
+      <RouterLink 
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: '' }">
+        <v-btn variant="text" color="#6FAC49">
+          Genres
+        </v-btn>
+      </RouterLink>
 
-      <a style="padding: 25px">
-        Platform
-      </a>
+      <RouterLink 
+      style="text-decoration: none; color: inherit;"
+      :to="{ name: '' }">
+        <v-btn variant="text" color="#6FAC49">
+          Platform
+        </v-btn>
+      </RouterLink>
 
 
     </v-card-item>
