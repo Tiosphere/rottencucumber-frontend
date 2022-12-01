@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios';
-import { isJwtExpired } from 'jwt-check-expiration';
 
 export default {
     name: "logout",
@@ -8,11 +7,11 @@ export default {
         let token = localStorage.getItem("access_token");
         if (token != null) {
             localStorage.removeItem('access_token')
+            localStorage.removeItem('user')
             axios.defaults.headers.common['Authorization'] = null;
             axios.get("http://localhost:8080/api/auth/logout")
         }
         this.$router.push({ name: 'home' })
-
     }
 }
 </script>
