@@ -115,6 +115,7 @@ export default {
     },
     
     beforeMount() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       axios.get("http://localhost:8080/api/admin/genre/get/all")
                 .then((res) => {
                     let data = res.data

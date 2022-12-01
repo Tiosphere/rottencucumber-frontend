@@ -13,9 +13,13 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.genreForm);
-            axios.post("http://localhost:8080/api/admin/genre/update/{slug}", form)
+            axios.post("http://localhost:8080/api/admin/genre/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
+                    console.log(data)
+                    if(data.success) {
+                        this.$router.push({ name: 'manage-genre' });
+                    }
                 })
                 .catch((error) => {
                     this.errormsg = "Something happen please try again"
