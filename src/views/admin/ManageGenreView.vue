@@ -24,17 +24,15 @@
         </th>
         <th class="text-left">
           <v-btn
-  
-  depressed
-  
-  color="success"
-  min-width="105px"
-  min-height="10px"  
-  style="margin:4px; margin-bottom:10px; "
-  @click="this.$router.push({ name: 'genre-create' })"   
-  >
-    create
-  </v-btn>
+              depressed
+              color="success"
+              min-width="105px"
+              min-height="10px"  
+              style="margin:4px; margin-bottom:10px; "
+              @click="this.$router.push({ name: 'genre-create' })"   
+              >
+                create
+          </v-btn>
         </th>
 
       </tr>
@@ -60,7 +58,7 @@
             min-width="10px"
             min-height="10px"
             style="margin:4px;"
-            @click="goLink(item.slug)"
+            @click="edit(item.slug)"
            >
             <i class="fa fa-pencil"></i>
           </v-btn>
@@ -109,7 +107,7 @@ export default {
       }
     },
     methods: {
-      goLink(slug) {
+      edit(slug) {
       this.$router.push({ name: 'genre-edit', params: { slug: slug }});
       },
     },

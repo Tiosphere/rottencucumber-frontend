@@ -1,6 +1,5 @@
 <script>
 import axios from 'axios';
-import { isJwtExpired } from 'jwt-check-expiration';
 import side from '@/components/Sidebar.vue'
 export default {
     name: 'GenreForm',
@@ -44,8 +43,8 @@ export default {
                     <div class="hide-on-success">
                         <div class="form-group">
 
-                            <i class="fa fa-user-alt"></i>
-                            <input type="text" name="name" class="form-control" required placeholder="Genre Name">
+                            <i class="fa fa-solid fa-circle"></i>
+                            <input type="text" name="name" class="form-control" required placeholder="New Genre Name">
                         </div>
                         <div class="form-error">
                             {{ errormsg }}
@@ -66,7 +65,7 @@ export default {
 <style scoped>
 .modal {
     align-content: center;
-    padding: 100px;
+    padding: 290px;
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;

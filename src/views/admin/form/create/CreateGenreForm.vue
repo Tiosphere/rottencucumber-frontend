@@ -15,6 +15,9 @@ export default {
             axios.post("http://localhost:8080/api/admin/genre/create", form)
                 .then((res) => {
                     let data = res.data
+                    if(data.success) {
+                        this.$router.push({ name: 'manage-genre' });
+                    }
                 })
                 .catch((error) => {
                     this.errormsg = "Something happen please try again"
@@ -26,7 +29,7 @@ export default {
 </script>
 
 <template>
-    <bar />
+    <side />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
@@ -39,7 +42,7 @@ export default {
                     <div class="hide-on-success">
                         <div class="form-group">
 
-                            <i class="fa fa-user-alt"></i>
+                            <i class="fa fa-solid fa-circle"></i>
                             <input type="text" name="name" class="form-control" required placeholder="Genre Name">
                         </div>
                         <div class="form-error">
@@ -61,7 +64,7 @@ export default {
 <style scoped>
 .modal {
     align-content: center;
-    padding: 100px;
+    padding: 290px;
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
