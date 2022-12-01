@@ -100,6 +100,12 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageGenreView.vue')
     },
     {
+      path: '/admin/manage/genre/update/:slug',
+      name: 'genre-edit',
+      props: true,
+      component: () => import('@/views/admin/form/update/GenreForm.vue')
+    },
+    {
       path: '/admin/manage/language',
       name: 'manage-language',
       component: () => import('@/views/admin/ManageLanguageView.vue')

@@ -21,7 +21,6 @@
           Name
           </h2>
         </th>
-
         <th class="text-left">
         </th>
 
@@ -29,24 +28,35 @@
     </thead>
     <tbody>
       <tr
-        v-for="item in users"
+        v-for="item in genres"
         :key="item.name"
       >
         <td style="padding-left: 30px;"> {{ item.id }} </td>
 
         <td>{{ item.name }}</td>
 
-        <td style="width:15%;">
 
+
+
+
+        <td style="width:15%;">
+          <!-- <RouterLink :to="{ name: 'genre-edit', params: { slug: genres.slug } }"> -->
           <v-btn
             depressed
             color="primary"
             min-width="10px"
             min-height="10px"
-            style="margin:4px"
+            style="margin:4px;"
+            @click="goLink(item.slug)"
            >
             <i class="fa fa-pencil"></i>
           </v-btn>
+          <!-- </RouterLink> -->
+          
+          
+
+
+
 
           <v-btn
             depressed
@@ -69,57 +79,39 @@
 
 <script>
 import side from '@/components/Sidebar.vue'
+import axios from 'axios';
 export default {
   components: {
     side,
   },
   data () {
       return {
-        users: [
-          {
-            id: 1,
-            name: 'Frozen Yogurt',
-          },
-          {
-            id: 2,
-            name: 'Ice cream sandwich',
-          },
-          {
-            id: 3,
-            name: 'Eclair',
-
-          },
-          {
-            id: 4,
-            name: 'Cupcake',
-          },
-          {
-            id: 5,
-            name: 'Gingerbread',
-          },
-          {
-            id: 6,
-            name: 'Jelly bean',
-          },
-          {
-            id: 7,
-            name: 'Lollipop',
-          },
-          {
-            id: 8,
-            name: 'Honeycomb',
-          },
-          {
-            id: 9,
-            name: 'Donut',
-          },
-          {
-            id: 10,
-            name: 'KitKat',
-          },
+        genres: [
+        {
+          "id": "",
+          "name": "",
+          "slug": ""
+      },
         ],
       }
     },
+    methods: {
+      goLink(slug) {
+      this.$router.push({ name: 'genre-edit', params: { slug: slug }});
+      },
+    },
+    
+    beforeMount() {
+      axios.get("http://localhost:8080/api/admin/genre/get/all")
+                .then((res) => {
+                    let data = res.data
+                    console.log(res)
+                    this.genres = data
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'home' })
+                });
+    }
 }
 </script>
 
