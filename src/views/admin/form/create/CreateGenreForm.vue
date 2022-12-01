@@ -1,9 +1,8 @@
 <script>
 import axios from 'axios';
-import { isJwtExpired } from 'jwt-check-expiration';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'GenreForm',
+    name: 'CreateGenreForm',
     components: {
         side,
     },
@@ -13,7 +12,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.genreForm);
-            axios.post("http://localhost:8080/api/admin/genre/update/{slug}", form)
+            axios.post("http://localhost:8080/api/admin/genre/create", form)
                 .then((res) => {
                     let data = res.data
                 })
@@ -27,12 +26,12 @@ export default {
 </script>
 
 <template>
-    <side />
+    <bar />
     <div class="modal">
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Change Genre</div>
+                    <div class="title">Create Genre</div>
                 </div>
             </div>
             <div class="modal-body">
@@ -48,7 +47,7 @@ export default {
                         </div>
                         <div class="form-group">
                             <button class="main__button" type="submit" style="padding: 10px 50px; width: 100%;">
-                                Save
+                                Create
                             </button>
                         </div>
                     </div>

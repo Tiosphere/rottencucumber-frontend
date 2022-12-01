@@ -1,6 +1,7 @@
 <template>
 
   <side />
+
   <h1 style="padding-left:10px; padding:10px;">
   Manage Genres
   </h1>
@@ -22,6 +23,18 @@
           </h2>
         </th>
         <th class="text-left">
+          <v-btn
+  
+  depressed
+  
+  color="success"
+  min-width="105px"
+  min-height="10px"  
+  style="margin:4px; margin-bottom:10px; "
+  @click="this.$router.push({ name: 'genre-create' })"   
+  >
+    create
+  </v-btn>
         </th>
 
       </tr>
