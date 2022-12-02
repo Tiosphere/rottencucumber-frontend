@@ -57,9 +57,16 @@ export default {
                             <input type="password" name="password" class="form-control" required placeholder="Password">
                         </div>
                         <div class="form-group">
+                            <input type="radio" name="is_staff" id="false" value="false" v-model="picked"
+                            >
+                            <label for="false" style="padding: 4px">False</label>
 
-                            <i class="fa fa-solid fa-universal-access"></i>
-                            <input type="text" name="is_staff" class="form-control" required placeholder="Is Staff">
+                            <input type="radio" name="is_staff" id="true" value="true" v-model="picked"
+                            >
+                            <label for="false" style="padding: 4px">True</label>
+                            <!-- <input type="checkbox" name="is_staff" class="form-control" checked="true">
+                            <i class="fa fa-solid fa-universal-access"></i> -->
+                            
                         </div>
 
                         <div class="form-error">
