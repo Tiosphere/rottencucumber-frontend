@@ -16,13 +16,32 @@
           Id
           </h2>
         </th>
-        <th class="text-left" >
+        <th class="text-left" style="width:15%; padding-left: 26px;">
           <h2>
           Name
           </h2>
         </th>
-
+        <th class="text-left" style="width:15%; padding-left: 26px;">
+          <h2>
+          Email
+          </h2>
+        </th>
+        <th class="text-left" >
+          <h2>
+          Staff
+          </h2>
+        </th>
         <th class="text-left">
+          <v-btn
+              depressed
+              color="success"
+              min-width="105px"
+              min-height="10px"  
+              style="margin:4px; margin-bottom:10px; "
+              @click="this.$router.push({ name: 'account-create' })"   
+              >
+                create
+          </v-btn>
         </th>
 
       </tr>
@@ -33,8 +52,10 @@
         :key="item.name"
       >
         <td style="padding-left: 30px;"> {{ item.id }} </td>
-
-        <td>{{ item.name }}</td>
+        <td style="padding-left: 30px;">{{ item.username }}</td>
+        <td style="padding-left: 30px;">{{ item.email }}</td>
+        <td style="">{{ item.is_staff }}</td>
+        
 
         <td style="width:15%;">
 
@@ -44,6 +65,7 @@
             min-width="10px"
             min-height="10px"
             style="margin:4px"
+            @click="edit(item.slug)"
            >
             <i class="fa fa-pencil"></i>
           </v-btn>
@@ -69,6 +91,7 @@
 
 <script>
 import side from '@/components/Sidebar.vue'
+import axios from 'axios';
 export default {
   components: {
     side,
@@ -77,49 +100,32 @@ export default {
       return {
         users: [
           {
-            id: 1,
-            name: 'Frozen Yogurt',
-          },
-          {
-            id: 2,
-            name: 'Ice cream sandwich',
-          },
-          {
-            id: 3,
-            name: 'Eclair',
+            is_staff: false,
+            id: 1, username: 'user',
+            slug: 'user',
+            email: 'user'
+            }
 
-          },
-          {
-            id: 4,
-            name: 'Cupcake',
-          },
-          {
-            id: 5,
-            name: 'Gingerbread',
-          },
-          {
-            id: 6,
-            name: 'Jelly bean',
-          },
-          {
-            id: 7,
-            name: 'Lollipop',
-          },
-          {
-            id: 8,
-            name: 'Honeycomb',
-          },
-          {
-            id: 9,
-            name: 'Donut',
-          },
-          {
-            id: 10,
-            name: 'KitKat',
-          },
-        ],
+        ]
       }
     },
+    methods: {
+      edit(slug) {
+      this.$router.push({ name: 'account-edit', params: { slug: slug }});
+      },
+    },
+    beforeMount() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      axios.get("http://localhost:8080/api/admin/user/get/all")
+                .then((res) => {
+                    let data = res.data
+                    console.log(res)
+                    this.users = data
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'home' })
+                });
+    }
 }
 </script>
 

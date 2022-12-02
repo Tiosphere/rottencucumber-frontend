@@ -74,11 +74,25 @@ const router = createRouter({
       name: 'profile',
       component: () => import('@/views/ProfileView.vue')
     },
+
+
     {
       path: '/admin/manage/accounts',
       name: 'manage-accounts',
       component: () => import('@/views/admin/ManageAccountView.vue')
     },
+    {
+      path: '/admin/manage/accounts/update/:slug',
+      name: 'account-edit',
+      component: () => import('@/views/admin/form/update/AccountForm.vue')
+    },
+    {
+      path: '/admin/manage/accounts/create/',
+      name: 'account-create',
+      component: () => import('@/views/admin/form/create/CreateUserForm.vue')
+    },
+
+
     {
       path: '/admin/manage/movies',
       name: 'manage-movies',
@@ -94,11 +108,25 @@ const router = createRouter({
       name: 'manage-director',
       component: () => import('@/views/admin/ManageDirectorView.vue')
     },
+
+
     {
       path: '/admin/manage/genre',
       name: 'manage-genre',
       component: () => import('@/views/admin/ManageGenreView.vue')
     },
+    {
+      path: '/admin/manage/genre/update/:slug',
+      name: 'genre-edit',
+      component: () => import('@/views/admin/form/update/GenreForm.vue')
+    },
+    {
+      path: '/admin/manage/genre/create',
+      name: 'genre-create',
+      component: () => import('@/views/admin/form/create/CreateGenreForm.vue')
+    },
+
+
     {
       path: '/admin/manage/language',
       name: 'manage-language',
