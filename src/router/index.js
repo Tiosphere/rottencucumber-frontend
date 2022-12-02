@@ -91,6 +91,11 @@ const router = createRouter({
       name: 'account-create',
       component: () => import('@/views/admin/form/create/CreateUserForm.vue')
     },
+    {
+      path: '/admin/manage/accounts/delete/:slug',
+      name: 'account-delete',
+      component: () => import('@/views/admin/form/delete/DeleteAccountForm.vue')
+    },
 
 
     {

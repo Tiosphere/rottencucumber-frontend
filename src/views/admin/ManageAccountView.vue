@@ -76,6 +76,7 @@
             min-width="10px"
             min-height="10px"
             style="margin:4px"
+            @click="del(item.slug)"
           >
             <i class="fa fa-trash"></i>
           </v-btn>
@@ -110,8 +111,11 @@ export default {
       }
     },
     methods: {
-      edit(slug) {
-      this.$router.push({ name: 'account-edit', params: { slug: slug }});
+      edit:function(slug) {
+        this.$router.push({ name: 'account-edit', params: { slug: slug }});
+      },
+      del:function(slug) {
+        this.$router.push({ name: 'account-delete', params: { slug: slug }});
       },
     },
     beforeMount() {
