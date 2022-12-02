@@ -138,6 +138,22 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageLanguageView.vue')
     },
     {
+      path: '/admin/manage/language/update/:slug',
+      name: 'language-edit',
+      component: () => import('@/views/admin/form/update/LanguageForm.vue')
+    },
+    {
+      path: '/admin/manage/language/create',
+      name: 'language-create',
+      component: () => import('@/views/admin/form/create/CreateLanguageForm.vue')
+    },
+    {
+      path: '/admin/manage/language/delete/:slug',
+      name: 'language-delete',
+      component: () => import('@/views/admin/form/delete/DeleteLanguageForm.vue')
+    },
+
+    {
       path: '/admin/manage/platform',
       name: 'manage-platform',
       component: () => import('@/views/admin/ManagePlatformView.vue')
