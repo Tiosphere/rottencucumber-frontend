@@ -1,21 +1,22 @@
 <template>
-  <v-app>
-    <Navbar/>
-    <v-main class="px-16 ma-10">
+  <Navbar/>
+  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;">
+    <v-main>
+      <div class="pb-3">
+        <!-- Movie name -->
+        <h1 class="d-flex">{{ movie.name }}</h1>
+      </div>
       <v-row
-        class="mb-3"
+        class="mb-3 pb-10"
       >
-        <v-col cols="4">
-          <div>
-            <!-- Movie name -->
-            <h1 class="d-flex">{{ movie.name }}</h1>
-          </div>
+
+        <v-col cols="4" no gutters>
+
           <!-- Movie Poster -->
 
           <v-img
             aspect-ratio="4/3"
             :width="250"
-            gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
             :src="movie.pic">
           </v-img>
           <!-- ADD btn -->
@@ -25,7 +26,7 @@
                  rounded
                  x-small
                  color="#6FAC49"
-                 class="mb-4">
+                 class="ma-4">
             <v-icon style="color: #2A2C32">mdi-plus</v-icon>
             {{ snackbar ? 'Add to watchlist' : 'Added to watchlist' }}
           </v-btn>
@@ -52,36 +53,58 @@
 
         <v-col cols="8">
           <!-- Movie detail -->
+          <v-row class="mt-2">
           <v-rating
             v-model="movie.rating"
             color="green"
             readonly
+            density="compact"
             size="x-large"
             half-increments
-            density="compact">
+            >
           </v-rating>
-          <span class="mr-2">
+          <span class="mr-2 align-end">
             ({{ movie.rating }})
           </span>
-          <h3>Release date</h3>
+
+          <v-spacer></v-spacer>
+          <RouterLink :to="{ name: 'popular' }" id="user">
+            <v-btn variant="flat"
+                   min-width="10px"
+                   min-height="10px"
+                   raised
+            >
+              <div class="text-decoration-underline" style="color:gray; ">Edit</div>
+            </v-btn>
+          </RouterLink>
+          </v-row>
+
+          <h3 class="pt-6">Release date</h3>
           <span class="mr-2">{{ movie.releaseDate }} </span>
-          <h3>Director</h3>
-          <a c v-for="name in movie.directors">{{ name }}, </a>
-          <h3>Writers</h3>
-          <a v-for="name in movie.writers">{{ name }},</a>
-          <h3>Actors</h3>
-          <a v-for="name in movie.actors">{{ name }},</a>
-          <h2>Summary</h2>
-          <p class="pb-2">{{ movie.summary }}</p>
+          <h3 class="pt-2">Director</h3>
+          <a c v-for="name in movie.directors">{{ name }} </a>
+          <h3 class="pt-2">Writers</h3>
+          <a v-for="name in movie.writers">{{ name }} </a>
+          <h3 class="pt-2">Actors</h3>
+          <a v-for="name in movie.actors">{{ name }} </a>
+          <h3 class="pt-2">Summary</h3>
+          <p class="pr-2">{{ movie.summary }}</p>
+          <h3 class="pt-2">Genres</h3>
+          <p v-for="type in movie.genres">{{ type }}</p>
+          <h3 class="pt-2">Platform</h3>
+          <p v-for="name in movie.platforms" >{{ name }}</p>
         </v-col>
       </v-row>
 
+      <v-divider></v-divider>
       <!-- reviews -->
-      <h2>Reviews</h2>
-      <v-card width="1000px" class="mx-auto d-flex">
+      <h2 class="pt-10">Reviews</h2>
+      <v-col>
+      <v-card class="mx-auto d-flex">
         <v-list-item
           v-for="user in users"
           :key="users.name">
+          <v-row>
           <v-list-item-avatar>
             <img :src="user.avatar">
           </v-list-item-avatar>
@@ -89,8 +112,10 @@
             <v-list-item-title>{{ user.name }}</v-list-item-title>
             <v-list-item-subtitle>{{ user.comment }}</v-list-item-subtitle>
           </v-list-item-content>
+          </v-row>
         </v-list-item>
       </v-card>
+      </v-col>
     </v-main>
     <Footer/>
 
@@ -107,20 +132,22 @@ export default {
   data: () => ({
     snackbar: false,
     movie: {
-      name: "Purr Wars",
-      pic: "https://i.pinimg.com/564x/0a/5f/33/0a5f33856c1f869a567c2d200b41672a.jpg",
-      releaseDate: "23, October 2012",
-      summary: "a chunky catIt is a period of war and the fur is flying. " +
-        "Undeclawed rebel cats, striking from a hidden litterbox, have won their first victory against the evil " +
-        "Veterinary Empire. During the battle, rebel spies managed to steal the passpurrs to the Empire's ultimate " +
-        "weapon: the Death Purr, a weapon with enough power to destroy the entire rebel breeding program. Pursued by " +
-        "the Empire's sinister Pawtroopers, Princess Flea-a races aboard her cat-transporter, custodian of the passpurrs " +
-        "that could save her people, and restore freedom, catnip and a really absorbent cat-litter to the galaxy. attack " +
-        "the Earth",
-      directors: ["Aj.Weerapong"],
-      writers: ["Aj.Kritya", "Aj.Ratchata"],
-      actors: ["Shabu", "Suki"],
-      rating: 4
+      name: "Spider-Man: No Way Home",
+      pic: "https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg",
+      releaseDate: "13 December, 2021",
+      summary: "For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero's identity " +
+        "is revealed, bringing his Super Hero responsibilities into conflict with his normal life and putting those " +
+        "he cares about most at risk. When he enlists Doctor Strange's help to restore his secret, the spell tears " +
+        "a hole in their world, releasing the most powerful villains who've ever fought a Spider-Man in any universe. " +
+        "Now, Peter will have to overcome his greatest challenge yet, which will not only forever alter his own future " +
+        "but the future of the Multiverse.",
+      directors: ["Jon Watts"],
+      writers: ["Chris McKenna", "Erik Sommers"],
+      actors: ["Tom Holland", "Zendaya", "Benedict Cumberbatch", "Jacob Batalon", "Jon Favreau", "Jamie Foxx",
+        "Willem Dafoe", "Alfred Molina", "Benedict Wong", "Tony Revolori", "Marisa Tomei", "Andrew Garfield", "Tobey Maguire"],
+      rating: 4,
+      genres:["Action", "Adventure", "Fantasy", "Comedy"],
+      platforms:["Prime Video"]
     },
     users: [
       {avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', name: 'Test1', comment: 'gud'},
