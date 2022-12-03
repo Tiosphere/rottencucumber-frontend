@@ -35,7 +35,7 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Change Genre</div>
+                    <div class="title">Edit Genre</div>
                 </div>
             </div>
             <div class="modal-body">

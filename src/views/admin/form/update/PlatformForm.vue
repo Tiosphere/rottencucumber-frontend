@@ -2,7 +2,7 @@
 import axios from 'axios';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'AccountForm',
+    name: 'PlatformForm',
     components: {
         side,
     },
@@ -11,13 +11,13 @@ export default {
     }),
     methods: {
         submitForm() {
-            let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/user/update/"+ this.$route.params.slug, form)
+            let form = new FormData(this.$refs.platformForm);
+            axios.post("http://localhost:8080/api/admin/platform/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
                     if(data.success) {
-                        this.$router.push({ name: 'manage-accounts' });
+                        this.$router.push({ name: 'manage-platform' });
                     }
                 })
                 .catch((error) => {
@@ -35,22 +35,17 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Edit Account</div>
+                    <div class="title">Edit Platform</div>
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content " v-on:submit.prevent="submitForm" ref="accountForm">
+                <form class="content " v-on:submit.prevent="submitForm" ref="platformForm">
                     <div class="hide-on-success">
                         <div class="form-group">
 
-                            <i class="fa fa-user-alt"></i>
-                            <input type="text" name="username" class="form-control" required placeholder="New Username">
+                            <i class="fa fa-solid fa-circle"></i>
+                            <input type="text" name="name" class="form-control" required placeholder="New Platform Name">
                         </div>
-                        <div class="form-group">
-                            <i class="fa fa-user-alt"></i>
-                            <input type="email" name="email" class="form-control" required placeholder="New Email">
-                        </div>
-
                         <div class="form-error">
                             {{ errormsg }}
                         </div>
@@ -70,11 +65,10 @@ export default {
 <style scoped>
 .modal {
     align-content: center;
-    padding: 280px;
+    padding: 290px;
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
-    
 }
 
 .modal-content {
@@ -126,7 +120,7 @@ export default {
 .auth-header .title {
     position: relative;
     font-weight: 600;
-    font-size: 1.9rem;
+    font-size: 1.8rem;
     margin-bottom: 20px;
     text-align: center;
     display: inline-block;

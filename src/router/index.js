@@ -130,6 +130,11 @@ const router = createRouter({
       name: 'genre-create',
       component: () => import('@/views/admin/form/create/CreateGenreForm.vue')
     },
+    {
+      path: '/admin/manage/genre/delete/:slug',
+      name: 'genre-delete',
+      component: () => import('@/views/admin/form/delete/DeleteGenreForm.vue')
+    },
 
 
     {
@@ -153,11 +158,29 @@ const router = createRouter({
       component: () => import('@/views/admin/form/delete/DeleteLanguageForm.vue')
     },
 
+
     {
       path: '/admin/manage/platform',
       name: 'manage-platform',
       component: () => import('@/views/admin/ManagePlatformView.vue')
     },
+    {
+      path: '/admin/manage/platform/update/:slug',
+      name: 'platform-edit',
+      component: () => import('@/views/admin/form/update/PlatformForm.vue')
+    },
+    {
+      path: '/admin/manage/platform/create',
+      name: 'platform-create',
+      component: () => import('@/views/admin/form/create/CreatePlatformForm.vue')
+    },
+    {
+      path: '/admin/manage/platform/delete/:slug',
+      name: 'platform-delete',
+      component: () => import('@/views/admin/form/delete/DeletePlatformForm.vue')
+    },
+
+
     {
       path: '/admin/manage/platform',
       name: 'manage-writer',

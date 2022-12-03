@@ -62,19 +62,14 @@
            >
             <i class="fa fa-pencil"></i>
           </v-btn>
-          <!-- </RouterLink> -->
           
-          
-
-
-
-
           <v-btn
             depressed
             color="error"
             min-width="10px"
             min-height="10px"
             style="margin:4px"
+            @click="del(item.slug)"
           >
             <i class="fa fa-trash"></i>
           </v-btn>
@@ -99,16 +94,19 @@ export default {
       return {
         genres: [
         {
-          "id": "",
-          "name": "",
-          "slug": ""
+          id: '',
+          name: '',
+          slug: '',
       },
         ],
       }
     },
     methods: {
-      edit(slug) {
+      edit:function(slug) {
       this.$router.push({ name: 'genre-edit', params: { slug: slug }});
+      },
+      del:function(slug) {
+        this.$router.push({ name: 'genre-delete', params: { slug: slug }});
       },
     },
     
