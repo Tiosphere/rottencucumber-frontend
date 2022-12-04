@@ -25,6 +25,16 @@
           </th>
   
           <th class="text-left">
+            <v-btn
+              depressed
+              color="success"
+              min-width="105px"
+              min-height="10px"  
+              style="margin:4px; margin-bottom:10px; "
+              @click="this.$router.push({ name: '' })"   
+              >
+                create
+            </v-btn>
           </th>
   
         </tr>
@@ -48,6 +58,7 @@
               min-width="10px"
               min-height="10px"
               style="margin:4px"
+              @click="edit(item.slug)"
              >
               <i class="fa fa-pencil"></i>
             </v-btn>
@@ -59,6 +70,7 @@
               min-width="10px"
               min-height="10px"
               style="margin:4px"
+              @click="del(item.slug)"
             >
               <i class="fa fa-trash"></i>
             </v-btn>
@@ -74,6 +86,7 @@
   
   <script>
   import side from '@/components/Sidebar.vue'
+  import axios from 'axios';
   export default {
     components: {
       side,
@@ -81,91 +94,31 @@
     data () {
         return {
           movies: [
-            {
-              id: 1,
-              name: 'Movie1',
-            },
-            {
-              id: 2,
-              name: 'Movie2',
-            },
-            {
-              id: 3,
-              name: 'Movie3',
-  
-            },
-            {
-              id: 4,
-              name: 'Movie4',
-            },
-            {
-              id: 5,
-              name: 'Movie5',
-            },
-            {
-              id: 6,
-              name: 'Movie6',
-            },
-            {
-              id: 7,
-              name: 'Movie7',
-            },
-            {
-              id: 8,
-              name: 'Movie8',
-            },
-            {
-              id: 9,
-              name: 'Movie9',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 11,
-              name: 'Movie11',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
-            {
-              id: 10,
-              name: 'Movie10',
-            },
+
 
           ],
         }
       },
+      methods: {
+        edit(slug) {
+          this.$router.push({ name: 'movies-edit', params: { slug: slug }});
+        },
+        del:function(slug) {
+          this.$router.push({ name: '', params: { slug: slug }});
+      },
+      },
+      beforeMount() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      axios.get("http://localhost:8080/api/admin/movie/get/all")
+                .then((res) => {
+                    let data = res.data
+                    console.log(res)
+                    this.movies = data
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'home' })
+                });
+    }
   }
   </script>
   

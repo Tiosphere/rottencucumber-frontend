@@ -104,9 +104,21 @@ const router = createRouter({
       component: () => import('@/views/admin/ManageMovieView.vue')
     },
     {
+      path: '/admin/manage/movies/update/:slug',
+      name: 'movies-edit',
+      component: () => import('@/views/admin/form/update/MovieForm.vue')
+    },
+
+
+    {
       path: '/admin/manage/actor',
       name: 'manage-actor',
       component: () => import('@/views/admin/ManageActorView.vue')
+    },
+    {
+      path: '/admin/manage/writer',
+      name: 'manage-writer',
+      component: () => import('@/views/admin/ManageWriterView.vue')
     },
     {
       path: '/admin/manage/director',
@@ -181,11 +193,6 @@ const router = createRouter({
     },
 
 
-    {
-      path: '/admin/manage/platform',
-      name: 'manage-writer',
-      component: () => import('@/views/admin/ManageWriterView.vue')
-    },
     {
       path: '/admin/',
       name: 'dashboard',
