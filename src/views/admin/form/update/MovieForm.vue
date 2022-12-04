@@ -15,12 +15,12 @@ export default {
             name: "",
             preview: "",
             release: "",
-            language: "",
-            actor: "",
-            writer: "",
-            director: "",
-            genres: "",
-            platforms: "",
+            language: "1274",
+            actors: ["1178", "1179", "1180"],
+            writers: [],
+            directors: [],
+            genres: [],
+            platforms: [],
             image: "",
             summary: "",
         },
@@ -62,9 +62,19 @@ export default {
                     this.errormsg = "Something happen please try again"
                 });
         },
+        isInList:function(list, item) {
+
+            if (list.includes(item.toString())) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
     },
 
     beforeMount() {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`; 
         // language data
         axios.get("http://localhost:8080/api/admin/language/get/all")
                 .then((res) => {
@@ -150,118 +160,75 @@ export default {
             <div class="modal-body">
                 <form class="content " v-on:submit.prevent="submitForm" ref="accountForm">
                     <div class="hide-on-success">
-                        <div class="form-group">                            
-                           <v-text-field clearable label="New Movie Name" name="name" variant="solo" required density="compact" v-model="default_name">
-
-                           </v-text-field>
+                        <div class="form-group">
+                            
+                            <input type="text" name="name" class="form-control" required placeholder="New Movie Name">
                         </div>
                         <div class="form-group">
-
-                            <v-text-field clearable label="New Preview Url" name="preview" variant="solo" required density="compact"></v-text-field>
+                            
+                            <input type="url" name="preview" class="form-control" required placeholder="New Preview">
                         </div>
 
-                        <div class="form-group"
-                        >
-                            <v-select
-                                label="Languages"
-                                :items="languages"
-                                item-title="name"
-                                item-value="id"
-                                variant="solo"
-                                density="compact"
-                                required
+                        <div class="form-group">
+                            
+                            <input type="date" name="release" class="form-control" required placeholder="Release Date">
+                        </div>
+
+                        <div class="form-group">
+                            Choose language: 
+                            <select name="language" style="background: white; text-align: center;">
+                                <template
+                                v-for="item in languages"
+                                    :key="item.id"
+                                    >
+                                    
+                                <option     
+                                    v-if="(item.id == this.default_data.language)"
+                                    value="{{item.id}}"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
+
+                                <option 
+                                    v-else
+                                    value="{{item.id}}" 
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Choose actors: 
+                            <select name="actors" multiple
+                            >
+                                <template
+                                    v-for="item in actors"
+                                    :key="item.id"
+                                    
+                                >
+                                <option 
+                                    const = item.id
+                                    v-if="(isInList(this.default_data.actors, item.id))"
+                                    value="{{item.id}}"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
                                 
-                            ></v-select>
+                                <option 
+                                    value="{{item.id}}"
+                                    v-else
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
                         </div>
-                        
-                        <div class="form-group"
-                        >
-                            <v-select
-
-                                chips
-                                label="Actors"
-                                :items="actors"
-                                item-title="name"
-                                item-value="id"
-                                multiple
-                                variant="solo"
-                                density="compact"
-                                required
-                            ></v-select>
-                        </div>
-
-                        <div class="form-group"
-                        >
-                            <v-select
-
-                                chips
-                                label="Writers"
-                                :items="writers"
-                                item-title="name"
-                                item-value="id"
-                                multiple
-                                variant="solo"
-                                density="compact"
-                                required
-                            ></v-select>
-                        </div>
-
-                        <div class="form-group"
-                        >
-                            <v-select
-
-                                chips
-                                label="Directors"
-                                :items="directors"
-                                item-title="name"
-                                item-value="id"
-                                multiple
-                                variant="solo"
-                                density="compact"
-                                required
-                            ></v-select>
-                        </div>
-                        
-                        <div class="form-group"
-                        >
-                            <v-select
-
-                                chips
-                                label="Genres"
-                                :items="genres"
-                                item-title="name"
-                                item-value="id"
-                                multiple
-                                variant="solo"
-                                density="compact"
-                                required
-                            ></v-select>
-                        </div>
-
-                        <div class="form-group"
-                        >
-                            <v-select
-
-                                chips
-                                label="Platforms"
-                                :items="platforms"
-                                item-title="name"
-                                item-value="id"
-                                multiple
-                                variant="solo"
-                                density="compact"
-                                required
-                            ></v-select>
-                        </div>
-                        <v-file-input clearable label="Image" variant="solo" density="compact"
-                                required></v-file-input>
-                        
-                        <div class="form-group">
-                        
-                            <input type="date" name="release" class="form-control" required>
-                        </div>
-                        
-
 
 
                         <div class="form-error">
@@ -289,7 +256,14 @@ export default {
     overflow: auto;
     
 }
+option:checked {
+    background-color: gray;
+}
 
+option {
+    background: white;
+     text-align: center;
+}
 .modal-content {
     position: relative;
     margin: auto;
