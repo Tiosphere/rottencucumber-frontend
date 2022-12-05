@@ -18,7 +18,7 @@ export default {
             month: "",
             year: "",
             language: "",
-            actors: ["1178", "1179", "1180"],
+            actors: [],
             new_actors: [],
             writers: [],
             directors: [],
@@ -57,7 +57,7 @@ export default {
                 .then((res) => {
                     let data = res.data
                     console.log(data)
-                    if(data.success) {
+                    if(data.code === 0) {
                         this.$router.push({ name: 'manage-movies' });
                     }
                 })
@@ -222,18 +222,28 @@ export default {
                 <form class="content " id="form" v-on:submit.prevent="submitForm" ref="accountForm">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            
+                            <label>Movie Name: </label>
                             <input type="text" name="name" class="form-control" required placeholder="New Movie Name" :value="this.default_data.name">
                         </div>
                         <div class="form-group">
-                            
+                            <label>Movie Preview: </label>
                             <input type="url" name="preview" class="form-control" required placeholder="New Preview" :value="this.default_data.preview">
+                        </div>
+                        <div class="form-group">
+                            <label>Movie Release Day: </label>
+                            <input type="text" name="day" class="form-control" required placeholder="Release Day" :value="default_data.day">
                         </div>
 
                         <div class="form-group">
-                            
-                            <input type="date" name="release" class="form-control" required placeholder="Release Date" :value="convertMonthOrDay(default_data.day, default_data.month, default_data.year)">
+                            <label>Movie Release Month: </label>
+                            <input type="text" name="month" class="form-control" required placeholder="Release Month" :value="default_data.month">
                         </div>
+
+                        <div class="form-group">
+                            <label>Movie Release Year: </label>
+                            <input type="text" name="year" class="form-control" required placeholder="Release Year" :value="default_data.year">
+                        </div>
+                        
 
                         <div class="form-group">
                             Choose language: 
@@ -416,6 +426,7 @@ export default {
                             <input type="file" name="image">
                         </div>
                         <div class="form-group">
+                            <label>Movie Summary: </label>
                             <textarea name="summary" form="form" class="form-control" :value="this.default_data.summary" required>Summary</textarea>
                         </div>
 
