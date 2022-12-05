@@ -142,6 +142,11 @@ const router = createRouter({
       name: 'writer-create',
       component: () => import('@/views/admin/form/create/CreateWriterForm.vue')
     },
+    {
+      path: '/admin/manage/writer/delete/:slug',
+      name: 'writer-delete',
+      component: () => import('@/views/admin/form/delete/DeleteWriterForm.vue')
+    },
 
 
     {

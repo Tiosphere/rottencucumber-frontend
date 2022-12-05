@@ -98,7 +98,7 @@ export default {
         this.$router.push({ name: 'writer-edit', params: { slug: slug }});
       },
       del:function(slug) {
-        this.$router.push({ name: '', params: { slug: slug }});
+        this.$router.push({ name: 'writer-delete', params: { slug: slug }});
       },
     },
       beforeMount() {
