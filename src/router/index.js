@@ -108,6 +108,16 @@ const router = createRouter({
       name: 'movies-edit',
       component: () => import('@/views/admin/form/update/MovieForm.vue')
     },
+    {
+      path: '/admin/manage/movies/create/',
+      name: 'movies-create',
+      component: () => import('@/views/admin/form/create/CreateMovieForm.vue')
+    },
+    {
+      path: '/admin/manage/movies/delete/:slug',
+      name: 'movies-delete',
+      component: () => import('@/views/admin/form/delete/DeleteMovieForm.vue')
+    },
 
 
     {
