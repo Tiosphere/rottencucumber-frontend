@@ -113,8 +113,12 @@ export default {
                 
                 this.default_data.actors = res.data.records[0].actors
                 this.default_data.writers = res.data.records[0].writers
+                this.default_data.directors = res.data.records[0].directors
+                this.default_data.genres = res.data.records[0].genres
+                this.default_data.platforms = res.data.records[0].platform
 
-                
+                this.default_data.summary = res.data.records[0].summary
+
                 // var now = new Date()
                 // now.setDate(res.data.records[0].day)
                 // now.setMonth(res.data.records[0].month)
@@ -215,7 +219,7 @@ export default {
                 </div>
             </div>
             <div class="modal-body">
-                <form class="content " v-on:submit.prevent="submitForm" ref="accountForm">
+                <form class="content " id="form" v-on:submit.prevent="submitForm" ref="accountForm">
                     <div class="hide-on-success">
                         <div class="form-group">
                             
@@ -241,7 +245,8 @@ export default {
                                     
                                 <option     
                                     v-if="(item.id == this.default_data.language)"
-                                    value="{{item.id}}"
+                                    
+                                    :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
@@ -249,7 +254,7 @@ export default {
 
                                 <option 
                                     v-else
-                                    value="{{item.id}}" 
+                                    :value="item.id"
                                 >
                                 {{item.name}}
                                 </option>
@@ -268,16 +273,16 @@ export default {
                                     
                                 >
                                 <option 
-                                    const = item.id
+                                    
                                     v-if="(isInList(getAllId(this.default_data.actors), item.id))"
-                                    value="{{item.id}}"
+                                    :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
                                 
                                 <option 
-                                    value="{{item.id}}"
+                                    :value="item.id"
                                     v-else
                                 >
                                 {{item.name}}
@@ -297,16 +302,16 @@ export default {
                                     
                                 >
                                 <option 
-                                    const = item.id
+                                    
                                     v-if="(isInList(getAllId(this.default_data.writers), item.id))"
-                                    value="{{item.id}}"
+                                    :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
                                 
                                 <option 
-                                    value="{{item.id}}"
+                                    :value="item.id"
                                     v-else
                                 >
                                 {{item.name}}
@@ -315,6 +320,105 @@ export default {
                                 </template>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            Choose directors: 
+                            <select name="directors" multiple
+                            >
+                                <template
+                                    v-for="item in directors"
+                                    :key="item.id"
+                                    
+                                >
+                                <option 
+                                    
+                                    v-if="(isInList(getAllId(this.default_data.directors), item.id))"
+                                    :value="item.id"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
+                                
+                                <option 
+                                    :value="item.id"
+                                    v-else
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Choose genres: 
+                            <select name="genres" multiple
+                            >
+                                <template
+                                    v-for="item in genres"
+                                    :key="item.id"
+                                    
+                                >
+                                <option 
+                                    v-if="(isInList(getAllId(this.default_data.genres), item.id))"
+                                    :value="item.id"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
+                                
+                                <option 
+                                    v-else
+                                    :value="item.id"
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Choose platform: 
+                            <select name="platform" multiple
+                            >
+                                <template
+                                    v-for="item in platforms"
+                                    :key="item.id"
+                                    
+                                >
+                                <option 
+                                    const = item.id
+                                    v-if="(isInList(getAllId(this.default_data.platforms), item.id))"
+                                    :value="item.id"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
+                                
+                                <option 
+                                    v-else
+                                    :value="item.id"
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
+                        </div>
+
+                        
+
+
+
+                        <div class="form-group">
+                            Choose Image: 
+                            <input type="file" name="image">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="summary" form="form" class="form-control" :value="this.default_data.summary" required>Summary</textarea>
+                        </div>
+
 
 
                         <div class="form-error">
