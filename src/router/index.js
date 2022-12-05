@@ -125,6 +125,12 @@ const router = createRouter({
       name: 'manage-actor',
       component: () => import('@/views/admin/ManageActorView.vue')
     },
+    {
+      path: '/admin/manage/actor/update/:slug',
+      name: 'actor-edit',
+      component: () => import('@/views/admin/form/update/ActorForm.vue')
+    },
+
 
 
     {
