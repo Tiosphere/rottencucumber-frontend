@@ -125,11 +125,20 @@ const router = createRouter({
       name: 'manage-actor',
       component: () => import('@/views/admin/ManageActorView.vue')
     },
+
+
     {
       path: '/admin/manage/writer',
       name: 'manage-writer',
       component: () => import('@/views/admin/ManageWriterView.vue')
     },
+    {
+      path: '/admin/manage/writer/update/:slug',
+      name: 'writer-edit',
+      component: () => import('@/views/admin/form/update/WriterForm.vue')
+    },
+
+
     {
       path: '/admin/manage/director',
       name: 'manage-director',
