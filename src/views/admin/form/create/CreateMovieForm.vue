@@ -2,31 +2,12 @@
 import axios from 'axios';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'MovieForm',
+    name: 'CreateMovieForm',
     components: {
         side,
     },
     data: () => ({
         errormsg: "",
-        // name: "",
-        // preview: "",
-        // release: "",
-        default_data: {
-            name: "",
-            preview: "",
-            day: "",
-            month: "",
-            year: "",
-            language: "",
-            actors: [],
-            new_actors: [],
-            writers: [],
-            directors: [],
-            genres: [],
-            platforms: [],
-            image: "",
-            summary: "",
-        },
         languages: [
 
         ],
@@ -45,15 +26,16 @@ export default {
         platforms: [
 
         ],
-        image: "",
-        summary: "",
+        // name: "",
+        // preview: "",
+        // release: "",
 
 
     }),
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/movie/update/"+ this.$route.params.slug, form)
+            axios.post("http://localhost:8080/api/admin/movie/create", form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -65,76 +47,11 @@ export default {
                     this.errormsg = "Something happen please try again"
                 });
         },
-        isInList:function(list, item) {
-            if (list.includes(item)) {
-                return true;
-            }
-            else {
-                return false;
-            }
-        },
-        getAllId:function(list) {
-            const new_list = []
-            for (let i = 0; i < list.length; i++) {
-                new_list[i] = list[i].id
-            }
-            return new_list;
-        },
 
-        convertMonthOrDay:function(day, month, year) {
-            var day_string = day.toString()
-            var month_string = month.toString()
-            var year_string = year.toString()
-            if (day < 10) {
-                day_string = '0' + day_string
-            } 
-            if (month < 10) {
-                month_string = '0' + month_string
-            } 
-            return year_string + '-' + month_string + '-' + day_string;
-        },
     },
 
     beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        
-        axios.get("http://localhost:8080/api/admin/movie/get/" + this.$route.params.slug)
-            .then((res) => { 
-                
-                let data = res.data
-                console.log(data)
-                this.default_data.name = res.data.records[0].name
-                this.default_data.preview = res.data.records[0].preview
-                this.default_data.language = res.data.records[0].language.id
-
-                this.default_data.day = res.data.records[0].day
-                this.default_data.month = res.data.records[0].month
-                this.default_data.year = res.data.records[0].year
-                
-                this.default_data.actors = res.data.records[0].actors
-                this.default_data.writers = res.data.records[0].writers
-                this.default_data.directors = res.data.records[0].directors
-                this.default_data.genres = res.data.records[0].genres
-                this.default_data.platforms = res.data.records[0].platform
-
-                this.default_data.summary = res.data.records[0].summary
-
-                // var now = new Date()
-                // now.setDate(res.data.records[0].day)
-                // now.setMonth(res.data.records[0].month)
-                // now.setFullYear(res.data.records[0].year)
-
-
-
-
-
-            
-            })
-            .catch(() => {
-                    this.$router.push({ name: 'home' })
-                });
-
-
 
         // language data
         axios.get("http://localhost:8080/api/admin/language/get/all")
@@ -215,7 +132,7 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Edit Movie</div>
+                    <div class="title">Create Movie</div>
                 </div>
             </div>
             <div class="modal-body">
@@ -223,25 +140,25 @@ export default {
                     <div class="hide-on-success">
                         <div class="form-group">
                             <label>Movie Name: </label>
-                            <input type="text" name="name" class="form-control" required placeholder="New Movie Name" :value="this.default_data.name">
+                            <input type="text" name="name" class="form-control" required placeholder="New Movie Name" >
                         </div>
                         <div class="form-group">
                             <label>Movie Preview: </label>
-                            <input type="url" name="preview" class="form-control" required placeholder="New Preview" :value="this.default_data.preview">
+                            <input type="url" name="preview" class="form-control" required placeholder="New Preview">
                         </div>
                         <div class="form-group">
                             <label>Movie Release Day: </label>
-                            <input type="text" name="day" class="form-control" required placeholder="Release Day" :value="default_data.day">
+                            <input type="text" name="day" class="form-control" required placeholder="Release Day">
                         </div>
 
                         <div class="form-group">
                             <label>Movie Release Month: </label>
-                            <input type="text" name="month" class="form-control" required placeholder="Release Month" :value="default_data.month">
+                            <input type="text" name="month" class="form-control" required placeholder="Release Month">
                         </div>
 
                         <div class="form-group">
                             <label>Movie Release Year: </label>
-                            <input type="text" name="year" class="form-control" required placeholder="Release Year" :value="default_data.year">
+                            <input type="text" name="year" class="form-control" required placeholder="Release Year">
                         </div>
                         
 
@@ -252,18 +169,7 @@ export default {
                                 v-for="item in languages"
                                     :key="item.id"
                                     >
-                                    
-                                <option     
-                                    v-if="(item.id == this.default_data.language)"
-                                    
-                                    :value="item.id"
-                                    selected
-                                >
-                                {{item.name}}
-                                </option>
-
                                 <option 
-                                    v-else
                                     :value="item.id"
                                 >
                                 {{item.name}}
@@ -280,24 +186,12 @@ export default {
                                 <template
                                     v-for="item in actors"
                                     :key="item.id"
-                                    
-                                >
+                                >  
                                 <option 
-                                    
-                                    v-if="(isInList(getAllId(this.default_data.actors), item.id))"
                                     :value="item.id"
-                                    selected
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
-                                    :value="item.id"
-                                    v-else
-                                >
-                                {{item.name}}
-                                </option>
-
                                 </template>
                             </select>
                         </div>
@@ -309,20 +203,9 @@ export default {
                                 <template
                                     v-for="item in writers"
                                     :key="item.id"
-                                    
                                 >
                                 <option 
-                                    
-                                    v-if="(isInList(getAllId(this.default_data.writers), item.id))"
                                     :value="item.id"
-                                    selected
-                                >
-                                {{item.name}}
-                                </option>
-                                
-                                <option 
-                                    :value="item.id"
-                                    v-else
                                 >
                                 {{item.name}}
                                 </option>
@@ -338,20 +221,9 @@ export default {
                                 <template
                                     v-for="item in directors"
                                     :key="item.id"
-                                    
                                 >
                                 <option 
-                                    
-                                    v-if="(isInList(getAllId(this.default_data.directors), item.id))"
                                     :value="item.id"
-                                    selected
-                                >
-                                {{item.name}}
-                                </option>
-                                
-                                <option 
-                                    :value="item.id"
-                                    v-else
                                 >
                                 {{item.name}}
                                 </option>
@@ -367,23 +239,12 @@ export default {
                                 <template
                                     v-for="item in genres"
                                     :key="item.id"
-                                    
                                 >
                                 <option 
-                                    v-if="(isInList(getAllId(this.default_data.genres), item.id))"
-                                    :value="item.id"
-                                    selected
-                                >
-                                {{item.name}}
-                                </option>
-                                
-                                <option 
-                                    v-else
                                     :value="item.id"
                                 >
                                 {{item.name}}
                                 </option>
-
                                 </template>
                             </select>
                         </div>
@@ -395,19 +256,8 @@ export default {
                                 <template
                                     v-for="item in platforms"
                                     :key="item.id"
-                                    
-                                >
+                                >   
                                 <option 
-                                    const = item.id
-                                    v-if="(isInList(getAllId(this.default_data.platforms), item.id))"
-                                    :value="item.id"
-                                    selected
-                                >
-                                {{item.name}}
-                                </option>
-                                
-                                <option 
-                                    v-else
                                     :value="item.id"
                                 >
                                 {{item.name}}
@@ -427,7 +277,7 @@ export default {
                         </div>
                         <div class="form-group">
                             <label>Movie Summary: </label>
-                            <textarea name="summary" form="form" class="form-control" :value="this.default_data.summary" required>Summary</textarea>
+                            <textarea name="summary" form="form" class="form-control" required></textarea>
                         </div>
 
 
