@@ -8,15 +8,18 @@ export default {
     },
     data: () => ({
         errormsg: "",
-        name: "",
-        preview: "",
-        release: "",
+        // name: "",
+        // preview: "",
+        // release: "",
         default_data: {
             name: "",
             preview: "",
-            release: "",
-            language: "1274",
+            day: "",
+            month: "",
+            year: "",
+            language: "",
             actors: ["1178", "1179", "1180"],
+            new_actors: [],
             writers: [],
             directors: [],
             genres: [],
@@ -63,18 +66,72 @@ export default {
                 });
         },
         isInList:function(list, item) {
-
-            if (list.includes(item.toString())) {
+            if (list.includes(item)) {
                 return true;
             }
             else {
                 return false;
             }
-        }
+        },
+        getAllId:function(list) {
+            const new_list = []
+            for (let i = 0; i < list.length; i++) {
+                new_list[i] = list[i].id
+            }
+            return new_list;
+        },
+
+        convertMonthOrDay:function(day, month, year) {
+            var day_string = day.toString()
+            var month_string = month.toString()
+            var year_string = year.toString()
+            if (day < 10) {
+                day_string = '0' + day_string
+            } 
+            if (month < 10) {
+                month_string = '0' + month_string
+            } 
+            return year_string + '-' + month_string + '-' + day_string;
+        },
     },
 
     beforeMount() {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`; 
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+        
+        axios.get("http://localhost:8080/api/admin/movie/get/" + this.$route.params.slug)
+            .then((res) => { 
+                
+                let data = res.data
+                console.log(data)
+                this.default_data.name = res.data.records[0].name
+                this.default_data.preview = res.data.records[0].preview
+                this.default_data.language = res.data.records[0].language.id
+
+                this.default_data.day = res.data.records[0].day
+                this.default_data.month = res.data.records[0].month
+                this.default_data.year = res.data.records[0].year
+                
+                this.default_data.actors = res.data.records[0].actors
+                this.default_data.writers = res.data.records[0].writers
+
+                
+                // var now = new Date()
+                // now.setDate(res.data.records[0].day)
+                // now.setMonth(res.data.records[0].month)
+                // now.setFullYear(res.data.records[0].year)
+
+
+
+
+
+            
+            })
+            .catch(() => {
+                    this.$router.push({ name: 'home' })
+                });
+
+
+
         // language data
         axios.get("http://localhost:8080/api/admin/language/get/all")
                 .then((res) => {
@@ -143,9 +200,9 @@ export default {
                     this.$router.push({ name: 'home' })
                 });
 
-    }
-    
+    } 
 }
+
 </script>
 
 <template>
@@ -162,16 +219,16 @@ export default {
                     <div class="hide-on-success">
                         <div class="form-group">
                             
-                            <input type="text" name="name" class="form-control" required placeholder="New Movie Name">
+                            <input type="text" name="name" class="form-control" required placeholder="New Movie Name" :value="this.default_data.name">
                         </div>
                         <div class="form-group">
                             
-                            <input type="url" name="preview" class="form-control" required placeholder="New Preview">
+                            <input type="url" name="preview" class="form-control" required placeholder="New Preview" :value="this.default_data.preview">
                         </div>
 
                         <div class="form-group">
                             
-                            <input type="date" name="release" class="form-control" required placeholder="Release Date">
+                            <input type="date" name="release" class="form-control" required placeholder="Release Date" :value="convertMonthOrDay(default_data.day, default_data.month, default_data.year)">
                         </div>
 
                         <div class="form-group">
@@ -212,7 +269,36 @@ export default {
                                 >
                                 <option 
                                     const = item.id
-                                    v-if="(isInList(this.default_data.actors, item.id))"
+                                    v-if="(isInList(getAllId(this.default_data.actors), item.id))"
+                                    value="{{item.id}}"
+                                    selected
+                                >
+                                {{item.name}}
+                                </option>
+                                
+                                <option 
+                                    value="{{item.id}}"
+                                    v-else
+                                >
+                                {{item.name}}
+                                </option>
+
+                                </template>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            Choose writers: 
+                            <select name="writers" multiple
+                            >
+                                <template
+                                    v-for="item in writers"
+                                    :key="item.id"
+                                    
+                                >
+                                <option 
+                                    const = item.id
+                                    v-if="(isInList(getAllId(this.default_data.writers), item.id))"
                                     value="{{item.id}}"
                                     selected
                                 >
