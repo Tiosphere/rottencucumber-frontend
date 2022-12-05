@@ -2,7 +2,7 @@
 import axios from 'axios';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'MovieForm',
+    name: 'CreateMovieForm',
     components: {
         side,
     },
@@ -11,21 +11,13 @@ export default {
         // name: "",
         // preview: "",
         // release: "",
-        default_data: {
-            name: "",
-            birthPlace: "",
-            description: "",
-            day: "",
-            month: "",
-            year: "",
-        },
 
 
     }),
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/writer/update/"+ this.$route.params.slug, form)
+            axios.post("http://localhost:8080/api/admin/writer/create", form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -42,44 +34,6 @@ export default {
 
     beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        
-        axios.get("http://localhost:8080/api/admin/writer/get/" + this.$route.params.slug)
-            .then((res) => { 
-                console.log(res.data)
-                
-                // let data = res.data
-                // console.log(data)
-                this.default_data.name = res.data.records[0].name
-                this.default_data.birthPlace = res.data.records[0].birth_place
-                this.default_data.description = res.data.records[0].description
-                
-                // this.default_data.preview = res.data.records[0].preview
-                // this.default_data.language = res.data.records[0].language.id
-
-
-                var now = new Date(res.data.records[0].birthday)
-                this.default_data.day = now.getDate()
-                this.default_data.month = now.getMonth()
-                this.default_data.year = now.getFullYear()
-                
-                // this.default_data.actors = res.data.records[0].actors
-                // this.default_data.writers = res.data.records[0].writers
-                // this.default_data.directors = res.data.records[0].directors
-                // this.default_data.genres = res.data.records[0].genres
-                // this.default_data.platforms = res.data.records[0].platform
-
-                // this.default_data.summary = res.data.records[0].summary
-
-
-                
-
-                // now.setDate(res.data.records[0].day)
-                // now.setMonth(res.data.records[0].month)
-                // now.setFullYear(res.data.records[0].year)            
-            })
-            .catch(() => {
-                    this.$router.push({ name: 'home' })
-                });
 
     },
     
@@ -93,7 +47,7 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Edit Writer</div>
+                    <div class="title">Create Writer</div>
                 </div>
             </div>
             <div class="modal-body">
@@ -101,29 +55,29 @@ export default {
                     <div class="hide-on-success">
                         <div class="form-group">
                             <label>Writer Name: </label>
-                            <input type="text" name="name" class="form-control" required placeholder="New Writer Name" :value="this.default_data.name">
+                            <input type="text" name="name" class="form-control" required placeholder="Writer Name">
                         </div>
                         <div class="form-group">
                             <label>Writer BirthPlace: </label>
-                            <textarea name="birth_place" form="form" class="form-control" :value="this.default_data.birthPlace" required></textarea>
+                            <textarea name="birth_place" form="form" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Writer Description: </label>
-                            <textarea name="description" form="form" class="form-control" :value="this.default_data.description" required></textarea>
+                            <textarea name="description" form="form" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Writer Birth Day: </label>
-                            <input type="text" name="day" class="form-control" required placeholder="Birth Day" :value="default_data.day">
+                            <input type="text" name="day" class="form-control" required placeholder="Birth Day">
                         </div>
 
                         <div class="form-group">
                             <label>Writer Birth Month: </label>
-                            <input type="text" name="month" class="form-control" required placeholder="Birth Month" :value="default_data.month">
+                            <input type="text" name="month" class="form-control" required placeholder="Birth Month" >
                         </div>
 
                         <div class="form-group">
                             <label>Writer Birth Year: </label>
-                            <input type="text" name="year" class="form-control" required placeholder="Birth Year" :value="default_data.year">
+                            <input type="text" name="year" class="form-control" required placeholder="Birth Year">
                         </div>
                         
 

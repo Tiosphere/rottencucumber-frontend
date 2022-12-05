@@ -137,6 +137,11 @@ const router = createRouter({
       name: 'writer-edit',
       component: () => import('@/views/admin/form/update/WriterForm.vue')
     },
+    {
+      path: '/admin/manage/writer/create/',
+      name: 'writer-create',
+      component: () => import('@/views/admin/form/create/CreateWriterForm.vue')
+    },
 
 
     {
