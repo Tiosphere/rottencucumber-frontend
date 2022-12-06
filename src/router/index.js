@@ -170,6 +170,11 @@ const router = createRouter({
       name: 'manage-director',
       component: () => import('@/views/admin/ManageDirectorView.vue')
     },
+    {
+      path: '/admin/manage/director/update/:slug',
+      name: 'director-edit',
+      component: () => import('@/views/admin/form/update/DirectorForm.vue')
+    },
 
 
     {

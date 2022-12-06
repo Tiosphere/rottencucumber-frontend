@@ -23,13 +23,23 @@
           </th>
   
           <th class="text-left">
+            <v-btn
+              depressed
+              color="success"
+              min-width="105px"
+              min-height="10px"  
+              style="margin:4px; margin-bottom:10px; "
+              @click="this.$router.push({ name: '' })"   
+              >
+                create
+          </v-btn>
           </th>
   
         </tr>
       </thead>
       <tbody>
         <tr
-          v-for="item in users"
+          v-for="item in directors"
           :key="item.name"
         >
           <td style="padding-left: 30px;"> {{ item.id }} </td>
@@ -44,6 +54,7 @@
               min-width="10px"
               min-height="10px"
               style="margin:4px"
+              @click="edit(item.slug)"
              >
               <i class="fa fa-pencil"></i>
             </v-btn>
@@ -54,6 +65,7 @@
               min-width="10px"
               min-height="10px"
               style="margin:4px"
+              @click="del(item.slug)"
             >
               <i class="fa fa-trash"></i>
             </v-btn>
@@ -69,57 +81,38 @@
   
   <script>
   import side from '@/components/Sidebar.vue'
+  import axios from 'axios';
   export default {
     components: {
       side,
     },
     data () {
         return {
-          users: [
-            {
-              id: 1,
-              name: 'Frozen Yogurt',
-            },
-            {
-              id: 2,
-              name: 'Ice cream sandwich',
-            },
-            {
-              id: 3,
-              name: 'Eclair',
-  
-            },
-            {
-              id: 4,
-              name: 'Cupcake',
-            },
-            {
-              id: 5,
-              name: 'Gingerbread',
-            },
-            {
-              id: 6,
-              name: 'Jelly bean',
-            },
-            {
-              id: 7,
-              name: 'Lollipop',
-            },
-            {
-              id: 8,
-              name: 'Honeycomb',
-            },
-            {
-              id: 9,
-              name: 'Donut',
-            },
-            {
-              id: 10,
-              name: 'KitKat',
-            },
+          directors: [
+
           ],
         }
+    },
+    methods: {
+      edit:function(slug) {
+        this.$router.push({ name: 'director-edit', params: { slug: slug }});
       },
+      del:function(slug) {
+        this.$router.push({ name: '', params: { slug: slug }});
+      },
+    },
+    beforeMount() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      axios.get("http://localhost:8080/api/admin/director/get/all")
+                .then((res) => {
+                    let data = res.data
+                    console.log(res)
+                    this.directors = data
+                })
+                .catch(() => {
+                    this.$router.push({ name: 'home' })
+                });
+    }
   }
   </script>
   
