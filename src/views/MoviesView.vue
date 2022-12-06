@@ -90,17 +90,33 @@
 
 
         <!-- reviews -->
-        <h2 class="pt-10">REVIEWS</h2>
+        <h2 class="pt-8 pb-3">REVIEWS</h2>
         <!-- review box -->
-        <div v-show="isLogin">
-          <v-text-field
-            v-model="message"
-            outlined
+        <div v-show="isLogin" >
+          <v-card
+            variant="outlined"
+            style="background-color: #ffffff;"
+            class="d-flex justify-center">
+          <v-col cols="10" >
+          <v-rating
+            v-model="rating"
+            color="green"
+            half-increments
+            size="25"
+            density="compact"
+          ></v-rating>
+          <v-textarea
             clearable
-            label="Comment"
+            v-model="message"
+            variant="outlined"
+            label="Write your review here"
             type="text"
+            append-icon="mdi-send"
+            @click:append="sendMessage"
           >
-          </v-text-field>
+          </v-textarea>
+          </v-col>
+          </v-card>
         </div>
 
         <!--review column-->
