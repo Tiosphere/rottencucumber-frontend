@@ -125,9 +125,8 @@
         </div>
       </v-container>
     </v-main>
-    <Footer/>
-
   </v-app>
+  <Footer/>
 </template>
 
 <script>
@@ -136,7 +135,7 @@ import Footer from "@/components/Footer";
 
 export default {
   name: "MoviesView",
-  components: {Navbar},
+  components: {Navbar,Footer},
   data: () => ({
     added: false,
     movie: {
