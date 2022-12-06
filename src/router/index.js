@@ -96,6 +96,11 @@ const router = createRouter({
       name: 'account-delete',
       component: () => import('@/views/admin/form/delete/DeleteAccountForm.vue')
     },
+    {
+      path: '/genres/:slug',
+      name: 'movies-genres',
+      component: () => import('@/views/GenresView.vue')
+    }
 
 
     {
