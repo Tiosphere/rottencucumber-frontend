@@ -1,6 +1,6 @@
 <template>
   <Navbar/>
-  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;">
+  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px; background-color: #DEECDE;">
     <v-main>
       <!-- User detail  -->
       <v-card
@@ -22,7 +22,7 @@
       </v-card>
 
       <!-- List of movie -->
-      <h3 class="pt-7">WATCH LIST</h3>
+      <h3 class="pt-7">MY WATCHLIST</h3>
       <flickity class="flickity" ref="flickity" :options="flickityOptions">
         <div class="carousel-cell"
              v-for="movie in movieList">
