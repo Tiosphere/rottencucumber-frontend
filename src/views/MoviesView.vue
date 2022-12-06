@@ -98,24 +98,31 @@
         <v-divider></v-divider>
         <!-- reviews -->
         <h2 class="pt-10">REVIEWS</h2>
-        <v-container>
-          <v-col>
-            <v-card class="mx-auto d-flex pa-7">
-              <v-list>
-                <template v-for="user in users">
-                  <div>
-                  <v-list-item-content>
-                    <v-list-item-title>{{ user.comment }}</v-list-item-title>
+        <div class="column_wrapper">
+        <v-container class="d-flex flex-wrap justify-space-around">
+              <v-list v-for="user in users"
+              style="background-color: #DEECDE;">
+                  <v-card
+                    class="pa-7"
+                    variant="outlined"
+                  max-width="300px"
+                    style="background-color: #ffffff;">
+                    <v-list-item-content>
+                      <v-rating
+                        v-model="movie.rating"
+                        color="green"
+                        readonly
+                        half-increments
+                        size="25"
+                        density="compact"
+                      ></v-rating>
+                      <p>{{ user.comment }}</p>
                     <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
-                    <v-divider></v-divider>
                   </v-list-item-content>
-
-                  </div>
-                </template>
+                  </v-card>
               </v-list>
-            </v-card>
-          </v-col>
         </v-container>
+        </div>
       </v-container>
     </v-main>
     <Footer/>
@@ -152,15 +159,34 @@ export default {
       platforms: ["Prime Video"]
     },
     users: [
-      { name: 'Test1', comment: 'gud'},
-      { name: 'Test2', comment: '10/10'},
+      { name: 'glor', comment: 'Crossover comfort food with a redemptive twist'},
+      { name: 'nut', comment: 'Throughout all of it, the weird and complex history of Spider-Man as a cinematic icon isn\'' +
+          't a hindrance to the story; instead, it\'s an enhancement, using the quirks of the character\'' +
+          's legacy as a source of illumination into why he has endured so long.'},
+      { name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
+          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
+          'able to bring it all together. It’s the best approach.'},
+      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
+          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
+          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
+          'able to bring it all together. It’s the best approach.'},
+      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
+          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
+          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
+          'able to bring it all together. It’s the best approach.'},
+      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
+          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
+          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
+          'able to bring it all together. It’s the best approach.'},
+      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
+          'Spider-Man phenomenon.'},
     ]
   }),
 }
 </script>
 
 <style scoped>
-
-
-
+.column_wrapper {
+  column-count: 3;
+}
 </style>
