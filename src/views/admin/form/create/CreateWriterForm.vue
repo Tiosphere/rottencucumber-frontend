@@ -59,7 +59,7 @@ export default {
                         </div>
                         <div class="form-group">
                             <label>Writer BirthPlace: </label>
-                            <textarea name="birth_place" form="form" class="form-control" required></textarea>
+                            <textarea name="birthPlace" form="form" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Writer Description: </label>

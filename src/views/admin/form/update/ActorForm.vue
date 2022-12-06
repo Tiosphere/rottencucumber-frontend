@@ -105,7 +105,7 @@ export default {
                         </div>
                         <div class="form-group">
                             <label>Actor BirthPlace: </label>
-                            <textarea name="birth_place" form="form" class="form-control" :value="this.default_data.birthPlace" required></textarea>
+                            <textarea name="birthPlace" form="form" class="form-control" :value="this.default_data.birthPlace" required></textarea>
                         </div>
                         <div class="form-group">
                             <label>Actor Description: </label>
