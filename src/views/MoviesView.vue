@@ -31,36 +31,40 @@
             </v-img>
             <!-- ADD btn -->
 
-            <v-btn @click="snackbar = !snackbar"
+            <div v-show="!added">
+            <v-btn @click="added = !added"
                    variant="flat"
                    rounded
                    x-small
                    color="#6FAC49"
                    class="ma-4">
               <v-icon style="color: #2A2C32">mdi-plus</v-icon>
-              {{ snackbar ? 'Add to watchlist' : 'On your watchlist' }}
+              Add to watchlist
+            </v-btn>
+            </div>
+
+            <div v-show="added">
+            <v-btn @click="added = !added"
+                   variant="flat"
+                   rounded
+                   x-small
+                   color="grey"
+                   class="ma-4">
+              <v-icon style="color: #2A2C32">mdi-check</v-icon>
+              On your watchlist
             </v-btn>
             <v-snackbar
-              v-model="snackbar"
-              v-if="snackbar===true"
+              v-model="remove"
               bottom
               centered
-              color="#6FAC49"
+              color="grey-darken"
               elevation="20"
             >
-              Added <strong>{{ movie.name }}</strong> into your watchlist
+              Removed <strong>{{ movie.name }}</strong> from your watchlist
             </v-snackbar>
+            </div>
 
-            <v-snackbar
-              v-model="snackbar"
-              v-else-if="snackbar===false"
-              bottom
-              centered
-              color="grey"
-              elevation="20"
-            >
-              Removed <strong>{{ movie.name }}</strong> from your watchlist successfully
-            </v-snackbar>
+            <!-- Movie info -->
               <div class="pa-2">
                 <h3>Language</h3>
                 <p>{{ movie.language }}</p>
@@ -78,7 +82,7 @@
                 <h3 class="text-green">Release date</h3>
                 <span class="mr-2">{{ movie.releaseDate }} </span>
                 <h3 class="pt-2 text-green">Director</h3>
-                <a c v-data-iterator="name in movie.directors">{{ name }} </a>
+                <a c v-for="name in movie.directors">{{ name }} </a>
                 <h3 class="pt-2 text-green">Writers</h3>
                 <a v-for="name in movie.writers">{{ name }} </a>
                 <h3 class="pt-2 text-green">Actors</h3>
@@ -99,11 +103,13 @@
             <v-card class="mx-auto d-flex pa-7">
               <v-list>
                 <template v-for="user in users">
-                  <div class="pb-3">
+                  <div>
                   <v-list-item-content>
                     <v-list-item-title>{{ user.comment }}</v-list-item-title>
                     <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
+                    <v-divider></v-divider>
                   </v-list-item-content>
+
                   </div>
                 </template>
               </v-list>
@@ -125,7 +131,7 @@ export default {
   name: "MoviesView",
   components: {Navbar},
   data: () => ({
-    snackbar: false,
+    added: false,
     movie: {
       name: "Spider-Man: No Way Home",
       pic: "https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg",
