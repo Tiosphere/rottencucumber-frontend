@@ -252,6 +252,12 @@ const router = createRouter({
       component: () => import('@/views/admin/form/delete/DeletePlatformForm.vue')
     },
 
+    {
+      path: '/admin/manage/review',
+      name: 'manage-review',
+      component: () => import('@/views/admin/ManageReviewView.vue')
+    },
+
 
     {
       path: '/admin/',

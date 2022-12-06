@@ -23,7 +23,7 @@
           <v-list-item
             :to="{ name:  name  }"
             v-for="[icon, text, name] in links"
-            :key="icon"
+            :key="name"
             link
           >
             <template v-slot:prepend>
@@ -46,13 +46,14 @@ import { isJwtExpired } from 'jwt-check-expiration';
     data: () => ({
       links: [
         ['mdi-account-group','Manage Accounts', 'manage-accounts'],
+        ['mdi-message-draw','Manage Reviews', 'manage-review'],
         ['mdi-movie','Manage Movies', 'manage-movies'],
-        ['mdi-account-edit','Manage Writer', 'manage-writer'],
-        ['mdi-account-box-multiple','Manage Actor', 'manage-actor'],
-        ['mdi-account-hard-hat','Manage Director', 'manage-director'],
-        ['mdi-bookshelf','Manage Genre', 'manage-genre'],
-        ['mdi-book-open-variant','Manage Language', 'manage-language'],
-        ['mdi-laptop','Manage Platform', 'manage-platform'],      
+        ['mdi-account-edit','Manage Writers', 'manage-writer'],
+        ['mdi-account-box-multiple','Manage Actors', 'manage-actor'],
+        ['mdi-account-hard-hat','Manage Directors', 'manage-director'],
+        ['mdi-bookshelf','Manage Genres', 'manage-genre'],
+        ['mdi-book-open-variant','Manage Languages', 'manage-language'],
+        ['mdi-laptop','Manage Platforms', 'manage-platform'],      
       ],
     }),
 
