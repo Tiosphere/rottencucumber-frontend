@@ -1,121 +1,116 @@
 <template>
   <Navbar/>
-  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;">
+  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;background-color: #DEECDE;">
     <v-main>
-      <div class="pb-3">
-        <!-- Movie name -->
-        <h1 class="d-flex">{{ movie.name }}</h1>
-      </div>
-      <v-row
-        class="mb-3 pb-10"
-      >
-
-        <v-col cols="4" no gutters>
-
-          <!-- Movie Poster -->
-
-          <v-img
-            aspect-ratio="4/3"
-            :width="250"
-            :src="movie.pic">
-          </v-img>
-          <!-- ADD btn -->
-
-          <v-btn @click="snackbar = !snackbar"
-                 elevation="6"
-                 rounded
-                 x-small
-                 color="#6FAC49"
-                 class="ma-4">
-            <v-icon style="color: #2A2C32">mdi-plus</v-icon>
-            {{ snackbar ? 'Add to watchlist' : 'Added to watchlist' }}
-          </v-btn>
-          <v-snackbar
-            v-model="snackbar"
-            bottom
-            centered
-            color="#6FAC49"
-            elevation="20"
-          >
-            Added <strong>{{ movie.name }}</strong> into your watchlist
-          </v-snackbar>
-
-          <v-snackbar
-            v-model="snackbar"
-            bottom
-            centered
-            color="#6FAC49"
-            elevation="20"
-          >
-            Removed <strong>{{ movie.name }}</strong> from your watchlist successfully
-          </v-snackbar>
-        </v-col>
-
-        <v-col cols="8">
-          <!-- Movie detail -->
-          <v-row class="mt-2">
-          <v-rating
-            v-model="movie.rating"
-            color="green"
-            readonly
-            density="compact"
-            size="x-large"
-            half-increments
-            >
-          </v-rating>
-          <span class="mr-2 align-end">
-            ({{ movie.rating }})
-          </span>
-
+      <v-container>
+        <v-row>
+        <div class="pb-3">
+          <!-- Movie name -->
+          <h1 class="d-flex">{{ movie.name }}</h1>
+        </div>
           <v-spacer></v-spacer>
-          <RouterLink :to="{ name: 'popular' }" id="user">
-            <v-btn variant="flat"
-                   min-width="10px"
-                   min-height="10px"
-                   raised
-            >
-              <div class="text-decoration-underline" style="color:gray; ">Edit</div>
+        <v-rating
+          v-model="movie.rating"
+          color="green"
+          readonly
+          density="compact"
+          size="x-large"
+          half-increments
+        >
+        </v-rating>
+        </v-row>
+        <v-row
+          class="mb-3"
+        >
+          <v-col cols="4" no gutters>
+            <!-- Movie Poster -->
+            <v-img
+              aspect-ratio="4/3"
+              :width="250"
+              :src="movie.pic">
+            </v-img>
+            <!-- ADD btn -->
+
+            <v-btn @click="snackbar = !snackbar"
+                   variant="flat"
+                   rounded
+                   x-small
+                   color="#6FAC49"
+                   class="ma-4">
+              <v-icon style="color: #2A2C32">mdi-plus</v-icon>
+              {{ snackbar ? 'Add to watchlist' : 'On your watchlist' }}
             </v-btn>
-          </RouterLink>
-          </v-row>
+            <v-snackbar
+              v-model="snackbar"
+              v-if="snackbar===true"
+              bottom
+              centered
+              color="#6FAC49"
+              elevation="20"
+            >
+              Added <strong>{{ movie.name }}</strong> into your watchlist
+            </v-snackbar>
 
-          <h3 class="pt-6">Release date</h3>
-          <span class="mr-2">{{ movie.releaseDate }} </span>
-          <h3 class="pt-2">Director</h3>
-          <a c v-for="name in movie.directors">{{ name }} </a>
-          <h3 class="pt-2">Writers</h3>
-          <a v-for="name in movie.writers">{{ name }} </a>
-          <h3 class="pt-2">Actors</h3>
-          <a v-for="name in movie.actors">{{ name }} </a>
-          <h3 class="pt-2">Summary</h3>
-          <p class="pr-2">{{ movie.summary }}</p>
-          <h3 class="pt-2">Genres</h3>
-          <p v-for="type in movie.genres">{{ type }}</p>
-          <h3 class="pt-2">Platform</h3>
-          <p v-for="name in movie.platforms" >{{ name }}</p>
-        </v-col>
-      </v-row>
+            <v-snackbar
+              v-model="snackbar"
+              v-else-if="snackbar===false"
+              bottom
+              centered
+              color="grey"
+              elevation="20"
+            >
+              Removed <strong>{{ movie.name }}</strong> from your watchlist successfully
+            </v-snackbar>
+              <div class="pa-2">
+                <h3>Language</h3>
+                <p>{{ movie.language }}</p>
+                <h3 class="pt-2">Genres</h3>
+                <p v-for="type in movie.genres">{{ type }}</p>
+                <h3 class="pt-2">Platform</h3>
+                <p v-for="name in movie.platforms">{{ name }}</p>
+              </div>
+          </v-col>
+            <!-- Movie detail -->
 
-      <v-divider></v-divider>
-      <!-- reviews -->
-      <h2 class="pt-10">Reviews</h2>
-      <v-col>
-      <v-card class="mx-auto d-flex">
-        <v-list-item
-          v-for="user in users"
-          :key="users.name">
-          <v-row>
-          <v-list-item-avatar>
-            <img :src="user.avatar">
-          </v-list-item-avatar>
-          <v-list-item-content>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ user.comment }}</v-list-item-subtitle>
-          </v-list-item-content>
-          </v-row>
-        </v-list-item>
-      </v-card>
-      </v-col>
+          <v-col cols="8">
+            <v-sheet class="rounded-xl" elevation="4">
+              <div class="pa-7">
+                <h3 class="text-green">Release date</h3>
+                <span class="mr-2">{{ movie.releaseDate }} </span>
+                <h3 class="pt-2 text-green">Director</h3>
+                <a c v-data-iterator="name in movie.directors">{{ name }} </a>
+                <h3 class="pt-2 text-green">Writers</h3>
+                <a v-for="name in movie.writers">{{ name }} </a>
+                <h3 class="pt-2 text-green">Actors</h3>
+                <a v-for="name in movie.actors">{{ name }} </a>
+                <h3 class="pt-2 text-green">Summary</h3>
+                <p class="pr-2">{{ movie.summary }}</p>
+              </div>
+            </v-sheet>
+          </v-col>
+        </v-row>
+
+
+        <v-divider></v-divider>
+        <!-- reviews -->
+        <h2 class="pt-10">REVIEWS</h2>
+        <v-container>
+          <v-col>
+            <v-card class="mx-auto d-flex pa-7">
+              <v-list>
+                <template v-for="user in users">
+                  <div class="pb-3">
+                  <v-list-item-content>
+                    <v-list-item-title>{{ user.comment }}</v-list-item-title>
+                    <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
+                  </v-list-item-content>
+                  </div>
+                </template>
+              </v-list>
+            </v-card>
+          </v-col>
+        </v-container>
+      </v-container>
     </v-main>
     <Footer/>
 
@@ -146,17 +141,20 @@ export default {
       actors: ["Tom Holland", "Zendaya", "Benedict Cumberbatch", "Jacob Batalon", "Jon Favreau", "Jamie Foxx",
         "Willem Dafoe", "Alfred Molina", "Benedict Wong", "Tony Revolori", "Marisa Tomei", "Andrew Garfield", "Tobey Maguire"],
       rating: 4,
-      genres:["Action", "Adventure", "Fantasy", "Comedy"],
-      platforms:["Prime Video"]
+      language: "English",
+      genres: ["Action", "Adventure", "Fantasy", "Comedy"],
+      platforms: ["Prime Video"]
     },
     users: [
-      {avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg', name: 'Test1', comment: 'gud'},
-      {avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg', name: 'Test2', comment: '10/10'},
+      { name: 'Test1', comment: 'gud'},
+      { name: 'Test2', comment: '10/10'},
     ]
   }),
 }
 </script>
 
 <style scoped>
+
+
 
 </style>
