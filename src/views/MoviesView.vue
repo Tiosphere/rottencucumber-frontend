@@ -60,7 +60,9 @@
                 <h3>Language</h3>
                 <p>{{ movie.language }}</p>
                 <h3 class="pt-2">Genres</h3>
-                <p v-for="type in movie.genres">{{ type }}</p>
+                <RouterLink :to="{ name: 'popular' }" class="link" v-for="type in movie.genres">
+                  {{ type }} <br/>
+                </RouterLink>
                 <h3 class="pt-2">Platform</h3>
                 <p v-for="name in movie.platforms">{{ name }}</p>
               </div>
@@ -73,11 +75,17 @@
                 <h3 class="text-green">Release date</h3>
                 <span class="mr-2">{{ movie.releaseDate }} </span>
                 <h3 class="pt-2 text-green">Director</h3>
-                <a c v-for="name in movie.directors">{{ name }} </a>
+                <RouterLink :to="{ name: 'director' }" class="link"  v-for="name in movie.directors">
+                  {{ name }}&nbsp;
+                </RouterLink>
                 <h3 class="pt-2 text-green">Writers</h3>
-                <a v-for="name in movie.writers">{{ name }} </a>
+                <RouterLink :to="{ name: 'writer' }" class="link" v-for="name in movie.writers">
+                  {{ name }}&nbsp;
+                </RouterLink>
                 <h3 class="pt-2 text-green">Actors</h3>
-                <a v-for="name in movie.actors">{{ name }} </a>
+                <RouterLink :to="{ name: 'actor' }" class="link"  v-for="name in movie.actors">
+                  {{ name }}&nbsp;
+                </RouterLink>
                 <h3 class="pt-2 text-green">Summary</h3>
                 <p class="pr-2">{{ movie.summary }}</p>
               </div>
@@ -160,6 +168,8 @@ export default {
   components: {Navbar,Footer},
   data: () => ({
     isLogin:true,
+    rating:0,
+    message:"",
     added: false,
     movie: {
       name: "Spider-Man: No Way Home",
@@ -204,11 +214,25 @@ export default {
           'Spider-Man phenomenon.'},
     ]
   }),
+  methods: {
+    sendMessage() {
+      //submit the msg
+      this.clearMessage()
+    },
+    clearMessage() {
+      this.message = ''
+    }
+  }
 }
 </script>
 
 <style scoped>
 .column_wrapper {
   column-count: 3;
+}
+
+.link {
+  text-decoration: none;
+  color:black;
 }
 </style>
