@@ -100,7 +100,7 @@ const router = createRouter({
       path: '/genres/:slug',
       name: 'movies-genres',
       component: () => import('@/views/GenresView.vue')
-    }
+    },
 
 
     {

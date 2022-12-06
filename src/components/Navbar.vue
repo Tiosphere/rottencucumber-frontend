@@ -144,9 +144,7 @@ export default {
         </v-btn>
       </RouterLink>
 
-      <RouterLink
-      style="text-decoration: none; color: inherit;"
-      :to="{ name: '' }">
+
         <v-menu open-on-hover>
           <template v-slot:activator="{ props }">
             <v-btn variant="text" color="#6FAC49" v-bind="props">
@@ -154,6 +152,9 @@ export default {
             </v-btn>
           </template>
           <v-list>
+            <RouterLink
+              style="text-decoration: none; color: inherit;"
+              :to="{ name: 'movies-genres' }">
             <v-list-item
               v-for="(genre, index) in genres"
             :key="index"
@@ -161,9 +162,9 @@ export default {
             >
               <v-list-item-title>{{genre}}</v-list-item-title>
             </v-list-item>
+            </RouterLink>
           </v-list>
         </v-menu>
-      </RouterLink>
 
       <RouterLink
       style="text-decoration: none; color: inherit;"
