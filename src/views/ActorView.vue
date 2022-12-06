@@ -3,6 +3,7 @@
   <v-app style="background-color: #DEECDE;">
     <v-main class="px-16 ma-10">
       <!-- Actor detail  -->
+      <v-container>
       <v-row>
         <v-col cols="3">
           <v-sheet
@@ -35,7 +36,7 @@
         <!-- List of movie -->
         <v-col cols="8" class="mt-7">
           <h3 class="pl-4 pb-2">FILMOGRAPHY</h3>
-          <div clas="d-flex justify-md-content-center">
+          <div clas="d-flex">
           <v-card
             class="d-flex flex-wrap pa-7"
             elevation="7">
@@ -87,6 +88,7 @@
           </div>
         </v-col>
       </v-row>
+      </v-container>
     </v-main>
   </v-app>
   <Footer/>
