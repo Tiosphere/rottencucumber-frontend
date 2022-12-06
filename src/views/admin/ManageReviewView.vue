@@ -87,7 +87,7 @@
               min-width="10px"
               min-height="10px"
               style="margin:4px"
-              @click="del(item.slug)"
+              @click="del(item.id)"
             >
               <i class="fa fa-trash"></i>
             </v-btn>
@@ -129,8 +129,8 @@
         }
       },
       methods: {
-        del:function(slug) {
-          this.$router.push({ name: '', params: { slug: slug }});
+        del:function(id) {
+          this.$router.push({ name: 'review-delete', params: { id: id }});
         },
         tenChar:function(sentence) {
             if (sentence.length < 10) {

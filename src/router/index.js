@@ -257,6 +257,11 @@ const router = createRouter({
       name: 'manage-review',
       component: () => import('@/views/admin/ManageReviewView.vue')
     },
+    {
+      path: '/admin/manage/review/delete/:id',
+      name: 'review-delete',
+      component: () => import('@/views/admin/form/delete/DeleteReviewForm.vue')
+    },
 
 
     {
