@@ -1,48 +1,54 @@
 <template>
   <Navbar/>
   <v-app style="background-color: #deecde;">
+    <v-container>
     <v-row>
       <v-col cols="8">
         <h1 class="pl-15 pt-8 pb-8">Popular</h1>
       </v-col>
     </v-row>
-  <v-card
-    class="d-inline-flex align-content-space-between flex-wrap pa-8"
-    elevation="7"
-    >
-    <v-list
-      v-for="movie in movies.sort((a,b) => {
-          return a.view - b.view}).reverse()">
-      <div class="pa-5 center">
-        <v-list-item-media>
-          <v-img
-            :aspect-ratio="3/4"
-            class="mx-auto bg-white"
-            :src="movie.src"
-            max-height="300px"
-            width="200px"
-            cover
-          >
-          </v-img>
-        </v-list-item-media>
-        <v-list-item-content class="text-center">
-          <v-list-item-title>
-            <div class="pt-3">
-              <span
-                class="d-inline-block text-truncate"
-                style="max-width: 200px;"
-                >
-                {{ movie.title }}
-              </span>
-            </div>
-          </v-list-item-title>
-          <v-list-item-subtitle>
-            {{movie.year}}
-          </v-list-item-subtitle>
-        </v-list-item-content>
-      </div>
-    </v-list>
-  </v-card>
+    <v-card
+      class="d-flex flex-wrap pa-5"
+      elevation="7"
+      >
+      <v-row class="justify-center">
+        <v-list
+          v-for="movie in movies.sort((a,b) => {
+              return a.view - b.view}).reverse().slice(0,20)">
+          <v-container>
+          <div class="pa-5 center">
+            <v-list-item-media>
+              <v-img
+                :aspect-ratio="3/4"
+                class="mx-auto bg-white"
+                :src="movie.src"
+                max-height="300px"
+                width="200px"
+                cover
+              >
+              </v-img>
+            </v-list-item-media>
+            <v-list-item-content class="text-center">
+              <v-list-item-title>
+                <div class="pt-3">
+                  <span
+                    class="d-inline-block text-truncate"
+                    style="max-width: 200px;"
+                    >
+                    {{ movie.title }}
+                  </span>
+                </div>
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{movie.year}}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </div>
+          </v-container>
+        </v-list>
+      </v-row>
+    </v-card>
+    </v-container>
   </v-app>
   <Footer/>
 </template>
@@ -130,7 +136,62 @@ export default {
         src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
         year: '2022',
         view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
+      },
+      {
+        title: 'heloooo',
+        src: 'https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/9B1888461A8680C699AAF67294A8F0F5304949D04B84E0D654049FF133165D01/scale?width=1200&aspectRatio=1.78&format=jpeg',
+        year: '2022',
+        view: '25000'
       }
+
     ]
   })
 }

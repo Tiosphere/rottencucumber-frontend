@@ -23,7 +23,7 @@
               return a.day - b.day
             }
           }
-          }).reverse()">
+          }).reverse().slice(0,20)">
         <div class="pa-5 center">
           <v-list-item-media>
             <v-img
