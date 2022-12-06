@@ -1,6 +1,7 @@
 <template>
   <Navbar/>
   <v-app style="background-color: #deecde;">
+    <v-container>
     <v-row>
       <v-col cols="8">
         <h1 class="pl-15 pt-8 pb-8">Latest Movies</h1>
@@ -10,6 +11,7 @@
       class="d-inline-flex align-content-space-between flex-wrap pa-8"
       elevation="7"
     >
+      <v-row class="justify-center">
       <v-list
         v-for="movie in movies.sort((a,b) => {
           if (a.year != b.year) {
@@ -24,6 +26,7 @@
             }
           }
           }).reverse().slice(0,20)">
+        <v-container>
         <div class="pa-5 center">
           <v-list-item-media>
             <v-img
@@ -52,8 +55,11 @@
             </v-list-item-subtitle>
           </v-list-item-content>
         </div>
+        </v-container>
       </v-list>
+      </v-row>
     </v-card>
+    </v-container>
   </v-app>
   <Footer/>
 </template>
