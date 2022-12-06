@@ -98,7 +98,7 @@
         this.$router.push({ name: 'actor-edit', params: { slug: slug }});
       },
       del:function(slug) {
-        this.$router.push({ name: '', params: { slug: slug }});
+        this.$router.push({ name: 'actor-delete', params: { slug: slug }});
       },
     },
     beforeMount() {

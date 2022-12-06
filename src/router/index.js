@@ -135,6 +135,11 @@ const router = createRouter({
       name: 'actor-create',
       component: () => import('@/views/admin/form/create/CreateActorForm.vue')
     },
+    {
+      path: '/admin/manage/actor/delete/:slug',
+      name: 'actor-delete',
+      component: () => import('@/views/admin/form/delete/DeleteActorForm.vue')
+    },
 
 
 

@@ -2,7 +2,7 @@
 import axios from 'axios';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'DeleteAccountForm',
+    name: 'DeleteActorForm',
     components: {
         side,
     },
@@ -12,12 +12,12 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/user/delete/" + this.$route.params.slug, form)
+            axios.post("http://localhost:8080/api/admin/actor/delete/" + this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
                     if(data.success) {
-                        this.$router.push({ name: 'manage-accounts' });
+                        this.$router.push({ name: 'manage-actor' });
                     }
                 })
                 .catch((error) => {
