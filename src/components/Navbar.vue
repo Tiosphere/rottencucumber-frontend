@@ -1,6 +1,6 @@
 <script>
 import { isJwtExpired } from 'jwt-check-expiration';
-// import { ref } from 
+// import { ref } from
 
 export default {
   data: () => ({
@@ -20,6 +20,9 @@ export default {
           pathName: 'logout'
         },
       ],
+    genres: [
+      "Action", "Crime", "Drama", "Fantasy", "Horror", "Comedy", "Romance", "Science Fiction", "Sports", "Thriller", "Mystery", "War, and Western"
+    ]
 
   }),
 
@@ -63,27 +66,27 @@ export default {
       <div style="padding: 14px;">
 
         <!-- <RouterLink :to="{ name: this.url }" id="user"> -->
-        
+
           <!-- <v-avatar v-if="this.isLogin" color="#E8F5E9"> -->
             <v-btn v-if="this.isLogin"
             icon
             >
-            
+
             <v-avatar color="#E8F5E9">
               <v-icon dark size="260%">
               mdi-account-circle
               </v-icon>
             </v-avatar>
-            
+
             <v-menu activator="parent">
               <v-list>
                 <v-list-item
                 v-for="item in items"
                 :key="item"
                 >
-                
+
                 <v-list-item-title>
-                  <RouterLink 
+                  <RouterLink
                   style="text-decoration: none; color: inherit;"
                   :to="{ name: item.pathName }" id="user">
                   <v-btn variant="flat">
@@ -98,19 +101,19 @@ export default {
             </v-menu>
 
             </v-btn>
-        
+
 
 
           <!-- <v-btn v-else variant="flat" color="success"> -->
           <div v-else>
-            <RouterLink 
+            <RouterLink
             style="text-decoration: none; color: inherit;"
             :to="{ name: 'login' }" id="user">
             <v-btn variant="flat" color="success" style="margin:5px">
             Login
             </v-btn>
             </RouterLink>
-            <RouterLink 
+            <RouterLink
             style="text-decoration: none; color: inherit;"
             :to="{ name: 'signup' }" id="user">
             <v-btn variant="flat" color="success" style="margin:5px">
@@ -125,7 +128,7 @@ export default {
 
     </v-toolbar>
     <v-card-item style="background-color: #ffffff">
-      <RouterLink 
+      <RouterLink
       style="text-decoration: none; color: inherit;"
       :to="{ name: 'popular' }">
         <v-btn variant="text" color="#6FAC49">
@@ -133,7 +136,7 @@ export default {
         </v-btn>
       </RouterLink>
 
-      <RouterLink 
+      <RouterLink
       style="text-decoration: none; color: inherit;"
       :to="{ name: 'latest' }">
         <v-btn variant="text" color="#6FAC49">
@@ -141,15 +144,28 @@ export default {
         </v-btn>
       </RouterLink>
 
-      <RouterLink 
+      <RouterLink
       style="text-decoration: none; color: inherit;"
       :to="{ name: '' }">
-        <v-btn variant="text" color="#6FAC49">
-          Genres
-        </v-btn>
+        <v-menu open-on-hover>
+          <template v-slot:activator="{ props }">
+            <v-btn variant="text" color="#6FAC49" v-bind="props">
+              Genres
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="(genre, index) in genres"
+            :key="index"
+              :value="index"
+            >
+              <v-list-item-title>{{genre}}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </RouterLink>
 
-      <RouterLink 
+      <RouterLink
       style="text-decoration: none; color: inherit;"
       :to="{ name: '' }">
         <v-btn variant="text" color="#6FAC49">
