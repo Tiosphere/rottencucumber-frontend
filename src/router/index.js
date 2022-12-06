@@ -175,6 +175,11 @@ const router = createRouter({
       name: 'director-edit',
       component: () => import('@/views/admin/form/update/DirectorForm.vue')
     },
+    {
+      path: '/admin/manage/director/create',
+      name: 'director-create',
+      component: () => import('@/views/admin/form/create/CreateDirectorForm.vue')
+    },
 
 
     {

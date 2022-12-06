@@ -2,7 +2,7 @@
 import axios from 'axios';
 import side from '@/components/Sidebar.vue'
 export default {
-    name: 'CreateActorForm',
+    name: 'CreateDirectorForm',
     components: {
         side,
     },
@@ -25,12 +25,12 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/actor/create/", form)
+            axios.post("http://localhost:8080/api/admin/director/create/", form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
                     if(data.success) {
-                        this.$router.push({ name: 'manage-actor' });
+                        this.$router.push({ name: 'manage-director' });
                     }
                 })
                 .catch((error) => {
@@ -55,36 +55,36 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Create Actor</div>
+                    <div class="title">Create Director</div>
                 </div>
             </div>
             <div class="modal-body">
                 <form class="content " id="form" v-on:submit.prevent="submitForm" ref="accountForm">
                     <div class="hide-on-success">
                         <div class="form-group">
-                            <label>Actor Name: </label>
-                            <input type="text" name="name" class="form-control" required placeholder="Actor Name">
+                            <label>Director Name: </label>
+                            <input type="text" name="name" class="form-control" required placeholder="Director Name">
                         </div>
                         <div class="form-group">
-                            <label>Actor BirthPlace: </label>
+                            <label>Director BirthPlace: </label>
                             <textarea name="birthPlace" form="form" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Actor Description: </label>
+                            <label>Director Description: </label>
                             <textarea name="description" form="form" class="form-control" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label>Actor Birth Day: </label>
+                            <label>Director Birth Day: </label>
                             <input type="text" name="day" class="form-control" required placeholder="Birth Day">
                         </div>
 
                         <div class="form-group">
-                            <label>Actor Birth Month: </label>
+                            <label>Director Birth Month: </label>
                             <input type="text" name="month" class="form-control" required placeholder="Birth Month">
                         </div>
 
                         <div class="form-group">
-                            <label>Actor Birth Year: </label>
+                            <label>Director Birth Year: </label>
                             <input type="text" name="year" class="form-control" required placeholder="Birth Year">
                         </div>
                         

@@ -29,7 +29,7 @@
               min-width="105px"
               min-height="10px"  
               style="margin:4px; margin-bottom:10px; "
-              @click="this.$router.push({ name: '' })"   
+              @click="this.$router.push({ name: 'director-create' })"   
               >
                 create
           </v-btn>
