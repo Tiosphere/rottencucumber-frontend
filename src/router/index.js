@@ -180,6 +180,11 @@ const router = createRouter({
       name: 'director-create',
       component: () => import('@/views/admin/form/create/CreateDirectorForm.vue')
     },
+    {
+      path: '/admin/manage/director/delete/:slug',
+      name: 'director-delete',
+      component: () => import('@/views/admin/form/delete/DeleteDirectorForm.vue')
+    },
 
 
     {

@@ -98,7 +98,7 @@
         this.$router.push({ name: 'director-edit', params: { slug: slug }});
       },
       del:function(slug) {
-        this.$router.push({ name: '', params: { slug: slug }});
+        this.$router.push({ name: 'director-delete', params: { slug: slug }});
       },
     },
     beforeMount() {
