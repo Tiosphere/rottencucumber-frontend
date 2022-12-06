@@ -53,15 +53,6 @@
               <v-icon style="color: #2A2C32">mdi-check</v-icon>
               On your watchlist
             </v-btn>
-            <v-snackbar
-              v-model="remove"
-              bottom
-              centered
-              color="grey-darken"
-              elevation="20"
-            >
-              Removed <strong>{{ movie.name }}</strong> from your watchlist
-            </v-snackbar>
             </div>
 
             <!-- Movie info -->
@@ -74,8 +65,8 @@
                 <p v-for="name in movie.platforms">{{ name }}</p>
               </div>
           </v-col>
-            <!-- Movie detail -->
 
+            <!-- Movie detail -->
           <v-col cols="8">
             <v-sheet class="rounded-xl" elevation="4">
               <div class="pa-7">
@@ -96,8 +87,23 @@
 
 
         <v-divider></v-divider>
+
+
         <!-- reviews -->
         <h2 class="pt-10">REVIEWS</h2>
+        <!-- review box -->
+        <div v-show="isLogin">
+          <v-text-field
+            v-model="message"
+            outlined
+            clearable
+            label="Comment"
+            type="text"
+          >
+          </v-text-field>
+        </div>
+
+        <!--review column-->
         <div class="column_wrapper">
         <v-container class="d-flex flex-wrap justify-space-around">
               <v-list v-for="user in users"
@@ -137,6 +143,7 @@ export default {
   name: "MoviesView",
   components: {Navbar,Footer},
   data: () => ({
+    isLogin:true,
     added: false,
     movie: {
       name: "Spider-Man: No Way Home",
