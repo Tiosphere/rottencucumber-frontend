@@ -67,18 +67,6 @@
                     <v-list-item-subtitle>
                       {{ movie.year }}
                     </v-list-item-subtitle>
-
-                    <!--  Movie rating  -->
-                    <v-list-item-media>
-                      <v-rating
-                        v-model="movie.rating"
-                        color="green"
-                        readonly
-                        half-increments
-                        size="25"
-                        density="compact"
-                      ></v-rating>
-                    </v-list-item-media>
                   </v-list-item-content>
                 </div>
               </v-list>
@@ -108,40 +96,9 @@ export default {
       pic:""
     },
     movieList: [
-      {
-        movieName: "Feline Jones",
-        pic: "https://i.pinimg.com/564x/96/dc/7e/96dc7ef799d640d3ad58ebcf2e057546.jpg",
-        year: "1997",
-        rating: "3.5"
-      },
-      {
-        movieName: "Purr Wars",
-        pic: "https://i.pinimg.com/564x/0a/5f/33/0a5f33856c1f869a567c2d200b41672a.jpg",
-        year: "2017",
-        rating: "5"
-      },
-      {
-        movieName: "Iron Cat 3",
-        pic: "https://i.pinimg.com/564x/e8/ca/18/e8ca183c2ab875df8b22161b90273018.jpg",
-        year: "2013",
-        rating: "4"
-      },
-      {
-        movieName: "Cat Wars",
-        pic: "https://i.pinimg.com/564x/e9/83/6e/e9836e696df6321af5ca15336f3d99e5.jpg",
-        year: "2014",
-        rating: "3.5"
-      },
-      {
-        movieName: "Meautrix",
-        pic: "https://i.pinimg.com/564x/19/57/56/195756cb9ed2cb66c588c5d83a278439.jpg",
-        year: "2015",
-        rating: "5"
-      },
     ]
   }),
   beforeMount() {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get("http://localhost:8080/api/actor/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data

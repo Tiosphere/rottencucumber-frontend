@@ -4,20 +4,11 @@
     <v-main>
       <v-container>
         <v-row>
-        <div class="pb-3">
-          <!-- Movie name -->
-          <h1 class="d-flex">{{ movie.name }}</h1>
-        </div>
+          <div class="pb-3">
+            <!-- Movie name -->
+            <h1 class="d-flex">{{ movie.name }}</h1>
+          </div>
           <v-spacer></v-spacer>
-        <v-rating
-          v-model="movie.rating"
-          color="green"
-          readonly
-          density="compact"
-          size="x-large"
-          half-increments
-        >
-        </v-rating>
         </v-row>
         <v-row
           class="mb-3"
@@ -32,60 +23,62 @@
             <!-- ADD btn -->
 
             <div v-show="!added">
-            <v-btn @click="added = !added"
-                   variant="flat"
-                   rounded
-                   x-small
-                   color="#6FAC49"
-                   class="ma-4">
-              <v-icon style="color: #2A2C32">mdi-plus</v-icon>
-              Add to watchlist
-            </v-btn>
+              <v-btn @click="added = !added"
+                     variant="flat"
+                     rounded
+                     x-small
+                     color="#6FAC49"
+                     class="ma-4">
+                <v-icon style="color: #2A2C32">mdi-plus</v-icon>
+                Add to watchlist
+              </v-btn>
             </div>
 
             <div v-show="added">
-            <v-btn @click="added = !added"
-                   variant="flat"
-                   rounded
-                   x-small
-                   color="grey"
-                   class="ma-4">
-              <v-icon style="color: #2A2C32">mdi-check</v-icon>
-              On your watchlist
-            </v-btn>
+              <v-btn @click="added = !added"
+                     variant="flat"
+                     rounded
+                     x-small
+                     color="grey"
+                     class="ma-4">
+                <v-icon style="color: #2A2C32">mdi-check</v-icon>
+                On your watchlist
+              </v-btn>
             </div>
 
             <!-- Movie info -->
-              <div class="pa-2">
-                <h3>Language</h3>
-                <p>{{ movie.language }}</p>
-                <h3 class="pt-2">Genres</h3>
-                <RouterLink :to="{ name: 'popular' }" class="link" v-for="type in movie.genres">
-                  {{ type }} <br/>
-                </RouterLink>
-                <h3 class="pt-2">Platform</h3>
-                <p v-for="name in movie.platforms">{{ name }}</p>
-              </div>
+            <div class="pa-2">
+              <h3>Language</h3>
+              <p>{{ movie.language }}</p>
+              <h3 class="pt-2">Genres</h3>
+              <RouterLink :to="{ name: 'popular' }" class="link" v-for="type in movie.genres">
+                {{ type.name }} <br/>
+              </RouterLink>
+              <h3 class="pt-2">Platform</h3>
+              <p v-for="name in movie.platforms">{{ name.name }}</p>
+            </div>
           </v-col>
 
-            <!-- Movie detail -->
+          <!-- Movie detail -->
           <v-col cols="8">
             <v-sheet class="rounded-xl" elevation="4">
               <div class="pa-7">
                 <h3 class="text-green">Release date</h3>
-                <span class="mr-2">{{ movie.releaseDate.day }}-{{ movie.releaseDate.month }}-{{ movie.releaseDate.year }} </span>
+                <span class="mr-2">{{ movie.releaseDate.day }}-{{ movie.releaseDate.month }}-{{
+                    movie.releaseDate.year
+                  }} </span>
                 <h3 class="pt-2 text-green">Director</h3>
-                <RouterLink :to="{ name: 'director' }" class="link"  v-for="name in movie.directors">
-                  {{ name }}&nbsp;
-                </RouterLink>
+                <a v-bind:href="'/director/'+ name.slug" v-for="name in movie.directors" class="link">
+                  {{name.name}},&nbsp;
+                </a>
                 <h3 class="pt-2 text-green">Writers</h3>
-                <RouterLink :to="{ name: 'writer' }" class="link" v-for="name in movie.writers">
-                  {{ name }}&nbsp;
-                </RouterLink>
+                <a v-bind:href="'/writer/'+ name.slug" v-for="name in movie.writers" class="link">
+                  {{name.name}},&nbsp;
+                </a>
                 <h3 class="pt-2 text-green">Actors</h3>
-                <RouterLink :to="{ name: 'actor' }" class="link"  v-for="name in movie.actors">
-                  {{ name }}&nbsp;
-                </RouterLink>
+                  <a v-bind:href="'/actor/'+ name.slug" v-for="name in movie.actors" class="link">
+                    {{name.name}},&nbsp;
+                  </a>
                 <h3 class="pt-2 text-green">Summary</h3>
                 <p class="pr-2">{{ movie.summary }}</p>
               </div>
@@ -100,58 +93,43 @@
         <!-- reviews -->
         <h2 class="pt-8 pb-3">REVIEWS</h2>
         <!-- review box -->
-        <div v-show="isLogin" >
+        <div v-if="isLogin">
           <v-card
             variant="outlined"
             style="background-color: #ffffff;"
             class="d-flex justify-center">
-          <v-col cols="10" >
-          <v-rating
-            v-model="rating"
-            color="green"
-            half-increments
-            size="25"
-            density="compact"
-          ></v-rating>
-          <v-textarea
-            clearable
-            v-model="message"
-            variant="outlined"
-            label="Write your review here"
-            type="text"
-            append-icon="mdi-send"
-            @click:append="sendMessage"
-          >
-          </v-textarea>
-          </v-col>
+            <v-col cols="10">
+              <v-textarea
+                clearable
+                v-model="message"
+                variant="outlined"
+                label="Write your review here"
+                type="text"
+                append-icon="mdi-send"
+                @click:append="sendMessage"
+              >
+              </v-textarea>
+            </v-col>
           </v-card>
         </div>
 
         <!--review column-->
         <div class="column_wrapper">
-        <v-container class="d-flex flex-wrap justify-space-around">
-              <v-list v-for="user in users"
-              style="background-color: #DEECDE;">
-                  <v-card
-                    class="pa-7"
-                    variant="outlined"
-                  max-width="300px"
-                    style="background-color: #ffffff;">
-                    <v-list-item-content>
-                      <v-rating
-                        v-model="movie.rating"
-                        color="green"
-                        readonly
-                        half-increments
-                        size="25"
-                        density="compact"
-                      ></v-rating>
-                      <p>{{ user.comment }}</p>
-                    <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
-                  </v-list-item-content>
-                  </v-card>
-              </v-list>
-        </v-container>
+          <v-container class="d-flex flex-wrap justify-space-around">
+            <v-list v-for="user in users"
+                    style="background-color: #DEECDE;">
+              <v-card
+                class="pa-7"
+                variant="outlined"
+                max-width="300px"
+                style="background-color: #ffffff;">
+                <v-list-item-content>
+                  <p>{{ user.comment }}</p>
+                  <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
+                </v-list-item-content>
+              </v-card>
+            </v-list>
+          </v-container>
         </div>
       </v-container>
     </v-main>
@@ -163,54 +141,32 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import axios from "axios";
+import {isJwtExpired} from "jwt-check-expiration";
 
 export default {
   name: "MoviesView",
-  components: {Navbar,Footer},
+  components: {Navbar, Footer},
   data: () => ({
-    isLogin:true,
-    rating:0,
-    message:"",
+    isLogin: false,
+    message: "",
     added: false,
     movie: {
       name: "",
       pic: "",
       releaseDate: {
-        day:"",
-        month:"",
-        year:""
+        day: "",
+        month: "",
+        year: ""
       },
       summary: "",
-      directors: [ ],
-      writers: [ ],
-      actors: [ ],
-      rating: 4,
+      directors: [],
+      writers: [],
+      actors: [],
       language: "",
-      genres: [ ],
-      platforms: [ ]
+      genres: [],
+      platforms: []
     },
-    users: [
-      { name: 'glor', comment: 'Crossover comfort food with a redemptive twist'},
-      { name: 'nut', comment: 'Throughout all of it, the weird and complex history of Spider-Man as a cinematic icon isn\'' +
-          't a hindrance to the story; instead, it\'s an enhancement, using the quirks of the character\'' +
-          's legacy as a source of illumination into why he has endured so long.'},
-      { name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'},
-      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'},
-      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'},
-      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'},{ name: 'hong', comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'},
-      { name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'},
+    reviews: [
     ]
   }),
   methods: {
@@ -223,7 +179,12 @@ export default {
     }
   },
   beforeMount() {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    let token = localStorage.getItem("access_token");
+    if (token != null && !isJwtExpired(token)) {
+      this.isLogin = true
+    } else {
+      this.isLogin = false
+    }
     axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
@@ -235,9 +196,12 @@ export default {
         this.movie.releaseDate.year = data.records[0].year
         this.movie.summary = data.records[0].summary
         this.movie.language = data.records[0].language.name
-        // this.movie.genres = data.records[0].genres
-        // this.movie.platforms = data.records[0].platform
-        this.movie.actors = data.records[0].actors.name
+        this.movie.genres = data.records[0].genres
+        this.movie.platforms = data.records[0].platform
+        this.movie.actors = data.records[0].actors
+        this.movie.directors = data.records[0].directors
+        this.movie.writers = data.records[0].writers
+        this.reviews = data.records[0].reviews
       })
       .catch(() => {
         // this.$router.push({ name: 'home' })
@@ -253,6 +217,6 @@ export default {
 
 .link {
   text-decoration: none;
-  color:black;
+  color: black;
 }
 </style>
