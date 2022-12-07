@@ -9,15 +9,6 @@
             <h1 class="d-flex">{{ movie.name }}</h1>
           </div>
           <v-spacer></v-spacer>
-          <v-rating
-            v-model="movie.rating"
-            color="green"
-            readonly
-            density="compact"
-            size="x-large"
-            half-increments
-          >
-          </v-rating>
         </v-row>
         <v-row
           class="mb-3"
@@ -108,13 +99,6 @@
             style="background-color: #ffffff;"
             class="d-flex justify-center">
             <v-col cols="10">
-              <v-rating
-                v-model="rating"
-                color="green"
-                half-increments
-                size="25"
-                density="compact"
-              ></v-rating>
               <v-textarea
                 clearable
                 v-model="message"
@@ -140,14 +124,6 @@
                 max-width="300px"
                 style="background-color: #ffffff;">
                 <v-list-item-content>
-                  <v-rating
-                    v-model="movie.rating"
-                    color="green"
-                    readonly
-                    half-increments
-                    size="25"
-                    density="compact"
-                  ></v-rating>
                   <p>{{ user.comment }}</p>
                   <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
                 </v-list-item-content>
@@ -172,7 +148,6 @@ export default {
   components: {Navbar, Footer},
   data: () => ({
     isLogin: false,
-    rating: 0,
     message: "",
     added: false,
     movie: {
@@ -187,7 +162,6 @@ export default {
       directors: [],
       writers: [],
       actors: [],
-      rating: 4,
       language: "",
       genres: [],
       platforms: []
