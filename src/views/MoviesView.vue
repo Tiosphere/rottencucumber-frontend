@@ -27,7 +27,7 @@
             <v-img
               aspect-ratio="4/3"
               :width="250"
-              :src="movie.pic">
+              v-bind:src="'data:image/jpeg;base64,'+movie.pic">
             </v-img>
             <!-- ADD btn -->
 
@@ -73,7 +73,7 @@
             <v-sheet class="rounded-xl" elevation="4">
               <div class="pa-7">
                 <h3 class="text-green">Release date</h3>
-                <span class="mr-2">{{ movie.releaseDate }} </span>
+                <span class="mr-2">{{ movie.releaseDate.day }}-{{ movie.releaseDate.month }}-{{ movie.releaseDate.year }} </span>
                 <h3 class="pt-2 text-green">Director</h3>
                 <RouterLink :to="{ name: 'director' }" class="link"  v-for="name in movie.directors">
                   {{ name }}&nbsp;
@@ -162,6 +162,7 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
   name: "MoviesView",
@@ -172,23 +173,21 @@ export default {
     message:"",
     added: false,
     movie: {
-      name: "Spider-Man: No Way Home",
-      pic: "https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg",
-      releaseDate: "13 December, 2021",
-      summary: "For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero's identity " +
-        "is revealed, bringing his Super Hero responsibilities into conflict with his normal life and putting those " +
-        "he cares about most at risk. When he enlists Doctor Strange's help to restore his secret, the spell tears " +
-        "a hole in their world, releasing the most powerful villains who've ever fought a Spider-Man in any universe. " +
-        "Now, Peter will have to overcome his greatest challenge yet, which will not only forever alter his own future " +
-        "but the future of the Multiverse.",
-      directors: ["Jon Watts"],
-      writers: ["Chris McKenna", "Erik Sommers"],
-      actors: ["Tom Holland", "Zendaya", "Benedict Cumberbatch", "Jacob Batalon", "Jon Favreau", "Jamie Foxx",
-        "Willem Dafoe", "Alfred Molina", "Benedict Wong", "Tony Revolori", "Marisa Tomei", "Andrew Garfield", "Tobey Maguire"],
+      name: "",
+      pic: "",
+      releaseDate: {
+        day:"",
+        month:"",
+        year:""
+      },
+      summary: "",
+      directors: [ ],
+      writers: [ ],
+      actors: [ ],
       rating: 4,
-      language: "English",
-      genres: ["Action", "Adventure", "Fantasy", "Comedy"],
-      platforms: ["Prime Video"]
+      language: "",
+      genres: [ ],
+      platforms: [ ]
     },
     users: [
       { name: 'glor', comment: 'Crossover comfort food with a redemptive twist'},
@@ -222,6 +221,27 @@ export default {
     clearMessage() {
       this.message = ''
     }
+  },
+  beforeMount() {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        this.movie.name = data.records[0].name
+        this.movie.pic = data.records[0].image
+        this.movie.releaseDate.day = data.records[0].day
+        this.movie.releaseDate.month = data.records[0].month
+        this.movie.releaseDate.year = data.records[0].year
+        this.movie.summary = data.records[0].summary
+        this.movie.language = data.records[0].language.name
+        // this.movie.genres = data.records[0].genres
+        // this.movie.platforms = data.records[0].platform
+        this.movie.actors = data.records[0].actors.name
+      })
+      .catch(() => {
+        // this.$router.push({ name: 'home' })
+      });
   }
 }
 </script>

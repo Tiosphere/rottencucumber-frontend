@@ -35,7 +35,7 @@ const router = createRouter({
       component: () => import('@/views/logout.vue')
     },
     {
-      path: '/movie',
+      path: '/movie/:slug',
       name: 'movie',
       component: () => import('@/views/MoviesView.vue')
     },
