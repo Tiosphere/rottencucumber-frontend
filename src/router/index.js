@@ -65,7 +65,7 @@ const router = createRouter({
       component: () => import('@/views/DirectorView.vue')
     },
     {
-      path: '/writer',
+      path: '/writer/:slug',
       name: 'writer',
       component: () => import('@/views/WriterView.vue')
     },

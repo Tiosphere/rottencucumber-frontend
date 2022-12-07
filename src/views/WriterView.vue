@@ -97,17 +97,18 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
   name: "ActorsView",
   components: {Footer, Navbar},
   data: () => ({
     writer: {
-      name: "Shabu",
-      pic: "https://www.nzherald.co.nz/resizer/KRPKZdaa0GawVjiNPnnVPfTO_fA=/576x613/smart/filters:quality(70)/cloudfront-ap-southeast-2.images.arcpublishing.com/nzme/SZ5QGV5WI5KOQ26XSQIMJDPM2I.jpg",
-      birth: "20 October, 2020",
-      birthplace: "Bangkok, Thailand",
-      description: "Shabu is Aj.Kritya's cat"
+      name: "",
+      birth: "",
+      birthplace: "",
+      description: "",
+      pic: ""
     },
     movieList: [
       {
@@ -140,8 +141,25 @@ export default {
         year: "2015",
         rating: "5"
       },
-    ]
-  })
+    ],
+
+  }),
+  beforeMount() {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get("http://localhost:8080/api/writer/" + this.$route.params.slug)
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        this.writer.name = data.records[0].name
+        this.writer.birth = data.records[0].birthday
+        this.writer.birthplace = data.records[0].birth_place
+        this.writer.description = data.records[0].description
+        this.writer.pic = data.records[0].image
+      })
+      .catch(() => {
+        // this.$router.push({ name: 'home' })
+      });
+  }
 }
 </script>
 
