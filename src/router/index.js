@@ -70,7 +70,7 @@ const router = createRouter({
       component: () => import('@/views/WriterView.vue')
     },
     {
-      path: '/user/profile',
+      path: '/user/profile/:slug',
       name: 'profile',
       component: () => import('@/views/ProfileView.vue')
     },
