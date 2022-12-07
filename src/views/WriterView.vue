@@ -69,18 +69,6 @@
                     <v-list-item-subtitle>
                       {{ movie.year }}
                     </v-list-item-subtitle>
-
-                    <!--  Movie rating  -->
-                    <v-list-item-media>
-                      <v-rating
-                        v-model="movie.rating"
-                        color="green"
-                        readonly
-                        half-increments
-                        size="25"
-                        density="compact"
-                      ></v-rating>
-                    </v-list-item-media>
                   </v-list-item-content>
                 </div>
               </v-list>
