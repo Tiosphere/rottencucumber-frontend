@@ -48,7 +48,7 @@
                       <v-img
                         :aspect-ratio="3/4"
                         class="mx-auto bg-white"
-                        :src="movie.pic"
+                        v-bind:src="'data:image/jpeg;base64,'+movie.image"
                         max-height="270px"
                         width="180px"
                         cover
@@ -61,7 +61,7 @@
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 130px;">
-                      {{ movie.movieName }}
+                      {{ movie.name }}
                     </span>
                       </v-list-item-title>
 
@@ -69,18 +69,6 @@
                       <v-list-item-subtitle>
                         {{ movie.year }}
                       </v-list-item-subtitle>
-
-                      <!--  Movie rating  -->
-                      <v-list-item-media>
-                        <v-rating
-                          v-model="movie.rating"
-                          color="green"
-                          readonly
-                          half-increments
-                          size="25"
-                          density="compact"
-                        ></v-rating>
-                      </v-list-item-media>
                     </v-list-item-content>
                   </div>
                 </v-list>
@@ -111,36 +99,6 @@ export default {
       image:""
     },
     movieList: [
-      {
-        movieName: "Feline Jones",
-        pic: "https://i.pinimg.com/564x/96/dc/7e/96dc7ef799d640d3ad58ebcf2e057546.jpg",
-        year: "1997",
-        rating: "3.5"
-      },
-      {
-        movieName: "Purr Wars",
-        pic: "https://i.pinimg.com/564x/0a/5f/33/0a5f33856c1f869a567c2d200b41672a.jpg",
-        year: "2017",
-        rating: "5"
-      },
-      {
-        movieName: "Iron Cat 3",
-        pic: "https://i.pinimg.com/564x/e8/ca/18/e8ca183c2ab875df8b22161b90273018.jpg",
-        year: "2013",
-        rating: "4"
-      },
-      {
-        movieName: "Cat Wars",
-        pic: "https://i.pinimg.com/564x/e9/83/6e/e9836e696df6321af5ca15336f3d99e5.jpg",
-        year: "2014",
-        rating: "3.5"
-      },
-      {
-        movieName: "Meautrix",
-        pic: "https://i.pinimg.com/564x/19/57/56/195756cb9ed2cb66c588c5d83a278439.jpg",
-        year: "2015",
-        rating: "5"
-      },
     ]
   }),
   beforeMount() {
@@ -153,6 +111,7 @@ export default {
         this.actor.birth_place = data.records[0].birth_place
         this.actor.description = data.records[0].description
         this.actor.image = data.records[0].image
+        this.movieList = data.records[0].movies
       })
       .catch(() => {
         // this.$router.push({ name: 'home' })
