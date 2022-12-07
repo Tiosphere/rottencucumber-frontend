@@ -51,9 +51,9 @@
               <h3>Language</h3>
               <p>{{ movie.language }}</p>
               <h3 class="pt-2">Genres</h3>
-              <RouterLink :to="{ name: 'popular' }" class="link" v-for="type in movie.genres">
-                {{ type.name }} <br/>
-              </RouterLink>
+              <a v-bind:href="'/genres/'+ genre.slug" v-for="genre in movie.genres" class="link">
+                {{genre.name}},&nbsp;
+              </a>
               <h3 class="pt-2">Platform</h3>
               <p v-for="name in movie.platforms">{{ name.name }}</p>
             </div>
