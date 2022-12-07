@@ -1,15 +1,15 @@
 <template>
 
     <side />
-  
+
     <h1 style="padding-left:10px; padding:10px;">
     Manage Reviews
     </h1>
-    
+
     <v-spacer></v-spacer>
-  
+
     <v-table theme="light">
-  
+
       <thead>
         <tr>
           <th class="text-left" style="width:4%; padding-left: 30px;">
@@ -30,23 +30,23 @@
           <th class="text-left">
 
           </th>
-  
+
         </tr>
       </thead>
       <tbody>
         <tr
           v-for="item in reviews"
           :key="item.id"
-          
-          
+
+
         >
             <td style="padding-left: 30px;"> {{ item.id }} </td>
 
 
             <td>
                 {{ tenChar(item.comment) }}
-                
-                    
+
+
                     <v-dialog
                     v-model="dialog[item.id]"
                     >
@@ -72,15 +72,15 @@
                     </v-card>
                     </v-dialog>
             </td>
-        
-            <td>{{ item.user.username }}</td>
-  
-  
-  
-  
-            <td style="width:15%; padding: ;">
 
-            
+            <td>{{ item.user.username }}</td>
+
+
+
+
+            <td style="width:15%;">
+
+
             <v-btn
               depressed
               color="error"
@@ -91,16 +91,16 @@
             >
               <i class="fa fa-trash"></i>
             </v-btn>
-  
+
           </td>
-  
+
         </tr>
       </tbody>
-  
+
     </v-table>
-  
+
   </template>
-  
+
   <script>
   import side from '@/components/Sidebar.vue'
   import axios from 'axios';
@@ -139,7 +139,7 @@
             return sentence.slice(0,10);
         },
       },
-      
+
       beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
         axios.get("http://localhost:8080/api/admin/review/get/all")
@@ -154,7 +154,7 @@
       }
   }
   </script>
-  
+
   <style>
-  
+
   </style>
