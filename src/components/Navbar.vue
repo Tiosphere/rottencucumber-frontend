@@ -1,8 +1,14 @@
 <script>
 import { isJwtExpired } from 'jwt-check-expiration';
-// import { ref } from
+import axios from "axios";
 
 export default {
+
+  methods: {
+    go:function(slug) {
+      this.$router.push({ name: 'movies-genres', params: { slug: slug }});
+    }
+  },
   data: () => ({
     url: "",
     isLogin: false,
@@ -19,18 +25,21 @@ export default {
         { title: 'Log Out',
           pathName: 'logout'
         },
-      ],
-    genres: [
-      "Action", "Crime", "Drama", "Fantasy", "Horror", "Comedy", "Romance", "Science Fiction", "Sports", "Thriller", "Mystery", "War, and Western"
-    ]
-
+      ]
   }),
 
-  // data() {
-  //   isLogin = this.isLogin
-  // },
 
   beforeMount() {
+    axios.get("http://localhost:8080/api/genres")
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        this.genres = data
+      })
+      .catch(() => {
+        this.$router.push({ name: 'home' })
+      });
+
     let token = localStorage.getItem("access_token");
     if (token != null && !isJwtExpired(token)) {
       this.url = "home"
@@ -39,6 +48,7 @@ export default {
       this.url = "login"
       this.isLogin = false
     }
+
   }
 }
 </script>
@@ -151,20 +161,21 @@ export default {
               Genres
             </v-btn>
           </template>
-          <v-list>
-            <RouterLink
-              style="text-decoration: none; color: inherit;"
-              :to="{ name: 'movies-genres' }">
+          <v-list
+              style="text-decoration: none; color: inherit;">
             <v-list-item
-              v-for="(genre, index) in genres"
-            :key="index"
-              :value="index"
+              v-for="genre in genres"
+              :key="genre.id"
             >
-              <v-list-item-title>{{genre}}</v-list-item-title>
+              <v-list-item-title>
+                <v-btn @click="go(genre.slug)">
+                  {{genre.name}}
+                </v-btn>
+              </v-list-item-title>
             </v-list-item>
-            </RouterLink>
           </v-list>
         </v-menu>
+
 
       <RouterLink
       style="text-decoration: none; color: inherit;"
