@@ -18,7 +18,7 @@
               class="mx-auto"
               aspect-ratio="4/3"
               :width="250"
-              :src="director.pic">
+              v-bind:src="'data:image/jpeg;base64,'+director.image">
             </v-img>
 
             <!-- Director bio -->

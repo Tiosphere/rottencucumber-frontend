@@ -20,7 +20,7 @@
               class="mx-auto"
               aspect-ratio="4/3"
               :width="250"
-              :src="writer.pic">
+              v-bind:src="'data:image/jpeg;base64,'+writer.image">
             </v-img>
 
             <!-- Writer bio -->
