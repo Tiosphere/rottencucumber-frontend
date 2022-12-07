@@ -145,7 +145,6 @@ export default {
 
   }),
   beforeMount() {
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     axios.get("http://localhost:8080/api/writer/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
