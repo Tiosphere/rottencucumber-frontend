@@ -192,57 +192,10 @@ export default {
       genres: [],
       platforms: []
     },
-    users: [
-      {name: 'glor', comment: 'Crossover comfort food with a redemptive twist'},
-      {
-        name: 'nut',
-        comment: 'Throughout all of it, the weird and complex history of Spider-Man as a cinematic icon isn\'' +
-          't a hindrance to the story; instead, it\'s an enhancement, using the quirks of the character\'' +
-          's legacy as a source of illumination into why he has endured so long.'
-      },
-      {
-        name: 'hong',
-        comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'
-      },
-      {
-        name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'
-      }, {
-        name: 'hong',
-        comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'
-      },
-      {
-        name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'
-      }, {
-        name: 'hong',
-        comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'
-      },
-      {
-        name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'
-      }, {
-        name: 'hong',
-        comment: 'By the end, the direction of both the story and the MCU was murkier than before. But at some ' +
-          'point all you can do is let the brains at the MCU hive-mind figure it out and then hope they’re ' +
-          'able to bring it all together. It’s the best approach.'
-      },
-      {
-        name: 'meww', comment: 'Spider-Man: No Way Home is almost a psycho-study of the two-decade-long ' +
-          'Spider-Man phenomenon.'
-      },
+    reviews: [
     ]
   }),
   methods: {
-    go: function (n, slug) {
-      this.$router.push({name: n, params: {slug: slug}});
-    },
     sendMessage() {
       //submit the msg
       this.clearMessage()
@@ -274,6 +227,7 @@ export default {
         this.movie.actors = data.records[0].actors
         this.movie.directors = data.records[0].directors
         this.movie.writers = data.records[0].writers
+        this.reviews = data.records[0].reviews
       })
       .catch(() => {
         // this.$router.push({ name: 'home' })
