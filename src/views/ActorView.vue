@@ -20,7 +20,7 @@
                 class="mx-auto"
                 aspect-ratio="4/3"
                 :width="250"
-                src="data:image/png;base64,actor.image">
+                v-bind:src="'data:image/jpeg;base64,'+actor.image">
               </v-img>
 
               <!-- Actor bio -->
