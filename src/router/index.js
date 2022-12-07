@@ -55,7 +55,7 @@ const router = createRouter({
       component: () => import('@/views/SearchView.vue')
      },
      {
-      path: '/actor',
+      path: '/actor/:slug',
       name: 'actor',
       component: () => import('@/views/ActorView.vue')
     },

@@ -4,90 +4,90 @@
     <v-main class="px-16 ma-10">
       <!-- Actor detail  -->
       <v-container>
-      <v-row>
-        <v-col cols="3">
-          <v-sheet
-          elevation="2">
-            <!-- Actor name -->
-            <div class="pt-2">
-              <v-card-title class="text-h4">
-                {{ actor.name }}
-              </v-card-title>
-            </div>
+        <v-row>
+          <v-col cols="3">
+            <v-sheet
+              elevation="2">
+              <!-- Actor name -->
+              <div class="pt-2">
+                <v-card-title class="text-h4">
+                  {{ actor.name }}
+                </v-card-title>
+              </div>
 
-            <!-- Actor pic -->
-            <v-img
-              class="mx-auto"
-              aspect-ratio="4/3"
-              :width="250"
-              :src="actor.pic">
-            </v-img>
+              <!-- Actor pic -->
+              <v-img
+                class="mx-auto"
+                aspect-ratio="4/3"
+                :width="250"
+                src="data:image/png;base64,actor.image">
+              </v-img>
 
-            <!-- Actor bio -->
-            <v-card-text
-              class="pa-4">
-              <div><strong>Birthday</strong> {{ actor.birth }}</div>
-              <div class="pb-2"><strong>Birthplace</strong> {{ actor.birthplace }}</div>
-              <div class="text-caption">{{ actor.description }}</div>
-            </v-card-text>
-          </v-sheet>
-        </v-col>
+              <!-- Actor bio -->
+              <v-card-text
+                class="pa-4">
+                <div><strong>Birthday</strong> {{ actor.birthday }}</div>
+                <div class="pb-2"><strong>Birthplace</strong> {{ actor.birth_place }}</div>
+                <div class="text-caption">{{ actor.description }}</div>
+              </v-card-text>
+            </v-sheet>
+          </v-col>
 
-        <!-- List of movie -->
-        <v-col cols="8" class="mt-7">
-          <h3 class="pl-4 pb-2">FILMOGRAPHY</h3>
-          <div clas="d-flex">
-          <v-card
-            class="d-flex flex-wrap pa-7"
-            elevation="7">
+          <!-- List of movie -->
+          <v-col cols="8" class="mt-7">
+            <h3 class="pl-4 pb-2">FILMOGRAPHY</h3>
+            <div clas="d-flex">
+              <v-card
+                class="d-flex flex-wrap pa-7"
+                elevation="7">
 
-            <v-list v-for="movie in movieList">
-              <div class="pa-3 px-7">
-                <!-- movie image -->
-                <v-list-item-media>
-                  <v-img
-                    :aspect-ratio="3/4"
-                    class="mx-auto bg-white"
-                    :src="movie.pic"
-                    max-height="270px"
-                    width="180px"
-                    cover
-                  ></v-img>
-                </v-list-item-media>
+                <v-list v-for="movie in movieList">
+                  <div class="pa-3 px-7">
+                    <!-- movie image -->
+                    <v-list-item-media>
+                      <v-img
+                        :aspect-ratio="3/4"
+                        class="mx-auto bg-white"
+                        :src="movie.pic"
+                        max-height="270px"
+                        width="180px"
+                        cover
+                      ></v-img>
+                    </v-list-item-media>
 
-                <v-list-item-content>
-                  <!--  Movie name  -->
-                  <v-list-item-title class="pt-2">
+                    <v-list-item-content>
+                      <!--  Movie name  -->
+                      <v-list-item-title class="pt-2">
                     <span
                       class="d-inline-block text-truncate"
                       style="max-width: 130px;">
                       {{ movie.movieName }}
                     </span>
-                  </v-list-item-title>
+                      </v-list-item-title>
 
-                  <!--  Movie year  -->
-                  <v-list-item-subtitle>
-                    {{ movie.year }}
-                  </v-list-item-subtitle>
+                      <!--  Movie year  -->
+                      <v-list-item-subtitle>
+                        {{ movie.year }}
+                      </v-list-item-subtitle>
 
-                  <!--  Movie rating  -->
-                  <v-list-item-media>
-                    <v-rating
-                      v-model="movie.rating"
-                      color="green"
-                      readonly
-                      half-increments
-                      size="25"
-                      density="compact"
-                    ></v-rating>
-                  </v-list-item-media>
-                </v-list-item-content>
-              </div>
-            </v-list>
-          </v-card>
-          </div>
-        </v-col>
-      </v-row>
+                      <!--  Movie rating  -->
+                      <v-list-item-media>
+                        <v-rating
+                          v-model="movie.rating"
+                          color="green"
+                          readonly
+                          half-increments
+                          size="25"
+                          density="compact"
+                        ></v-rating>
+                      </v-list-item-media>
+                    </v-list-item-content>
+                  </div>
+                </v-list>
+              </v-card>
+            </div>
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
@@ -97,17 +97,18 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import axios from "axios";
 
 export default {
   name: "ActorsView",
   components: {Footer, Navbar},
   data: () => ({
     actor: {
-      name: "Shabu",
-      pic: "https://www.nzherald.co.nz/resizer/KRPKZdaa0GawVjiNPnnVPfTO_fA=/576x613/smart/filters:quality(70)/cloudfront-ap-southeast-2.images.arcpublishing.com/nzme/SZ5QGV5WI5KOQ26XSQIMJDPM2I.jpg",
-      birth: "20 October, 2020",
-      birthplace: "Bangkok, Thailand",
-      description: "Shabu is Aj.Kritya's cat"
+      name: "",
+      birth_place: "",
+      description: "",
+      birthday: "",
+      image:""
     },
     movieList: [
       {
@@ -142,11 +143,21 @@ export default {
       },
     ]
   }),
-  methods: {
-    mounted() {
-      axios
-        .get()
-    }
+  beforeMount() {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get("http://localhost:8080/api/actor/" + this.$route.params.slug)
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        this.actor.name = data.records[0].name
+        this.actor.birthday = data.records[0].birthday
+        this.actor.birth_place = data.records[0].birth_place
+        this.actor.description = data.records[0].description
+        this.actor.image = data.records[0].image
+      })
+      .catch(() => {
+        // this.$router.push({ name: 'home' })
+      });
   }
 }
 </script>
