@@ -91,7 +91,6 @@
           </v-col>
         </v-row>
 
-
         <v-divider></v-divider>
 
 
@@ -104,8 +103,11 @@
             style="background-color: #ffffff;"
             class="d-flex justify-center">
             <v-col cols="10">
-              <form class="content " v-on:submit.prevent="submitForm" ref="reviewForm">
+              <form class="content" id="review" v-on:submit.prevent="submitForm" ref="reviewForm">
+                <input type="hidden" name="username" :value=username>
               <v-textarea
+                name="comment"
+                form="review"
                 clearable
                 v-model="message"
                 variant="outlined"
@@ -123,7 +125,7 @@
         <!--review column-->
         <div class="column_wrapper">
           <v-container class="d-flex flex-wrap justify-space-around">
-            <v-list v-for="user in users"
+            <v-list v-for="review in movie.reviews"
                     style="background-color: #DEECDE;">
               <v-card
                 class="pa-7"
@@ -131,8 +133,8 @@
                 max-width="300px"
                 style="background-color: #ffffff;">
                 <v-list-item-content>
-                  <p>{{ user.comment }}</p>
-                  <v-list-item-subtitle class="pb-2">- {{ user.name }}</v-list-item-subtitle>
+                  <p>{{ review.comment }}</p>
+                  <v-list-item-subtitle class="pb-2">- {{ review.user.username }}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-card>
             </v-list>
@@ -154,6 +156,7 @@ export default {
   name: "MoviesView",
   components: {Navbar, Footer},
   data: () => ({
+    username:localStorage.getItem("user"),
     isLogin: false,
     message: "",
     added: false,
@@ -172,23 +175,29 @@ export default {
       actors: [],
       language: "",
       genres: [],
-      platforms: []
+      platforms: [],
+      reviews: []
     },
-    reviews: []
+
   }),
   methods: {
     clearMessage() {
       this.message = ''
     },
+    addToWatchlist() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
+
+    },
     submitForm() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       let form = new FormData(this.$refs.reviewForm);
-      axios.post("http://localhost:8080/api/review/"+this.$route.params.slug, form)
+      axios.post("http://localhost:8080/api/review/" + this.$route.params.slug, form)
         .then((res) => {
           let data = res.data
+          console.log(data)
           if (data.success) {
             this.clearMessage()
-            this.$router.push("'/movie/' + this.$route.params.slug");
+            this.$router.go()
           }
         })
     }
@@ -217,7 +226,7 @@ export default {
         this.movie.actors = data.records[0].actors
         this.movie.directors = data.records[0].directors
         this.movie.writers = data.records[0].writers
-        this.reviews = data.records[0].reviews
+        this.movie.reviews = data.records[0].reviews
       })
       .catch(() => {
         // this.$router.push({ name: 'home' })
