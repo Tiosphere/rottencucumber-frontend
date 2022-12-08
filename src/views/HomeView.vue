@@ -3,7 +3,7 @@
     <div style="padding: 50px; padding-left: 250px; padding-right: 250px;">
       <v-col>
       <v-row>
-      <h3>TOP MOVIE ALL THE TIME</h3>
+      <h3>TOP MOVIES</h3>
       <v-spacer></v-spacer>
       <RouterLink :to="{ name: 'popular' }" id="user">
         <v-btn variant="flat"
@@ -20,8 +20,7 @@
       <flickity class="flickity" ref="flickity" :options="flickityOptions"
       >
         <div class="carousel-cell"
-        v-for="movie in popular_movies.sort((a,b) => {
-          return a.view - b.view}).reverse()">
+        v-for="movie in popular_movies">
         <v-img
             :aspect-ratio="3/4"
             class="mx-auto bg-white"
@@ -56,16 +55,15 @@
     </v-col>
 
     <flickity class="flickity" ref="flickity" :options="flickityOptions"
-      
+
       >
         <div class="carousel-cell"
-        v-for="movie in lastest_movies.sort((a,b) => {
-          return a.view - b.view}).reverse()">
-        
+        v-for="movie in movies">
+
         <v-img
             :aspect-ratio="3/4"
             class="mx-auto bg-white"
-            :src="movie.src"
+            v-bind:src="'data:image/jpeg;base64,'+ movie.src"
             max-height="300px"
             width="200px"
             cover
@@ -82,8 +80,9 @@
 
 <script>
 import Flickity from '@/components/Flickity.vue';
-import bar from '@/components/Navbar.vue'
-import foot from '@/components/Footer.vue'
+import bar from '@/components/Navbar.vue';
+import foot from '@/components/Footer.vue';
+import axios from 'axios';
 export default {
     name: "home",
   components: {
@@ -94,6 +93,9 @@ export default {
   },
   data() {
     return {
+      movies: [
+
+      ],
       flickityOptions: {
         pageDots: true,
         wrapAround: true,
@@ -104,7 +106,7 @@ export default {
         pageDots: true,
         wrapAround: false,
         groupCells: true,
-        groupCells: 2
+        groupCells: 2,
       },
       popular_movies: [
       {
@@ -189,10 +191,30 @@ export default {
         year: '2017', month: '1', day: '12',
         view: '50000'
       },
-    ]
+    ],
 
     }
   },
+  async beforeMount() {
+    axios.get("http://localhost:8080/api/movies")
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        for (let i = 0; i < data.length; i++) {
+          (this.movies).push({
+            title: data[i].name,
+            src: data[i].image,
+            year: data[i].year, month: data[i].month, day: data[i].day,
+            view: data[i].views,
+          })
+        }
+        console.log(this.movies)
+        console.log(this.popular_movies)
+        // this.movies = data
+      })
+      .catch(() => {
+      });
+  }
 };
 </script>
 
