@@ -31,7 +31,12 @@
           >
           </v-img>
           <div style="color:dimgray; padding:10px;">
+            <span
+              class="d-inline-block text-truncate"
+              style="max-width: 200px;"
+            >
             {{ movie.title }}
+            </span>
           </div>
         </div>
       </flickity>
@@ -54,23 +59,26 @@
       </v-row>
     </v-col>
 
-    <flickity class="flickity" ref="flickity" :options="flickityOptions"
-
-      >
+    <flickity class="flickity" ref="flickity" :options="flickityOptions">
         <div class="carousel-cell"
-        v-for="movie in movies">
+        v-for="movie in latest_movies">
 
         <v-img
             :aspect-ratio="3/4"
             class="mx-auto bg-white"
-            v-bind:src="'data:image/jpeg;base64,'+ movie.src"
+            :src="movie.src"
             max-height="300px"
             width="200px"
             cover
           >
           </v-img>
           <div style="color:dimgray; padding:10px;">
+            <span
+              class="d-inline-block text-truncate"
+              style="max-width: 200px;"
+            >
             {{ movie.title }}
+            </span>
           </div>
         </div>
       </flickity>
@@ -93,10 +101,8 @@ export default {
   },
   data() {
     return {
-      movies: [
-
-      ],
       flickityOptions: {
+        imagesLoaded: true,
         pageDots: true,
         wrapAround: true,
         initialIndex: 0,
@@ -109,107 +115,77 @@ export default {
         groupCells: 2,
       },
       popular_movies: [
+        {
+          title: 'Spider-Man: No Way Home',
+          src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
+          year: '2022',
+        },
+        {
+          title: 'Frozen',
+          src: 'https://lumiere-a.akamaihd.net/v1/images/p_frozen_18373_3131259c.jpeg?region=0%2C0%2C540%2C810',
+          year: '2013',
+        },
+        {
+          title: 'The Conjuring: The Devil Made Me Do It',
+          src: 'https://play-lh.googleusercontent.com/SWkA0rhB0_kQ7TJSHUMxLLDCVIamxicbeq2fexEM0w8_Hlr63YefIVrI1OrjG3_RtpgcClx4jxzF3yvL4pzU',
+          year: '2021',
+        },
+        {
+          title: 'Wonder Woman',
+          src: 'https://www.themoviedb.org/t/p/w500/8AQRfTuTHeFTddZN4IUAqprN8Od.jpg',
+          year: '2017',
+        },
+        {
+          title: 'Howl\'s Moving Castle',
+          src: 'https://play-lh.googleusercontent.com/jVswhiXbnSh1bK8RXVbdSHV117R-xjoYLmeMyTXhyAhKiM4MKd_5kVWh6lAHVlf-g1wAFMq8QmaSk1ZAAMY=w240-h480-rw',
+          year: '2005',
+        }
+      ],
+      latest_movies: [
       {
-        title: 'Man of steel',
-        src: 'https://resizing.flixster.com/ownHNmxE8MDUccJXu9znLuvRr1E=/206x305/v2/https://flxt.tmsimg.com/assets/p9259673_p_v8_ag.jpg',
-        year: '2013', view: '15000'
+        title: 'Avatar: The Way of Water',
+        src: 'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
+        year: '2022'
       },
       {
-        title: 'Spiderman no way home',
+        title: 'Jurassic World Dominion',
+        src: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
+        year: '2022'
+      },
+      {
+        title: 'Spider-Man: No Way Home',
         src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
-        year: '2021',
-        view: '20000'
+        year: '2022',
       },
       {
-        title: 'Mulan',
-        src: 'https://i0.wp.com/jasonsmovieblog.com/wp-content/uploads/2020/09/mulan-598495111d425.jpg?resize=361%2C514&ssl=1',
-        year: '1998',
-        view: '35000'
+        title: 'Top Gun: Maverick',
+        src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
+        year: '2022'
       },
       {
-        title: 'Titanic',
-        src: 'https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg',
-        year: '1997',
-        view: '1000'
+        title: 'Violent Night',
+        src: 'https://m.media-amazon.com/images/M/MV5BYzg2NWNhOWItYjA3Yi00MzhhLTg4ZmItYzM3ZTIwN2U0ZGQ5XkEyXkFqcGdeQXVyMzEyMDQzNzY@._V1_FMjpg_UX1000_.jpg',
+        year: '2022'
       },
-      {
-        title: 'Bolt',
-        src: 'https://images.moviesanywhere.com/5d927f6b6564c5f2d54c74fca39af6d4/6ae6ffba-1392-464c-b9ca-8a917f5df789.jpg',
-        year: '2008',
-        view: '4000'
-      },
-      {
-        title: 'Lilo & Stitch', src: 'https://m.media-amazon.com/images/I/51pgU6o91KL._AC_SY780_.jpg',
-        year: '2002', view: '5000'
-      },
-    ],
-    lastest_movies: [
-    {
-        title: 'Man of steel',
-        src: 'https://resizing.flixster.com/ownHNmxE8MDUccJXu9znLuvRr1E=/206x305/v2/https://flxt.tmsimg.com/assets/p9259673_p_v8_ag.jpg',
-        year: '2013', month: '8', day: '12',
-        view: '15000'
-      },
-      {
-        title: 'Spiderman no way home',
-        src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
-        year: '2021', month: '6', day: '12',
-        view: '20000'
-      },
-      {
-        title: 'Mulan',
-        src: 'https://i0.wp.com/jasonsmovieblog.com/wp-content/uploads/2020/09/mulan-598495111d425.jpg?resize=361%2C514&ssl=1',
-        year: '1998', month: '4', day: '12',
-        view: '35000'
-      },
-      {
-        title: 'Titanic',
-        src: 'https://m.media-amazon.com/images/M/MV5BMDdmZGU3NDQtY2E5My00ZTliLWIzOTUtMTY4ZGI1YjdiNjk3XkEyXkFqcGdeQXVyNTA4NzY1MzY@._V1_.jpg',
-        year: '1997', month: '11', day: '12',
-        view: '1000'
-      },
-      {
-        title: 'Bolt',
-        src: 'https://images.moviesanywhere.com/5d927f6b6564c5f2d54c74fca39af6d4/6ae6ffba-1392-464c-b9ca-8a917f5df789.jpg',
-        year: '2008', month: '1', day: '12',
-        view: '4000'
-      },
-      {
-        title: 'Lilo & Stitch', src: 'https://m.media-amazon.com/images/I/51pgU6o91KL._AC_SY780_.jpg',
-        year: '2002', month: '5', day: '12',
-        view: '5000'
-      },
-      {
-        title: 'The Avengers',
-        src: 'https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_.jpg',
-        year: '2012', month: '7', day: '12',
-        view: '80000'
-      },
-      {
-        title: 'Wonder Woman',
-        src: 'https://m.media-amazon.com/images/M/MV5BMTYzODQzYjQtNTczNC00MzZhLTg1ZWYtZDUxYmQ3ZTY4NzA1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
-        year: '2017', month: '1', day: '12',
-        view: '50000'
-      },
-    ],
+    ]
 
     }
   },
-  async beforeMount() {
+
+  render() {
     axios.get("http://localhost:8080/api/movies")
       .then((res) => {
         let data = res.data
         console.log(data)
         for (let i = 0; i < data.length; i++) {
-          (this.movies).push({
+          (this.i_movies).push({
             title: data[i].name,
-            src: data[i].image,
+            // src: 'data:image/jpeg;base64,'+ data[i].image,
             year: data[i].year, month: data[i].month, day: data[i].day,
             view: data[i].views,
           })
         }
-        console.log(this.movies)
-        console.log(this.popular_movies)
+        console.log(this.i_movies)
         // this.movies = data
       })
       .catch(() => {
