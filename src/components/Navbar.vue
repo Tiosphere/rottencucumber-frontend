@@ -9,7 +9,7 @@ export default {
       window.location.href = '/genres/' + slug
     },
     go1:function(slug) {
-      this.$router.push({ name: 'platform', params: { slug: slug }});
+      window.location.href = '/platform/' + slug
     },
     goProfile:function(where ,needSlug ,slug) {
       if (needSlug) {
