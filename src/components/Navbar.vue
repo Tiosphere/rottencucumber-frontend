@@ -6,7 +6,7 @@ export default {
 
   methods: {
     go:function(slug) {
-      this.$router.push({ name: 'movies-genres', params: { slug: slug }});
+      window.location.href = '/genres/' + slug
     },
     go1:function(slug) {
       this.$router.push({ name: 'platform', params: { slug: slug }});
