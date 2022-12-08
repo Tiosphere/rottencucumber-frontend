@@ -101,7 +101,11 @@ const router = createRouter({
       name: 'movies-genres',
       component: () => import('@/views/GenresView.vue')
     },
-
+    {
+      path: '/platform/:slug',
+      name: 'platform',
+      component: () => import('@/views/PlatformView.vue')
+    },
 
     {
       path: '/admin/manage/movies',

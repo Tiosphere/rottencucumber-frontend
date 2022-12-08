@@ -58,6 +58,17 @@ export default {
         this.$router.push({ name: 'home' })
       });
 
+    axios.get("http://localhost:8080/api/platforms")
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        this.platforms = data
+      })
+      .catch(() => {
+        this.$router.push({ name: 'home' })
+      });
+
+
     let token = localStorage.getItem("access_token");
     this.getSlug();
     if (token != null && !isJwtExpired(token)) {
@@ -82,12 +93,6 @@ export default {
             </v-img>
           </a>
         </v-toolbar-title>
-        <form id="search" autocomplete="off" method="GET" style="height:auto;">
-          <div>
-            <input type="text" placeholder="search"
-              style="border-radius: 8px; background-color: #DEECDE; padding-left: 10px; height: 30px; width: 230px;">
-          </div>
-        </form>
       </div>
 
       <v-spacer></v-spacer>
@@ -191,14 +196,26 @@ export default {
           </v-list>
         </v-menu>
 
-
-      <RouterLink
-      style="text-decoration: none; color: inherit;"
-      :to="{ name: '' }">
-        <v-btn variant="text" color="#6FAC49">
-          Platform
-        </v-btn>
-      </RouterLink>
+      <v-menu open-on-hover>
+        <template v-slot:activator="{ props }">
+          <v-btn variant="text" color="#6FAC49" v-bind="props">
+            Platform
+          </v-btn>
+        </template>
+        <v-list
+          style="text-decoration: none; color: inherit;">
+          <v-list-item
+            v-for="platform in platforms"
+            :key="platform.id"
+          >
+            <v-list-item-title>
+              <v-btn @click="go(platform.slug)">
+                {{platform.name}}
+              </v-btn>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
 
     </v-card-item>
