@@ -62,6 +62,11 @@
           <!-- Movie detail -->
           <v-col cols="8">
             <v-sheet class="rounded-xl" elevation="4">
+              <!-- Preview movie -->
+              <div class="pt-5" align="center">
+                <iframe width="500" height="300" :src="movie.preview"></iframe>
+              </div>
+
               <div class="pa-7">
                 <h3 class="text-green">Release date</h3>
                 <span class="mr-2">{{ movie.releaseDate.day }}-{{ movie.releaseDate.month }}-{{
@@ -99,6 +104,7 @@
             style="background-color: #ffffff;"
             class="d-flex justify-center">
             <v-col cols="10">
+              <form class="content " v-on:submit.prevent="submitForm" ref="reviewForm">
               <v-textarea
                 clearable
                 v-model="message"
@@ -106,9 +112,10 @@
                 label="Write your review here"
                 type="text"
                 append-icon="mdi-send"
-                @click:append="sendMessage"
+                @click:append="submitForm()"
               >
               </v-textarea>
+              </form>
             </v-col>
           </v-card>
         </div>
@@ -158,6 +165,7 @@ export default {
         month: "",
         year: ""
       },
+      preview:"",
       summary: "",
       directors: [],
       writers: [],
@@ -166,16 +174,23 @@ export default {
       genres: [],
       platforms: []
     },
-    reviews: [
-    ]
+    reviews: []
   }),
   methods: {
-    sendMessage() {
-      //submit the msg
-      this.clearMessage()
-    },
     clearMessage() {
       this.message = ''
+    },
+    submitForm() {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      let form = new FormData(this.$refs.reviewForm);
+      axios.post("http://localhost:8080/api/review/"+this.$route.params.slug, form)
+        .then((res) => {
+          let data = res.data
+          if (data.success) {
+            this.clearMessage()
+            this.$router.push("'/movie/' + this.$route.params.slug");
+          }
+        })
     }
   },
   beforeMount() {
@@ -195,6 +210,7 @@ export default {
         this.movie.releaseDate.month = data.records[0].month
         this.movie.releaseDate.year = data.records[0].year
         this.movie.summary = data.records[0].summary
+        this.movie.preview = data.records[0].preview
         this.movie.language = data.records[0].language.name
         this.movie.genres = data.records[0].genres
         this.movie.platforms = data.records[0].platform
