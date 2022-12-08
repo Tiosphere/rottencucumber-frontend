@@ -23,6 +23,8 @@
 
       <!-- List of movie -->
       <h3 class="pt-7">MY WATCHLIST</h3>
+
+      <div v-if="movieList.length">
       <flickity class="flickity" ref="flickity" :options="flickityOptions">
         <div class="carousel-cell"
              v-for="movie in movieList">
@@ -40,6 +42,7 @@
           </div>
         </div>
       </flickity>
+      </div>
     </v-main>
   </v-app>
   <Footer/>
@@ -84,7 +87,7 @@ export default {
         console.log(res)
         this.user.name = data.records[0].username
         this.user.email = data.records[0].email
-        this.user.movieList = data.records[0].movies
+        // this.user.movieList = data.records[0].movies
       })
       .catch(() => {
         this.$router.push({ name: 'home' })
