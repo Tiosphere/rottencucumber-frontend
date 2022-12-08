@@ -191,7 +191,7 @@ export default {
               :key="genre.id"
             >
               <v-list-item-title>
-                <v-btn @click="go(genre.slug)">
+                <v-btn variant="text" @click="go(genre.slug)" color="black">
                   {{genre.name}}
                 </v-btn>
               </v-list-item-title>
@@ -212,7 +212,7 @@ export default {
             :key="platform.id"
           >
             <v-list-item-title>
-              <v-btn @click="go1(platform.slug)">
+              <v-btn variant="text" @click="go1(platform.slug)" color="black">
                 {{platform.name}}
               </v-btn>
             </v-list-item-title>
