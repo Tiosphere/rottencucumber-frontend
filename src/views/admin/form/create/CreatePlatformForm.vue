@@ -24,7 +24,7 @@ export default {
                 });
         }
     },
-    
+
 }
 </script>
 
@@ -34,7 +34,7 @@ export default {
         <div class="modal-content">
             <div class="auth-header">
                 <div class="auth-title">
-                    <div class="title">Create Plarform</div>
+                    <div class="title">Create Platform</div>
                 </div>
             </div>
             <div class="modal-body">
