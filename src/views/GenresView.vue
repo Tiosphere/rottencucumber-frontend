@@ -18,6 +18,9 @@
             >
               <v-container>
                 <div class="pa-5 center">
+                  <RouterLink
+                    style="text-decoration: none; color: inherit;"
+                    :to="'/movie/' + movie.slug">
                   <v-list-item-media>
                     <v-img
                       :aspect-ratio="3/4"
@@ -44,6 +47,7 @@
                       {{movie.year}}
                     </v-list-item-subtitle>
                   </v-list-item-content>
+                  </RouterLink>
                 </div>
               </v-container>
             </v-list>
