@@ -8,6 +8,9 @@ export default {
     go:function(slug) {
       this.$router.push({ name: 'movies-genres', params: { slug: slug }});
     },
+    go1:function(slug) {
+      this.$router.push({ name: 'platform', params: { slug: slug }});
+    },
     goProfile:function(where ,needSlug ,slug) {
       if (needSlug) {
       this.$router.push({ name: where, params: { slug: slug }});
@@ -209,7 +212,7 @@ export default {
             :key="platform.id"
           >
             <v-list-item-title>
-              <v-btn @click="go(platform.slug)">
+              <v-btn @click="go1(platform.slug)">
                 {{platform.name}}
               </v-btn>
             </v-list-item-title>
