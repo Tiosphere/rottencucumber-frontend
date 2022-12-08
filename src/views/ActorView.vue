@@ -43,6 +43,9 @@
 
                 <v-list v-for="movie in movieList">
                   <div class="pa-3 px-7">
+                    <RouterLink
+                    style="text-decoration: none; color: inherit;"
+                    :to="'/movie/' + movie.slug">
                     <!-- movie image -->
                     <v-list-item-media>
                       <v-img
@@ -70,6 +73,7 @@
                         {{ movie.year }}
                       </v-list-item-subtitle>
                     </v-list-item-content>
+                    </RouterLink>
                   </div>
                 </v-list>
               </v-card>
