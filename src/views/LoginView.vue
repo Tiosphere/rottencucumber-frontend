@@ -22,6 +22,7 @@ export default {
                     if (data.success) {
                         localStorage.setItem("access_token", data.message)
                         localStorage.setItem("user", data.records[0].username)
+                        localStorage.setItem("slug", data.records[0].slug)
                         this.$router.push({ name: 'home' })
                     } else {
                         this.errormsg = data.message

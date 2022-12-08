@@ -7,25 +7,43 @@ export default {
   methods: {
     go:function(slug) {
       this.$router.push({ name: 'movies-genres', params: { slug: slug }});
+    },
+    goProfile:function(where ,needSlug ,slug) {
+      if (needSlug) {
+      this.$router.push({ name: where, params: { slug: slug }});
+      }
+      else {
+        this.$router.push({name: where})
+      }
+    },
+    getSlug() {
+      let slug = localStorage.getItem("slug");
+      if (slug != null) {
+        this.slug = slug;
+      }
+      return slug;
     }
   },
   data: () => ({
+    slug:"",
     url: "",
     isLogin: false,
     items: [
-        { title: 'Click Me',
-          pathName: 'movie'
+      {
+        title: 'Profile',
+        pathName: 'profile',
+        needSlug: true,
+      },
+
+        {
+          title: 'Log Out',
+          pathName: 'logout',
+          needSlug: false,
         },
-        { title: 'Click Me',
-          pathName: ''
-        },
-        { title: 'Click Me',
-          pathName: ''
-        },
-        { title: 'Log Out',
-          pathName: 'logout'
-        },
-      ]
+      ],
+    genres: [
+
+    ],
   }),
 
 
@@ -41,6 +59,7 @@ export default {
       });
 
     let token = localStorage.getItem("access_token");
+    this.getSlug();
     if (token != null && !isJwtExpired(token)) {
       this.url = "home"
       this.isLogin = true
@@ -94,15 +113,11 @@ export default {
                 v-for="item in items"
                 :key="item"
                 >
-
-                <v-list-item-title>
-                  <RouterLink
-                  style="text-decoration: none; color: inherit;"
-                  :to="{ name: item.pathName }" id="user">
-                  <v-btn variant="flat">
+                  <v-list-item-title>
+                  <v-btn variant="flat"
+                  @click="goProfile(item.pathName,item.needSlug, slug)">
                   {{ item.title }}
                   </v-btn>
-                  </RouterLink>
 
 
                 </v-list-item-title>
