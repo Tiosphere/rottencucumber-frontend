@@ -16,7 +16,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.loginForm);
-            axios.post("http://localhost:8080/api/auth/login", form)
+            axios.post("http://backend.rottencucumber.tk/api/auth/login", form)
                 .then((res) => {
                     let data = res.data
                     if (data.success) {

@@ -81,7 +81,7 @@ export default {
     ]
   }),
   beforeMount() {
-    axios.get("http://localhost:8080/api/movies")
+    axios.get("http://backend.rottencucumber.tk/api/movies")
       .then((res) => {
         let data = res.data
         console.log(data)

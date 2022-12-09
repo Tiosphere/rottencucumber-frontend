@@ -5,7 +5,7 @@
   <h1 style="padding-left:10px; padding:10px;">
   Manage Genres
   </h1>
-  
+
   <v-spacer></v-spacer>
 
   <v-table theme="light">
@@ -27,9 +27,9 @@
               depressed
               color="success"
               min-width="105px"
-              min-height="10px"  
+              min-height="10px"
               style="margin:4px; margin-bottom:10px; "
-              @click="this.$router.push({ name: 'genre-create' })"   
+              @click="this.$router.push({ name: 'genre-create' })"
               >
                 create
           </v-btn>
@@ -62,7 +62,7 @@
            >
             <i class="fa fa-pencil"></i>
           </v-btn>
-          
+
           <v-btn
             depressed
             color="error"
@@ -109,10 +109,10 @@ export default {
         this.$router.push({ name: 'genre-delete', params: { slug: slug }});
       },
     },
-    
+
     beforeMount() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get("http://localhost:8080/api/admin/genre/get/all")
+      axios.get("http://backend.rottencucumber.tk/admin/genre/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)

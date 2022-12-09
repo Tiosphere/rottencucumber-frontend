@@ -25,7 +25,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/director/update/"+ this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/director/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -37,14 +37,14 @@ export default {
                     this.errormsg = "Something happen please try again"
                 });
         },
-        
+
     },
 
     beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        
-        axios.get("http://localhost:8080/api/admin/director/get/" + this.$route.params.slug)
-            .then((res) => { 
+
+        axios.get("http://backend.rottencucumber.tk/api/admin/director/get/" + this.$route.params.slug)
+            .then((res) => {
                 console.log(res.data)
 
                 this.default_data.name = res.data.records[0].name
@@ -54,14 +54,14 @@ export default {
                 var now = new Date(res.data.records[0].birthday)
                 this.default_data.day = now.getDate()
                 this.default_data.month = now.getMonth()
-                this.default_data.year = now.getFullYear()            
+                this.default_data.year = now.getFullYear()
             })
             .catch(() => {
                     this.$router.push({ name: 'home' })
                 });
 
     },
-    
+
 }
 
 </script>
@@ -104,10 +104,10 @@ export default {
                             <label>Director Birth Year: </label>
                             <input type="text" name="year" class="form-control" required placeholder="Birth Year" :value="default_data.year">
                         </div>
-                        
+
 
                         <div class="form-group">
-                            Choose Image: 
+                            Choose Image:
                             <input type="file" name="image" required>
                         </div>
 
@@ -135,7 +135,7 @@ export default {
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
-    
+
 }
 option:checked {
     background-color: gray;

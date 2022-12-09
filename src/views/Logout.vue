@@ -9,7 +9,7 @@ export default {
             localStorage.removeItem('access_token')
             localStorage.removeItem('user')
             axios.defaults.headers.common['Authorization'] = null;
-            axios.get("http://localhost:8080/api/auth/logout")
+            axios.get("http://backend.rottencucumber.tk/api/auth/logout")
         }
         this.$router.push({ name: 'home' })
     }

@@ -53,7 +53,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/movie/update/"+ this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/movie/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -87,20 +87,20 @@ export default {
             var year_string = year.toString()
             if (day < 10) {
                 day_string = '0' + day_string
-            } 
+            }
             if (month < 10) {
                 month_string = '0' + month_string
-            } 
+            }
             return year_string + '-' + month_string + '-' + day_string;
         },
     },
 
     beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        
-        axios.get("http://localhost:8080/api/admin/movie/get/" + this.$route.params.slug)
-            .then((res) => { 
-                
+
+        axios.get("http://backend.rottencucumber.tk/api/admin/movie/get/" + this.$route.params.slug)
+            .then((res) => {
+
                 let data = res.data
                 console.log(data)
                 this.default_data.name = res.data.records[0].name
@@ -110,7 +110,7 @@ export default {
                 this.default_data.day = res.data.records[0].day
                 this.default_data.month = res.data.records[0].month
                 this.default_data.year = res.data.records[0].year
-                
+
                 this.default_data.actors = res.data.records[0].actors
                 this.default_data.writers = res.data.records[0].writers
                 this.default_data.directors = res.data.records[0].directors
@@ -128,7 +128,7 @@ export default {
 
 
 
-            
+
             })
             .catch(() => {
                     this.$router.push({ name: 'home' })
@@ -137,19 +137,19 @@ export default {
 
 
         // language data
-        axios.get("http://localhost:8080/api/admin/language/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/language/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
                     this.languages = data
-                    
+
                 })
                 .catch(() => {
                     this.$router.push({ name: 'home' })
                 });
-        
+
         // actor data
-        axios.get("http://localhost:8080/api/admin/actor/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/actor/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -161,7 +161,7 @@ export default {
                 });
 
         // writer data
-        axios.get("http://localhost:8080/api/admin/writer/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/writer/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -172,7 +172,7 @@ export default {
                 });
 
         // director data
-        axios.get("http://localhost:8080/api/admin/director/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/director/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -183,7 +183,7 @@ export default {
                 });
 
         // genre data
-        axios.get("http://localhost:8080/api/admin/genre/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/genre/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -192,9 +192,9 @@ export default {
                 .catch(() => {
                     this.$router.push({ name: 'home' })
                 });
-    
+
         // platform data
-        axios.get("http://localhost:8080/api/admin/platform/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/platform/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -204,7 +204,7 @@ export default {
                     this.$router.push({ name: 'home' })
                 });
 
-    } 
+    }
 }
 
 </script>
@@ -243,26 +243,26 @@ export default {
                             <label>Movie Release Year: </label>
                             <input type="text" name="year" class="form-control" required placeholder="Release Year" :value="default_data.year">
                         </div>
-                        
+
 
                         <div class="form-group">
-                            Choose language: 
+                            Choose language:
                             <select name="language" required style="background: white; text-align: center;">
                                 <template
                                 v-for="item in languages"
                                     :key="item.id"
                                     >
-                                    
-                                <option     
+
+                                <option
                                     v-if="(item.id == this.default_data.language)"
-                                    
+
                                     :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
 
-                                <option 
+                                <option
                                     v-else
                                     :value="item.id"
                                 >
@@ -274,24 +274,24 @@ export default {
                         </div>
 
                         <div class="form-group">
-                            Choose actors: 
+                            Choose actors:
                             <select name="actors" multiple required
                             >
                                 <template
                                     v-for="item in actors"
                                     :key="item.id"
-                                    
+
                                 >
-                                <option 
-                                    
+                                <option
+
                                     v-if="(isInList(getAllId(this.default_data.actors), item.id))"
                                     :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
+
+                                <option
                                     :value="item.id"
                                     v-else
                                 >
@@ -303,24 +303,24 @@ export default {
                         </div>
 
                         <div class="form-group">
-                            Choose writers: 
+                            Choose writers:
                             <select name="writers" multiple required
                             >
                                 <template
                                     v-for="item in writers"
                                     :key="item.id"
-                                    
+
                                 >
-                                <option 
-                                    
+                                <option
+
                                     v-if="(isInList(getAllId(this.default_data.writers), item.id))"
                                     :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
+
+                                <option
                                     :value="item.id"
                                     v-else
                                 >
@@ -332,24 +332,24 @@ export default {
                         </div>
 
                         <div class="form-group">
-                            Choose directors: 
+                            Choose directors:
                             <select name="directors" multiple required
                             >
                                 <template
                                     v-for="item in directors"
                                     :key="item.id"
-                                    
+
                                 >
-                                <option 
-                                    
+                                <option
+
                                     v-if="(isInList(getAllId(this.default_data.directors), item.id))"
                                     :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
+
+                                <option
                                     :value="item.id"
                                     v-else
                                 >
@@ -361,23 +361,23 @@ export default {
                         </div>
 
                         <div class="form-group">
-                            Choose genres: 
+                            Choose genres:
                             <select name="genres" multiple required
                             >
                                 <template
                                     v-for="item in genres"
                                     :key="item.id"
-                                    
+
                                 >
-                                <option 
+                                <option
                                     v-if="(isInList(getAllId(this.default_data.genres), item.id))"
                                     :value="item.id"
                                     selected
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
+
+                                <option
                                     v-else
                                     :value="item.id"
                                 >
@@ -389,15 +389,15 @@ export default {
                         </div>
 
                         <div class="form-group">
-                            Choose platform: 
+                            Choose platform:
                             <select name="platform" multiple required
                             >
                                 <template
                                     v-for="item in platforms"
                                     :key="item.id"
-                                    
+
                                 >
-                                <option 
+                                <option
                                     const = item.id
                                     v-if="(isInList(getAllId(this.default_data.platforms), item.id))"
                                     :value="item.id"
@@ -405,8 +405,8 @@ export default {
                                 >
                                 {{item.name}}
                                 </option>
-                                
-                                <option 
+
+                                <option
                                     v-else
                                     :value="item.id"
                                 >
@@ -417,12 +417,12 @@ export default {
                             </select>
                         </div>
 
-                        
+
 
 
 
                         <div class="form-group">
-                            Choose Image: 
+                            Choose Image:
                             <input type="file" name="image" required>
                         </div>
                         <div class="form-group">
@@ -455,7 +455,7 @@ export default {
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
-    
+
 }
 option:checked {
     background-color: gray;

@@ -12,7 +12,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/user/update/"+ this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/user/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -25,7 +25,7 @@ export default {
                 });
         }
     },
-    
+
 }
 </script>
 
@@ -74,7 +74,7 @@ export default {
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
-    
+
 }
 
 .modal-content {

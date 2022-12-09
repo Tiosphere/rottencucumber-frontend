@@ -13,15 +13,21 @@
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
           <div class="carousel-cell" v-for="movie in movies">
+            <RouterLink
+              style="text-decoration: none; color: inherit;"
+              :to="'/movie/' + movie.slug">
             <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
               max-height="300px" width="200px" cover>
             </v-img>
             <div style="color:dimgray; padding:10px;">
               {{ movie.name }}
             </div>
+            </RouterLink>
           </div>
         </flickity>
       </div>
+
+
       <div class="block-head">
         <h3 class="pt-7">LATEST</h3>
         <RouterLink :to="{ name: 'latest' }" class="pt-7" style="color:#4583C1">
@@ -32,7 +38,9 @@
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
           <div class="carousel-cell" v-for="movie in movies">
-            <RouterLink :to="{}">
+            <RouterLink
+              style="text-decoration: none; color: inherit;"
+              :to="'/movie/' + movie.slug">
               <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
                 max-height="300px" width="200px" cover>
               </v-img>
@@ -78,60 +86,6 @@ export default {
         groupCells: 2,
       },
       movies: [],
-      popular_movies: [
-        {
-          title: 'Spider-Man: No Way Home',
-          src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
-          year: '2022',
-        },
-        {
-          title: 'Frozen',
-          src: 'https://lumiere-a.akamaihd.net/v1/images/p_frozen_18373_3131259c.jpeg?region=0%2C0%2C540%2C810',
-          year: '2013',
-        },
-        {
-          title: 'The Conjuring: The Devil Made Me Do It',
-          src: 'https://play-lh.googleusercontent.com/SWkA0rhB0_kQ7TJSHUMxLLDCVIamxicbeq2fexEM0w8_Hlr63YefIVrI1OrjG3_RtpgcClx4jxzF3yvL4pzU',
-          year: '2021',
-        },
-        {
-          title: 'Wonder Woman',
-          src: 'https://www.themoviedb.org/t/p/w500/8AQRfTuTHeFTddZN4IUAqprN8Od.jpg',
-          year: '2017',
-        },
-        {
-          title: 'Howl\'s Moving Castle',
-          src: 'https://play-lh.googleusercontent.com/jVswhiXbnSh1bK8RXVbdSHV117R-xjoYLmeMyTXhyAhKiM4MKd_5kVWh6lAHVlf-g1wAFMq8QmaSk1ZAAMY=w240-h480-rw',
-          year: '2005',
-        }
-      ],
-      latest_movies: [
-        {
-          title: 'Avatar: The Way of Water',
-          src: 'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
-          year: '2022'
-        },
-        {
-          title: 'Jurassic World Dominion',
-          src: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
-          year: '2022'
-        },
-        {
-          title: 'Spider-Man: No Way Home',
-          src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
-          year: '2022',
-        },
-        {
-          title: 'Top Gun: Maverick',
-          src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
-          year: '2022'
-        },
-        {
-          title: 'Violent Night',
-          src: 'https://m.media-amazon.com/images/M/MV5BYzg2NWNhOWItYjA3Yi00MzhhLTg4ZmItYzM3ZTIwN2U0ZGQ5XkEyXkFqcGdeQXVyMzEyMDQzNzY@._V1_FMjpg_UX1000_.jpg',
-          year: '2022'
-        },
-      ]
 
     }
   },
@@ -150,7 +104,7 @@ export default {
         //     view: data[i].views,
         //   })
         // }
-        console.log(this.i_movies)
+        console.log(this.i.movies)
         // this.movies = data
       })
       .catch(() => {

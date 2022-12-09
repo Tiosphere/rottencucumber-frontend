@@ -12,7 +12,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/movie/delete/" + this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/movie/delete/" + this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -28,7 +28,7 @@ export default {
     beforeMount() {
         this.submitForm()
     },
-    
+
 }
 </script>
 

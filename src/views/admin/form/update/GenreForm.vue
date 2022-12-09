@@ -12,7 +12,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.genreForm);
-            axios.post("http://localhost:8080/api/admin/genre/update/"+ this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/genre/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -25,7 +25,7 @@ export default {
                 });
         }
     },
-    
+
 }
 </script>
 

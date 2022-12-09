@@ -4,7 +4,7 @@
   <h1 style="padding-left:10px; padding:10px;">
   Manage Languages
   </h1>
-  
+
   <v-spacer></v-spacer>
 
   <v-table theme="light">
@@ -27,9 +27,9 @@
               depressed
               color="success"
               min-width="105px"
-              min-height="10px"  
+              min-height="10px"
               style="margin:4px; margin-bottom:10px; "
-              @click="this.$router.push({ name: 'language-create' })"   
+              @click="this.$router.push({ name: 'language-create' })"
               >
                 create
           </v-btn>
@@ -89,7 +89,7 @@ export default {
   data () {
       return {
         languages: [
-          
+
       ],
       }
     },
@@ -103,7 +103,7 @@ export default {
     },
     beforeMount() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get("http://localhost:8080/api/admin/language/get/all")
+      axios.get("http://backend.rottencucumber.tk/api/admin/language/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)

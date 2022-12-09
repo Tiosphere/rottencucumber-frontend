@@ -51,7 +51,7 @@ export default {
 
 
   beforeMount() {
-    axios.get("http://localhost:8080/api/genres")
+    axios.get("http://backend.rottencucumber.tk/api/genres")
       .then((res) => {
         let data = res.data
         console.log(data)
@@ -61,7 +61,7 @@ export default {
         this.$router.push({ name: 'home' })
       });
 
-    axios.get("http://localhost:8080/api/platforms")
+    axios.get("http://backend.rottencucumber.tk/api/platforms")
       .then((res) => {
         let data = res.data
         console.log(data)

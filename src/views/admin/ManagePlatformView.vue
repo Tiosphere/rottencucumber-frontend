@@ -4,10 +4,10 @@
     <h1 style="padding-left:10px; padding:10px;">
     Manage Platforms
     </h1>
-    
+
     <v-spacer></v-spacer>
-  
-    <v-table 
+
+    <v-table
     theme="light"
 
     >
@@ -23,35 +23,35 @@
             Name
             </h2>
           </th>
-  
+
           <th class="text-left">
             <v-btn
               depressed
               color="success"
               min-width="105px"
-              min-height="10px"  
+              min-height="10px"
               style="margin:4px; margin-bottom:10px; "
-              @click="this.$router.push({ name: 'platform-create' })"   
+              @click="this.$router.push({ name: 'platform-create' })"
               >
                 create
           </v-btn>
           </th>
-  
+
         </tr>
       </thead>
 
       <tbody>
-        
+
         <tr
           v-for="item in platforms"
           :key="item.name"
         >
           <td style="padding-left: 30px;"> {{ item.id }} </td>
-  
+
           <td>{{ item.name }}</td>
-  
+
           <td style="width:15%;">
-  
+
             <v-btn
               depressed
               color="primary"
@@ -62,8 +62,8 @@
              >
               <i class="fa fa-pencil"></i>
             </v-btn>
-  
-  
+
+
             <v-btn
               depressed
               color="error"
@@ -74,16 +74,16 @@
             >
               <i class="fa fa-trash"></i>
             </v-btn>
-  
+
           </td>
         </tr>
 
       </tbody>
-  
+
     </v-table>
-  
+
   </template>
-  
+
   <script>
   import side from '@/components/Sidebar.vue'
   import axios from 'axios';
@@ -108,7 +108,7 @@
     },
     beforeMount() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get("http://localhost:8080/api/admin/platform/get/all")
+      axios.get("http://backend.rottencucumber.tk/api/admin/platform/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)
@@ -120,7 +120,7 @@
     }
   }
   </script>
-  
+
   <style>
-  
+
   </style>

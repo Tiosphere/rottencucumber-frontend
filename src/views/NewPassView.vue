@@ -14,7 +14,7 @@ export default {
                 return false;
             }
             let form = new FormData(this.$refs.newPassForm)
-            let url = "http://localhost:8080/api/auth/forget/"
+            let url = "http://backend.rottencucumber.tk/api/auth/forget/"
             axios.post(url.concat(this.$route.params.token), form)
                 .then((res) => {
                     console.log(res.data)

@@ -142,7 +142,7 @@
 
       beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        axios.get("http://localhost:8080/api/admin/review/get/all")
+        axios.get("http://backend.rottencucumber.tk/api/admin/review/get/all")
                   .then((res) => {
                       let data = res.data
                       console.log(res)

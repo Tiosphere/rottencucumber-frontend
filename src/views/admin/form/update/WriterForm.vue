@@ -25,7 +25,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.accountForm);
-            axios.post("http://localhost:8080/api/admin/writer/update/"+ this.$route.params.slug, form)
+            axios.post("http://backend.rottencucumber.tk/api/admin/writer/update/"+ this.$route.params.slug, form)
                 .then((res) => {
                     let data = res.data
                     console.log(data)
@@ -37,22 +37,22 @@ export default {
                     this.errormsg = "Something happen please try again"
                 });
         },
-        
+
     },
 
     beforeMount() {
         axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-        
-        axios.get("http://localhost:8080/api/admin/writer/get/" + this.$route.params.slug)
-            .then((res) => { 
+
+        axios.get("http://backend.rottencucumber.tk/api/admin/writer/get/" + this.$route.params.slug)
+            .then((res) => {
                 console.log(res.data)
-                
+
                 // let data = res.data
                 // console.log(data)
                 this.default_data.name = res.data.records[0].name
                 this.default_data.birthPlace = res.data.records[0].birth_place
                 this.default_data.description = res.data.records[0].description
-                
+
                 // this.default_data.preview = res.data.records[0].preview
                 // this.default_data.language = res.data.records[0].language.id
 
@@ -61,7 +61,7 @@ export default {
                 this.default_data.day = now.getDate()
                 this.default_data.month = now.getMonth()
                 this.default_data.year = now.getFullYear()
-                
+
                 // this.default_data.actors = res.data.records[0].actors
                 // this.default_data.writers = res.data.records[0].writers
                 // this.default_data.directors = res.data.records[0].directors
@@ -71,18 +71,18 @@ export default {
                 // this.default_data.summary = res.data.records[0].summary
 
 
-                
+
 
                 // now.setDate(res.data.records[0].day)
                 // now.setMonth(res.data.records[0].month)
-                // now.setFullYear(res.data.records[0].year)            
+                // now.setFullYear(res.data.records[0].year)
             })
             .catch(() => {
                     this.$router.push({ name: 'home' })
                 });
 
     },
-    
+
 }
 
 </script>
@@ -125,10 +125,10 @@ export default {
                             <label>Writer Birth Year: </label>
                             <input type="text" name="year" class="form-control" required placeholder="Birth Year" :value="default_data.year">
                         </div>
-                        
+
 
                         <div class="form-group">
-                            Choose Image: 
+                            Choose Image:
                             <input type="file" name="image" required>
                         </div>
 
@@ -156,7 +156,7 @@ export default {
     height: auto;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: auto;
-    
+
 }
 option:checked {
     background-color: gray;

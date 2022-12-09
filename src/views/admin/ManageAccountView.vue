@@ -4,7 +4,7 @@
   <h1 style="padding-left:10px; padding:10px;">
   Manage Accounts
   </h1>
-  
+
   <v-spacer></v-spacer>
 
   <v-table theme="light">
@@ -36,9 +36,9 @@
               depressed
               color="success"
               min-width="105px"
-              min-height="10px"  
+              min-height="10px"
               style="margin:4px; margin-bottom:10px; "
-              @click="this.$router.push({ name: 'account-create' })"   
+              @click="this.$router.push({ name: 'account-create' })"
               >
                 create
           </v-btn>
@@ -55,7 +55,7 @@
         <td style="padding-left: 30px;">{{ item.username }}</td>
         <td style="padding-left: 30px;">{{ item.email }}</td>
         <td style="">{{ item.is_staff }}</td>
-        
+
 
         <td style="width:15%;">
 
@@ -120,7 +120,7 @@ export default {
     },
     beforeMount() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get("http://localhost:8080/api/admin/user/get/all")
+      axios.get("http://backend.rottencucumber.tk/api/admin/user/get/all")
                 .then((res) => {
                     let data = res.data
                     console.log(res)

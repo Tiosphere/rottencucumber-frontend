@@ -16,7 +16,7 @@ export default {
     methods: {
         submitForm() {
             let form = new FormData(this.$refs.forgetForm);
-            axios.post("http://localhost:8080/api/auth/forget", form)
+            axios.post("http://backend.rottencucumber.tk/api/auth/forget", form)
                 .then((res) => {
                     let data = res.data
                     if (data.success) {
