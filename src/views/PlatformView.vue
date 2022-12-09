@@ -4,7 +4,7 @@
     <v-container>
       <v-row>
         <v-col cols="8">
-          <h1 class="pl-15 pt-8 pb-8">{{this.platform.name}}</h1>
+          <h1 class="pl-15 pt-8 pb-8">{{this.name}}</h1>
         </v-col>
       </v-row>
       <v-card
@@ -72,7 +72,8 @@ export default {
     }],
     platform: [{
 
-    }]
+    }],
+    name: ""
 
   }),
   beforeMount() {
@@ -81,6 +82,7 @@ export default {
         let data = res.data
         console.log(data)
         this.platforms = data.records[0]
+        this.name = data.records[0].name
         this.movies = data.records[0].movies
       })
       .catch(() => {
