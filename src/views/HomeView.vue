@@ -12,17 +12,17 @@
       </div>
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
-          <div class="carousel-cell" v-for="movie in movies">
-            <RouterLink
-              style="text-decoration: none; color: inherit;"
-              :to="'/movie/' + movie.slug">
+          <div class="carousel-cell" v-for="movie in movies.sort((a,b) => {
+            return a.views - b.views
+          }).reverse().slice(0,20)">
+            <a @click="goMovie(movie.slug)">
             <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
               max-height="300px" width="200px" cover>
             </v-img>
             <div style="color:dimgray; padding:10px;">
               {{ movie.name }}
             </div>
-            </RouterLink>
+          </a>
           </div>
         </flickity>
       </div>
@@ -37,17 +37,27 @@
       </div>
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
-          <div class="carousel-cell" v-for="movie in movies">
-            <RouterLink
-              style="text-decoration: none; color: inherit;"
-              :to="'/movie/' + movie.slug">
+          <div class="carousel-cell" v-for="movie in movies.sort((a,b) => {
+          if (a.year !== b.year) {
+            return a.year - b.year
+          }
+          else {
+            if (a.month !== b.month) {
+              return a.month - b.month
+            }
+            else {
+              return a.day - b.day
+            }
+          }
+          }).reverse().slice(0,20)">
+            <a @click="goMovie(movie.slug)">
               <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
                 max-height="300px" width="200px" cover>
               </v-img>
               <div style="color:dimgray; padding:10px;" class="name">
                 {{ movie.name }}
               </div>
-            </RouterLink>
+            </a>
           </div>
         </flickity>
       </div>
@@ -89,6 +99,11 @@ export default {
 
     }
   },
+  methods: {
+      goMovie:function(slug) {
+        this.$router.push({ name: 'movie', params: { slug: slug }});
+      },
+    },
 
   beforeMount() {
     axios.get("http://backend.rottencucumber.tk/api/movies")
