@@ -85,7 +85,7 @@ export default {
   },
   beforeMount() {
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.get("http://localhost:8080/api/user/" + this.$route.params.slug)
+    axios.get("http://backend.rottencucumber.tk/api/user/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
         console.log(res)

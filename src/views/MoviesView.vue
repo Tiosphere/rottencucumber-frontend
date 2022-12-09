@@ -186,7 +186,7 @@ export default {
     },
     addToWatchlist() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug)
+      axios.get("http://backend.rottencucumber.tk/api/fav/" + this.$route.params.slug)
         .then((res) => {
           let data = res.data
           console.log(data)
@@ -205,7 +205,7 @@ export default {
     submitForm() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       let form = new FormData(this.$refs.reviewForm);
-      axios.post("http://localhost:8080/api/review/" + this.$route.params.slug, form)
+      axios.post("http://backend.rottencucumber.tk/api/review/" + this.$route.params.slug, form)
         .then((res) => {
           let data = res.data
           console.log(data)
@@ -224,7 +224,7 @@ export default {
       this.isLogin = false
     }
 
-    axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
+    axios.get("http://backend.rottencucumber.tk/api/movie/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
         console.log(data)
@@ -248,7 +248,7 @@ export default {
       });
 
     axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.get("http://localhost:8080/api/fav/check/" + this.$route.params.slug)
+    axios.get("http://backend.rottencucumber.tk/api/fav/check/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
         console.log(data)

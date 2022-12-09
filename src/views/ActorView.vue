@@ -106,7 +106,7 @@ export default {
     ]
   }),
   beforeMount() {
-    axios.get("http://localhost:8080/api/actor/" + this.$route.params.slug)
+    axios.get("http://backend.rottencucumber.tk/api/actor/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
         console.log(data)
