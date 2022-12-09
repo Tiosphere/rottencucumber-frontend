@@ -5,7 +5,7 @@
       <!-- List of movie -->
       <div class="block-head">
         <h3 class="pt-7">POPULAR</h3>
-        <RouterLink :to="{ name: 'popular' }" class="pt-7">
+        <RouterLink :to="{ name: 'popular' }" class="pt-7" style="color:#4583C1">
           View more
           <i class="fa fa-angle-right"></i>
         </RouterLink>
@@ -24,7 +24,7 @@
       </div>
       <div class="block-head">
         <h3 class="pt-7">LATEST</h3>
-        <RouterLink :to="{ name: 'latest' }" class="pt-7">
+        <RouterLink :to="{ name: 'latest' }" class="pt-7" style="color:#4583C1">
           View more
           <i class="fa fa-angle-right"></i>
         </RouterLink>
