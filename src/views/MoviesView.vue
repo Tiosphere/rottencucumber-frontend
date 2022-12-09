@@ -39,7 +39,7 @@
                      variant="flat"
                      rounded
                      x-small
-                     color="grey"
+                     disabled
                      class="ma-4">
                 <v-icon style="color: #2A2C32">mdi-check</v-icon>
                 On your watchlist
@@ -186,14 +186,13 @@ export default {
     },
     addToWatchlist() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-      let movie = axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
-      axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug,movie)
+      axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug)
         .then((res) => {
           let data = res.data
           console.log(data)
           if(data.success) {
             this.added = true
-            // this.$router.go()
+            this.$router.go()
           }
         })
     },
@@ -201,7 +200,7 @@ export default {
     //   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
     //   axios.delete("http://localhost:8080/api/fav/" + this.$route.params.slug)
     //   this.added = false
-    //   // this.$router.go()
+    //   this.$router.go()
     // },
     submitForm() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
@@ -225,18 +224,6 @@ export default {
       this.isLogin = false
     }
 
-    // axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug)
-    //   .then((res) => {
-    //     let data = res.data
-    //     console.log(data)
-    //     if (data.success) {
-    //       this.added = true
-    //     } else {
-    //       this.added = false
-    //     }
-    //   })
-
-
     axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
@@ -259,6 +246,18 @@ export default {
       .catch(() => {
         // this.$router.push({ name: 'home' })
       });
+
+    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    axios.get("http://localhost:8080/api/fav/check/" + this.$route.params.slug)
+      .then((res) => {
+        let data = res.data
+        console.log(data)
+        if (data.success) {
+          this.added = true
+        } else {
+          this.added = false
+        }
+      })
   }
 }
 </script>
