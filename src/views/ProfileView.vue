@@ -28,6 +28,9 @@
       <flickity class="flickity" ref="flickity" :options="flickityOptions">
         <div class="carousel-cell"
              v-for="movie in movieList">
+          <RouterLink
+            style="text-decoration: none; color: inherit;"
+            :to="'/movie/' + movie.slug">
           <v-img
             :aspect-ratio="3/4"
             class="mx-auto bg-white"
@@ -40,6 +43,7 @@
           <div style="color:dimgray; padding:10px;">
             {{ movie.name }}
           </div>
+          </RouterLink>
         </div>
       </flickity>
       </div>
