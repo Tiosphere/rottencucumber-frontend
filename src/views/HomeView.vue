@@ -1,22 +1,20 @@
 <template>
-  <bar/>
+  <bar />
   <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;">
     <v-main>
       <!-- List of movie -->
-      <h3 class="pt-7">POPULAR</h3>
-
+      <div class="block-head">
+        <h3 class="pt-7">POPULAR</h3>
+        <RouterLink :to="{ name: 'popular' }" class="pt-7">
+          View more
+          <i class="fa fa-angle-right"></i>
+        </RouterLink>
+      </div>
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
-          <div class="carousel-cell"
-               v-for="movie in movies">
-            <v-img
-              :aspect-ratio="3/4"
-              class="mx-auto bg-white"
-              v-bind:src="'data:image/jpeg;base64,' + movie.image"
-              max-height="300px"
-              width="200px"
-              cover
-            >
+          <div class="carousel-cell" v-for="movie in movies">
+            <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
+              max-height="300px" width="200px" cover>
             </v-img>
             <div style="color:dimgray; padding:10px;">
               {{ movie.name }}
@@ -24,32 +22,30 @@
           </div>
         </flickity>
       </div>
-
-
-      <h3 class="pt-7">LATEST</h3>
-
+      <div class="block-head">
+        <h3 class="pt-7">LATEST</h3>
+        <RouterLink :to="{ name: 'latest' }" class="pt-7">
+          View more
+          <i class="fa fa-angle-right"></i>
+        </RouterLink>
+      </div>
       <div v-if="movies.length">
         <flickity class="flickity" ref="flickity" :options="flickityOptions">
-          <div class="carousel-cell"
-               v-for="movie in movies">
-            <v-img
-              :aspect-ratio="3/4"
-              class="mx-auto bg-white"
-              v-bind:src="'data:image/jpeg;base64,' + movie.image"
-              max-height="300px"
-              width="200px"
-              cover
-            >
-            </v-img>
-            <div style="color:dimgray; padding:10px;">
-              {{ movie.name }}
-            </div>
+          <div class="carousel-cell" v-for="movie in movies">
+            <RouterLink :to="{}">
+              <v-img :aspect-ratio="3 / 4" class="mx-auto bg-white" v-bind:src="'data:image/jpeg;base64,' + movie.image"
+                max-height="300px" width="200px" cover>
+              </v-img>
+              <div style="color:dimgray; padding:10px;" class="name">
+                {{ movie.name }}
+              </div>
+            </RouterLink>
           </div>
         </flickity>
       </div>
     </v-main>
   </v-app>
-  <foot/>
+  <foot />
 </template>
 
 <script>
@@ -72,14 +68,12 @@ export default {
     return {
       flickityOptions: {
         imagesLoaded: true,
-        pageDots: true,
-        wrapAround: true,
         initialIndex: 0,
         contain: true,
         autoPlay: true,
         // prevNextButtons: true,
-        pageDots: true,
-        wrapAround: false,
+        pageDots: false,
+        wrapAround: true,
         groupCells: true,
         groupCells: 2,
       },
@@ -143,7 +137,7 @@ export default {
   },
 
   beforeMount() {
-    axios.get("http://localhost:8080/api/movies")
+    axios.get("http://backend.rottencucumber.tk/api/movies")
       .then((res) => {
         let data = res.data
         console.log(data)
@@ -181,7 +175,20 @@ export default {
 .carousel-cell {
   margin: 20px;
   overflow: hidden;
+  width: calc(20%);
+}
 
+.carousel-cell .name {
+  text-overflow: ellipsis;
+}
+
+.carousel-cell:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.carousel-cell a {
+  color: black;
+  text-decoration: none;
 }
 
 .carousel-cell img {
@@ -190,7 +197,7 @@ export default {
 
 }
 
-@media screen and ( min-width: 700px ) {
+@media screen and (min-width: 700px) {
   .carousel-cell img {
     height: 300px;
   }
@@ -211,4 +218,17 @@ export default {
   width: 500px;
 } */
 
+.block-head {
+  display: flex;
+  justify-content: space-between;
+}
+
+.block-head a {
+  text-decoration: none;
+  color: black;
+}
+
+.block-head a:hover {
+  color: #4583C1;
+}
 </style>
