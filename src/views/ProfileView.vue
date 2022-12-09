@@ -31,14 +31,14 @@
           <v-img
             :aspect-ratio="3/4"
             class="mx-auto bg-white"
-            :src="movie.src"
+            v-bind:src="'data:image/jpeg;base64,' + movie.image"
             max-height="300px"
             width="200px"
             cover
           >
           </v-img>
           <div style="color:dimgray; padding:10px;">
-            {{ movie.title }}
+            {{ movie.name }}
           </div>
         </div>
       </flickity>
@@ -87,7 +87,7 @@ export default {
         console.log(res)
         this.user.name = data.records[0].username
         this.user.email = data.records[0].email
-        // this.user.movieList = data.records[0].movies
+        this.movieList = data.records[0].movies
       })
       .catch(() => {
         this.$router.push({ name: 'home' })

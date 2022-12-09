@@ -23,7 +23,7 @@
             <!-- ADD btn -->
 
             <div v-show="!added">
-              <v-btn @click="added = !added"
+              <v-btn @click="addToWatchlist"
                      variant="flat"
                      rounded
                      x-small
@@ -35,7 +35,7 @@
             </div>
 
             <div v-show="added">
-              <v-btn @click="added = !added"
+              <v-btn
                      variant="flat"
                      rounded
                      x-small
@@ -52,7 +52,7 @@
               <p>{{ movie.language }}</p>
               <h3 class="pt-2">Genres</h3>
               <a v-bind:href="'/genres/'+ genre.slug" v-for="genre in movie.genres" class="link">
-                {{genre.name}},&nbsp;
+                {{ genre.name }},&nbsp;
               </a>
               <h3 class="pt-2">Platform</h3>
               <p v-for="name in movie.platforms">{{ name.name }}</p>
@@ -74,16 +74,16 @@
                   }} </span>
                 <h3 class="pt-2 text-green">Director</h3>
                 <a v-bind:href="'/director/'+ name.slug" v-for="name in movie.directors" class="link">
-                  {{name.name}},&nbsp;
+                  {{ name.name }},&nbsp;
                 </a>
                 <h3 class="pt-2 text-green">Writers</h3>
                 <a v-bind:href="'/writer/'+ name.slug" v-for="name in movie.writers" class="link">
-                  {{name.name}},&nbsp;
+                  {{ name.name }},&nbsp;
                 </a>
                 <h3 class="pt-2 text-green">Actors</h3>
-                  <a v-bind:href="'/actor/'+ name.slug" v-for="name in movie.actors" class="link">
-                    {{name.name}},&nbsp;
-                  </a>
+                <a v-bind:href="'/actor/'+ name.slug" v-for="name in movie.actors" class="link">
+                  {{ name.name }},&nbsp;
+                </a>
                 <h3 class="pt-2 text-green">Summary</h3>
                 <p class="pr-2">{{ movie.summary }}</p>
               </div>
@@ -105,18 +105,18 @@
             <v-col cols="10">
               <form class="content" id="review" v-on:submit.prevent="submitForm" ref="reviewForm">
                 <input type="hidden" name="username" :value=username>
-              <v-textarea
-                name="comment"
-                form="review"
-                clearable
-                v-model="message"
-                variant="outlined"
-                label="Write your review here"
-                type="text"
-                append-icon="mdi-send"
-                @click:append="submitForm()"
-              >
-              </v-textarea>
+                <v-textarea
+                  name="comment"
+                  form="review"
+                  clearable
+                  v-model="message"
+                  variant="outlined"
+                  label="Write your review here"
+                  type="text"
+                  append-icon="mdi-send"
+                  @click:append="submitForm()"
+                >
+                </v-textarea>
               </form>
             </v-col>
           </v-card>
@@ -156,7 +156,7 @@ export default {
   name: "MoviesView",
   components: {Navbar, Footer},
   data: () => ({
-    username:localStorage.getItem("user"),
+    username: localStorage.getItem("user"),
     isLogin: false,
     message: "",
     added: false,
@@ -168,7 +168,7 @@ export default {
         month: "",
         year: ""
       },
-      preview:"",
+      preview: "",
       summary: "",
       directors: [],
       writers: [],
@@ -185,9 +185,24 @@ export default {
       this.message = ''
     },
     addToWatchlist() {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`
-
+      axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+      let movie = axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
+      axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug,movie)
+        .then((res) => {
+          let data = res.data
+          console.log(data)
+          if(data.success) {
+            this.added = true
+            // this.$router.go()
+          }
+        })
     },
+    // removeFromWatchlist() {
+    //   axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    //   axios.delete("http://localhost:8080/api/fav/" + this.$route.params.slug)
+    //   this.added = false
+    //   // this.$router.go()
+    // },
     submitForm() {
       axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
       let form = new FormData(this.$refs.reviewForm);
@@ -209,6 +224,19 @@ export default {
     } else {
       this.isLogin = false
     }
+
+    // axios.get("http://localhost:8080/api/fav/" + this.$route.params.slug)
+    //   .then((res) => {
+    //     let data = res.data
+    //     console.log(data)
+    //     if (data.success) {
+    //       this.added = true
+    //     } else {
+    //       this.added = false
+    //     }
+    //   })
+
+
     axios.get("http://localhost:8080/api/movie/" + this.$route.params.slug)
       .then((res) => {
         let data = res.data
