@@ -1,99 +1,68 @@
 <template>
-    <bar />
-    <div style="padding: 50px; padding-left: 250px; padding-right: 250px;">
-      <v-col>
-      <v-row>
-      <h3>TOP MOVIES</h3>
-      <v-spacer></v-spacer>
-      <RouterLink :to="{ name: 'popular' }" id="user">
-        <v-btn variant="flat"
-          min-width="10px"
-          min-height="10px"
-          raised
-        >
-          <div class="text-decoration-underline" style="color:gray; ">View all</div>
-        </v-btn>
-      </RouterLink>
-      </v-row>
-    </v-col>
+  <bar/>
+  <v-app style="padding: 50px; padding-left: 250px; padding-right: 250px;">
+    <v-main>
+      <!-- List of movie -->
+      <h3 class="pt-7">POPULAR</h3>
 
-      <flickity class="flickity" ref="flickity" :options="flickityOptions"
-      >
-        <div class="carousel-cell"
-        v-for="movie in popular_movies">
-        <v-img
-            :aspect-ratio="3/4"
-            class="mx-auto bg-white"
-            :src="movie.src"
-            max-height="300px"
-            width="200px"
-            cover
-          >
-          </v-img>
-          <div style="color:dimgray; padding:10px;">
-            <span
-              class="d-inline-block text-truncate"
-              style="max-width: 200px;"
+      <div v-if="movies.length">
+        <flickity class="flickity" ref="flickity" :options="flickityOptions">
+          <div class="carousel-cell"
+               v-for="movie in movies">
+            <v-img
+              :aspect-ratio="3/4"
+              class="mx-auto bg-white"
+              v-bind:src="'data:image/jpeg;base64,' + movie.image"
+              max-height="300px"
+              width="200px"
+              cover
             >
-            {{ movie.title }}
-            </span>
+            </v-img>
+            <div style="color:dimgray; padding:10px;">
+              {{ movie.name }}
+            </div>
           </div>
-        </div>
-      </flickity>
-    </div>
+        </flickity>
+      </div>
 
-    <div style="padding: 50px; padding-left: 250px; padding-right: 250px; padding-bottom: 60px;">
-      <v-col>
-      <v-row>
-      <h3>LASTEST MOVIES</h3>
-      <v-spacer></v-spacer>
-      <RouterLink :to="{ name: 'latest' }" id="user">
-        <v-btn variant="flat"
-          min-width="10px"
-          min-height="10px"
-          raised
-        >
-          <div class="text-decoration-underline" style="color:gray; ">View all</div>
-        </v-btn>
-      </RouterLink>
-      </v-row>
-    </v-col>
 
-    <flickity class="flickity" ref="flickity" :options="flickityOptions">
-        <div class="carousel-cell"
-        v-for="movie in latest_movies">
+      <h3 class="pt-7">LATEST</h3>
 
-        <v-img
-            :aspect-ratio="3/4"
-            class="mx-auto bg-white"
-            :src="movie.src"
-            max-height="300px"
-            width="200px"
-            cover
-          >
-          </v-img>
-          <div style="color:dimgray; padding:10px;">
-            <span
-              class="d-inline-block text-truncate"
-              style="max-width: 200px;"
+      <div v-if="movies.length">
+        <flickity class="flickity" ref="flickity" :options="flickityOptions">
+          <div class="carousel-cell"
+               v-for="movie in movies">
+            <v-img
+              :aspect-ratio="3/4"
+              class="mx-auto bg-white"
+              v-bind:src="'data:image/jpeg;base64,' + movie.image"
+              max-height="300px"
+              width="200px"
+              cover
             >
-            {{ movie.title }}
-            </span>
+            </v-img>
+            <div style="color:dimgray; padding:10px;">
+              {{ movie.name }}
+            </div>
           </div>
-        </div>
-      </flickity>
-    </div>
-    <foot />
-  </template>
+        </flickity>
+      </div>
+    </v-main>
+  </v-app>
+  <foot/>
+</template>
 
 <script>
 import Flickity from '@/components/Flickity.vue';
 import bar from '@/components/Navbar.vue';
 import foot from '@/components/Footer.vue';
 import axios from 'axios';
+import Navbar from "@/components/Navbar";
+
 export default {
-    name: "home",
+  name: "home",
   components: {
+    Navbar,
     Flickity,
     bar,
     foot
@@ -114,6 +83,7 @@ export default {
         groupCells: true,
         groupCells: 2,
       },
+      movies: [],
       popular_movies: [
         {
           title: 'Spider-Man: No Way Home',
@@ -142,49 +112,50 @@ export default {
         }
       ],
       latest_movies: [
-      {
-        title: 'Avatar: The Way of Water',
-        src: 'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
-        year: '2022'
-      },
-      {
-        title: 'Jurassic World Dominion',
-        src: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
-        year: '2022'
-      },
-      {
-        title: 'Spider-Man: No Way Home',
-        src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
-        year: '2022',
-      },
-      {
-        title: 'Top Gun: Maverick',
-        src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
-        year: '2022'
-      },
-      {
-        title: 'Violent Night',
-        src: 'https://m.media-amazon.com/images/M/MV5BYzg2NWNhOWItYjA3Yi00MzhhLTg4ZmItYzM3ZTIwN2U0ZGQ5XkEyXkFqcGdeQXVyMzEyMDQzNzY@._V1_FMjpg_UX1000_.jpg',
-        year: '2022'
-      },
-    ]
+        {
+          title: 'Avatar: The Way of Water',
+          src: 'https://upload.wikimedia.org/wikipedia/en/5/54/Avatar_The_Way_of_Water_poster.jpg',
+          year: '2022'
+        },
+        {
+          title: 'Jurassic World Dominion',
+          src: 'https://m.media-amazon.com/images/M/MV5BOTBjMjA4NmYtN2RjMi00YWZlLTliYTktOTIwMmNkYjYxYmE1XkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_FMjpg_UX1000_.jpg',
+          year: '2022'
+        },
+        {
+          title: 'Spider-Man: No Way Home',
+          src: 'https://cdn.majorcineplex.com/uploads/content/images/20220823120749_Fav5_AcUsAAtaUL.jpeg',
+          year: '2022',
+        },
+        {
+          title: 'Top Gun: Maverick',
+          src: 'https://m.media-amazon.com/images/M/MV5BZWYzOGEwNTgtNWU3NS00ZTQ0LWJkODUtMmVhMjIwMjA1ZmQwXkEyXkFqcGdeQXVyMjkwOTAyMDU@._V1_QL75_UX190_CR0,0,190,281_.jpg',
+          year: '2022'
+        },
+        {
+          title: 'Violent Night',
+          src: 'https://m.media-amazon.com/images/M/MV5BYzg2NWNhOWItYjA3Yi00MzhhLTg4ZmItYzM3ZTIwN2U0ZGQ5XkEyXkFqcGdeQXVyMzEyMDQzNzY@._V1_FMjpg_UX1000_.jpg',
+          year: '2022'
+        },
+      ]
 
     }
   },
 
-  render() {
+  beforeMount() {
     axios.get("http://localhost:8080/api/movies")
       .then((res) => {
         let data = res.data
         console.log(data)
-        for (let i = 0; i < data.length; i++) {
-          (this.i_movies).push({
-            title: data[i].name,
-            // src: 'data:image/jpeg;base64,'+ data[i].image,
-            year: data[i].year, month: data[i].month, day: data[i].day,
-            view: data[i].views,
-          })
-        }
+        this.movies = data
+        // for (let i = 0; i < data.length; i++) {
+        //   (this.i_movies).push({
+        //     title: data[i].name,
+        //     // src: 'data:image/jpeg;base64,'+ data[i].image,
+        //     year: data[i].year, month: data[i].month, day: data[i].day,
+        //     view: data[i].views,
+        //   })
+        // }
         console.log(this.i_movies)
         // this.movies = data
       })
@@ -197,7 +168,9 @@ export default {
 <style>
 /* external css: flickity.css */
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 /* body { font-family: sans-serif; } */
 
@@ -222,6 +195,7 @@ export default {
     height: 300px;
   }
 }
+
 /* .carousel-cell {
   display: flex;
   flex-direction: column;
