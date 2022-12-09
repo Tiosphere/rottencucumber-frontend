@@ -49,11 +49,6 @@ const router = createRouter({
       name: 'latest',
       component: () => import('@/views/LatestView.vue')
     },
-    {
-      path: '/search',
-      name: 'search',
-      component: () => import('@/views/SearchView.vue')
-     },
      {
       path: '/actor/:slug',
       name: 'actor',

@@ -220,6 +220,16 @@ export default {
     let token = localStorage.getItem("access_token");
     if (token != null && !isJwtExpired(token)) {
       this.isLogin = true
+      axios.get("http:///backend.rottencucumber.tk/api/fav/check/" + this.$route.params.slug)
+        .then((res) => {
+          let data = res.data
+          console.log(data)
+          if (data.success) {
+            this.added = true
+          } else {
+            this.added = false
+          }
+        })
     } else {
       this.isLogin = false
     }
@@ -246,18 +256,6 @@ export default {
       .catch(() => {
         // this.$router.push({ name: 'home' })
       });
-
-    axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-    axios.get("http://backend.rottencucumber.tk/api/fav/check/" + this.$route.params.slug)
-      .then((res) => {
-        let data = res.data
-        console.log(data)
-        if (data.success) {
-          this.added = true
-        } else {
-          this.added = false
-        }
-      })
   }
 }
 </script>
